@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>간단 설문조사</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>간단 설문조사</h1>
+      <form id="surveyForm">
+        <div class="form-group">
+          <label for="name">이름:</label>
+          <input type="text" id="name" required />
+        </div>
+        <div class="form-group">
+          <label>가장 좋아하는 색깔은?</label>
+          <div class="radio-group">
+            <input
+              type="radio"
+              id="red"
+              name="favoriteColor"
+              value="빨강"
+              required
+            />
+            <label for="red">빨강</label>
+            <input type="radio" id="blue" name="favoriteColor" value="파랑" />
+            <label for="blue">파랑</label>
+            <input type="radio" id="green" name="favoriteColor" value="초록" />
+            <label for="green">초록</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="comments">의견:</label>
+          <textarea id="comments" rows="5"></textarea>
+        </div>
+        <button type="submit">제출</button>
+      </form>
+      <p id="message" class="hidden"></p>
+    </div>
+    <script type="module" src="script.js"></script>
+  </body>
+</html>
