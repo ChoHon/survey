@@ -3,42 +3,105 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>간단 설문조사</title>
+    <title>철도 화물 수요예측방법 개선을 위한 주요 철송품목 운송실태조사</title>
     <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </head>
   <body>
-    <div class="container">
-      <h1>간단 설문조사</h1>
-      <form id="surveyForm">
-        <div class="form-group">
-          <label for="name">이름:</label>
-          <input type="text" id="name" required />
-        </div>
-        <div class="form-group">
-          <label>가장 좋아하는 색깔은?</label>
-          <div class="radio-group">
-            <input
-              type="radio"
-              id="red"
-              name="favoriteColor"
-              value="빨강"
-              required
+    <div class="mx-auto w-4xl px-4">
+      <div class="overflow-hidden rounded-lg bg-white shadow-sm">
+        <div class="px-4 py-5">
+          <h1 class="text-2xl font-bold">
+            철도 화물 수요예측방법 개선을 위한 주요 철송품목 운송실태조사
+          </h1>
+
+          <div class="intro">
+            <div class="intro-body">
+              안녕하십니까? 저는 서울시립대학교 교통공학과 박동주 교수입니다.
+              <br />
+              저희 서울시립대학교 교통공학과에서는 2024년 국가철도공단에서
+              발주한 『철도 화물 수요예측방법 개선 연구』를 수행하고 있습니다.
+              <br />
+              본 조사는
+              <b
+                >그 일환으로 주요 철송품목(컨테이너, 시멘트, 철강)의 시공간적
+                운송실태와, 운송수단 선택에 있어서 각 사업체가 중요하게 생각하는
+                사항 등을 파악</b
+              >하는 것에 그 목적이 있습니다. <br />
+              <b>최대한 출하 및 운송 업무에 결정권이 있는 임직원</b>께서
+              응답해주시기 바라며, 가능한 한 구체적으로 응답해주시면
+              고맙겠습니다.
+              <br />
+              본 조사에 기재된 내용은 통계적인 조사목적으로만 사용되며,
+              기재사항에 대해서는 비밀이 철저히 보장됩니다. <br />
+              바쁘신 중에 시간을 할애해 주셔서 감사드리며, 본 조사와 관련된
+              문의사항은 아래 연락처로 문의하시면 성심성의껏
+              말씀드리겠습니다.<br />
+              <br />
+              <p style="text-align: center">2026.02</p>
+              <p style="text-align: right">
+                서울시립대학교 교통공학과<br />교수 박 동 주 배상
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-10 flex items-start gap-6">
+            <img
+              src="images/image.png"
+              class="w-[35%] max-w-sm"
+              alt="설문 안내 이미지"
             />
-            <label for="red">빨강</label>
-            <input type="radio" id="blue" name="favoriteColor" value="파랑" />
-            <label for="blue">파랑</label>
-            <input type="radio" id="green" name="favoriteColor" value="초록" />
-            <label for="green">초록</label>
+            <div class="flex-1 text-sm leading-6">
+              <table class="ml-auto table-auto border border-collapse">
+                <tr class="text-center">
+                  <td class="border px-3 py-0.5">발주기관</td>
+                  <td class="border px-3 py-0.5">국가철도공단</td>
+                </tr>
+                <tr class="text-center">
+                  <td class="border px-3 py-0.5">연구수행기관</td>
+                  <td class="border px-3 py-0.5">서울시립대학교</td>
+                </tr>
+                <tr class="text-center">
+                  <td class="border px-3 py-0.5">조사문의처</td>
+                  <td class="border px-3 py-0.5">
+                    서울시립대학교 장진원 연구원
+                  </td>
+                </tr>
+                <tr class="text-center">
+                  <td class="border px-3 py-0.5">전화</td>
+                  <td class="border px-3 py-0.5">010-6479-9204</td>
+                </tr>
+                <tr class="text-center">
+                  <td class="border px-3 py-0.5">이메일</td>
+                  <td class="border px-3 py-0.5">jang_jinwon@naver.com</td>
+                </tr>
+              </table>
+            </div>
           </div>
         </div>
-        <div class="form-group">
-          <label for="comments">의견:</label>
-          <textarea id="comments" rows="5"></textarea>
-        </div>
-        <button type="submit">제출</button>
-      </form>
-      <p id="message" class="hidden"></p>
+      </div>
+
+      <div class="mt-4 flex justify-center">
+        <a
+          href="a.html"
+          class="rounded-md w-[150px] bg-blue-600 px-3.5 py-2.5 text-lg font-semibold text-white shadow-xs hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 text-center"
+        >
+          설문 시작
+        </a>
+      </div>
     </div>
     <script type="module" src="script.js"></script>
   </body>
 </html>
+
+<!-- <form id="surveyForm">
+            <div id="surveyFields"></div>
+            <div class="nav-buttons">
+              <button type="button" id="prevBtn">이전</button>
+              <button type="button" id="nextBtn">다음</button>
+              <button type="submit" id="submitBtn">제출</button>
+            </div>
+          </form>
+          <p id="message" class="hidden"></p>
+        </div>
+      </div> -->

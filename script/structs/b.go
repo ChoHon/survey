@@ -20,7 +20,7 @@ func (b *B1) PrintString() []string {
 		fmt.Sprintf("%d", b.NumberOfEmployees),
 		fmt.Sprintf("%d", b.NumberOfContainerTransportation.ContainerVehicle.Total),
 		fmt.Sprintf("%d", b.NumberOfContainerTransportation.ContainerVehicle.Direct),
-		fmt.Sprintf("%d", b.NumberOfContainerTransportation.ContainerVehicle.Indirect),
+		fmt.Sprintf("%d", b.NumberOfContainerTransportation.ContainerVehicle.Consigned),
 		fmt.Sprintf("%d", b.NumberOfContainerTransportation.PrivateVehicle),
 		fmt.Sprintf("%d", b.AnnualRevenue.Total),
 		fmt.Sprintf("%d", b.AnnualRevenue.ContainerInlandTransport),
@@ -35,7 +35,7 @@ type NumberOfContainerTransportation struct {
 type ContainerVehicle struct {
 	Total    int `firestore:"total,omitempty"`
 	Direct   int `firestore:"direct,omitempty"`
-	Indirect int `firestore:"indirect,omitempty"`
+	Consigned int `firestore:"consigned,omitempty"`
 }
 
 type AnnualRevenue struct {
