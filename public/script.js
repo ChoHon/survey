@@ -503,6 +503,35 @@ function bindB7MinutesSumCalc() {
   update();
 }
 
+// B7 운송시간 최종 계산
+function bindB7DurationCalc() {
+  bindB7DaysSumCalc();
+  bindB7HoursSumCalc();
+  bindB7MinutesSumCalc();
+
+  const b7SumDaysEl = document.getElementById("b7-sum-days");
+  const b7SumHoursEl = document.getElementById("b7-sum-hours");
+  const b7SumMinutesEl = document.getElementById("b7-sum-minutes");
+
+  let d = parseNumber(b7SumDaysEl.textContent);
+  let h = parseNumber(b7SumHoursEl.textContent);
+  let m = parseNumber(b7SumMinutesEl.textContent);
+
+  while (m >= 60) {
+    h += 1;
+    m -= 60;
+  }
+
+  while (h >= 24) {
+    d++;
+    h -= 24;
+  }
+
+  b7SumDaysEl.textContent = d;
+  b7SumHoursEl.textContent = h;
+  b7SumMinutesEl.textContent = m;
+}
+
 // B7 20ft 합계 계산
 function bindB720ftSumCalc() {
   const b7Suttle1Cost20ftEl = document.getElementById("b7-suttle1-cost-20ft");
@@ -674,6 +703,35 @@ function bindB8MinutesSumCalc() {
   b8StorageMinutesEl.addEventListener("input", update);
   b8Main2MinutesEl.addEventListener("input", update);
   update();
+}
+
+// B8 운송시간 최종 계산
+function bindB8DurationCalc() {
+  bindB8DaysSumCalc();
+  bindB8HoursSumCalc();
+  bindB8MinutesSumCalc();
+
+  const b8SumDaysEl = document.getElementById("b8-sum-days");
+  const b8SumHoursEl = document.getElementById("b8-sum-hours");
+  const b8SumMinutesEl = document.getElementById("b8-sum-minutes");
+
+  let d = parseNumber(b8SumDaysEl.textContent);
+  let h = parseNumber(b8SumHoursEl.textContent);
+  let m = parseNumber(b8SumMinutesEl.textContent);
+
+  while (m >= 60) {
+    h += 1;
+    m -= 60;
+  }
+
+  while (h >= 24) {
+    d++;
+    h -= 24;
+  }
+
+  b8SumDaysEl.textContent = d;
+  b8SumHoursEl.textContent = h;
+  b8SumMinutesEl.textContent = m;
 }
 
 // B8 20ft 합계 계산
@@ -1147,15 +1205,11 @@ if (window.location.pathname.includes("b.html")) {
     bindB7GetB6Input1();
     bindB7GetB6Input2();
 
-    bindB7DaysSumCalc();
-    bindB7HoursSumCalc();
-    bindB7MinutesSumCalc();
+    bindB7DurationCalc();
     bindB720ftSumCalc();
     bindB740ftSumCalc();
 
-    bindB8DaysSumCalc();
-    bindB8HoursSumCalc();
-    bindB8MinutesSumCalc();
+    bindB8DurationCalc();
     bindB8Cost20ftSumCalc();
     bindB8Cost40ftSumCalc();
 
