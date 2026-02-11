@@ -1,6 +1,7 @@
 // Firebase SDK import (CDN 사용)
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js";
 import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore.js";
+import { ApageFieldMapping, BpageFieldMapping } from "./field_map.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -20,6 +21,8 @@ const db = getFirestore(app);
 // Survey form handling
 const surveyForm = document.getElementById("surveyForm");
 
+// ===== 유틸리티 함수 =====
+
 function parseNumber(value) {
   if (value == null) return 0;
 
@@ -27,6 +30,10 @@ function parseNumber(value) {
   const n = Number(normalized);
 
   return Number.isFinite(n) ? n : 0;
+}
+
+function getNestedValue(obj, path) {
+  return path.split(".").reduce((current, key) => current?.[key], obj);
 }
 
 // ===== 설문조사 계산 =====
@@ -50,7 +57,6 @@ function bindContainerVehicleConsignedCalc() {
   directEl.addEventListener("input", update);
   update();
 }
-bindContainerVehicleConsignedCalc();
 
 // B2 연안해운 운송량 계산
 function bindB2CoastalCalc() {
@@ -74,7 +80,6 @@ function bindB2CoastalCalc() {
   railEl.addEventListener("input", update);
   update();
 }
-bindB2CoastalCalc();
 
 // B3 합계 계산
 function bindB3SumCalc() {
@@ -98,7 +103,6 @@ function bindB3SumCalc() {
   over100El.addEventListener("input", update);
   update();
 }
-bindB3SumCalc();
 
 // B3 퍼센트 계산
 function bindB3PercentageCalc() {
@@ -120,7 +124,6 @@ function bindB3PercentageCalc() {
   over100El.addEventListener("input", update);
   update();
 }
-bindB3PercentageCalc();
 
 // B5 퍼센트 계산
 function bindB5PercentageCalc() {
@@ -144,7 +147,6 @@ function bindB5PercentageCalc() {
   withinawekEl.addEventListener("input", update);
   update();
 }
-bindB5PercentageCalc();
 
 // B6 운송량 계산
 function bindB6VolumeCalc() {
@@ -172,20 +174,23 @@ function bindB6VolumeCalc() {
   railEl.addEventListener("input", update);
   update();
 }
-bindB6VolumeCalc();
 
 // ===== 다중 페이지 설문조사 데이터 관리 =====
 
 // A 페이지 데이터 저장
 function savePageAData() {
   const data = {
-    respondentName: document.getElementById("respondentName")?.value || "",
-    respondentDepartment: document.getElementById("respondentDepartment")?.value || "",
-    respondentPosition: document.getElementById("respondentPosition")?.value || "",
-    respondentPhone: document.getElementById("respondentPhone")?.value || "",
-    respondentEmail: document.getElementById("respondentEmail")?.value || "",
-    companyName: document.getElementById("companyName")?.value || "",
-    companyAddress: document.getElementById("companyAddress")?.value || "",
+    respondent: {
+      name: document.getElementById("respondentName")?.value || "",
+      department: document.getElementById("respondentDepartment")?.value || "",
+      position: document.getElementById("respondentPosition")?.value || "",
+      phone: document.getElementById("respondentPhone")?.value || "",
+      email: document.getElementById("respondentEmail")?.value || "",
+    },
+    company: {
+      name: document.getElementById("companyName")?.value || "",
+      address: document.getElementById("companyAddress")?.value || "",
+    },
   };
   sessionStorage.setItem("surveyPageA", JSON.stringify(data));
   return data;
@@ -197,17 +202,17 @@ function loadPageAData() {
   return saved ? JSON.parse(saved) : null;
 }
 
-// A 페이지 폼에 데이터 채우기
-function fillPageAForm(data) {
+// 폼에 데이터 채우기
+function fillPageForm(fieldMap, data) {
   if (!data) return;
 
-  if (data.respondentName) document.getElementById("respondentName").value = data.respondentName;
-  if (data.respondentDepartment) document.getElementById("respondentDepartment").value = data.respondentDepartment;
-  if (data.respondentPosition) document.getElementById("respondentPosition").value = data.respondentPosition;
-  if (data.respondentPhone) document.getElementById("respondentPhone").value = data.respondentPhone;
-  if (data.respondentEmail) document.getElementById("respondentEmail").value = data.respondentEmail;
-  if (data.companyName) document.getElementById("companyName").value = data.companyName;
-  if (data.companyAddress) document.getElementById("companyAddress").value = data.companyAddress;
+  Object.entries(fieldMap).forEach(([elementId, dataPath]) => {
+    const value = getNestedValue(data, dataPath);
+    if (value != null) {
+      const element = document.getElementById(elementId);
+      if (element) element.value = value;
+    }
+  });
 }
 
 // A 페이지 필수 항목 검증
@@ -258,52 +263,108 @@ function validatePageA() {
 }
 
 // B 페이지 데이터 수집
-function collectPageBData() {
+function savePageBData() {
   const getRadioValue = (name) => {
     const checked = document.querySelector(`input[name="${name}"]:checked`);
     return checked ? checked.id : "";
   };
 
-  return {
+  const data = {
     B1: {
-      numberOfEmployees: document.getElementById("numberOfEmployees")?.value || "",
-      containerVehicleTotal: document.getElementById("containerVehicleTotal")?.value || "",
-      containerVehicleDirect: document.getElementById("containerVehicleDirect")?.value || "",
-      containerVehicleConsigned: document.getElementById("containerVehicleConsigned")?.value || "",
-      privateVehicle: document.getElementById("privateVehicle")?.value || "",
-      annualRevenueTotal: document.getElementById("annualRevenueTotal")?.value || "",
-      annualRevenueInland: document.getElementById("annualRevenueInland")?.value || "",
+      numberOfEmployees: parseNumber(document.getElementById("numberOfEmployees")?.value),
+      containerTransportation: {
+        containerVehicle: {
+          total: parseNumber(document.getElementById("containerVehicleTotal")?.value),
+          direct: parseNumber(document.getElementById("containerVehicleDirect")?.value),
+          consigned: parseNumber(document.getElementById("containerVehicleConsigned")?.textContent),
+        },
+        privateVehicle: parseNumber(document.getElementById("privateVehicle")?.value),
+      },
+      annualRevenue: {
+        total: parseNumber(document.getElementById("annualRevenueTotal")?.value),
+        inland: parseNumber(document.getElementById("annualRevenueInland")?.value),
+      },
     },
-    b2Total: document.getElementById("b2-total")?.value || "",
-    b2Road: document.getElementById("b2-road")?.value || "",
-    b2Rail: document.getElementById("b2-rail")?.value || "",
-    b3Under9Number: document.getElementById("b3-under9-number")?.value || "",
-    b3Under9Percent: document.getElementById("b3-under9-percent")?.value || "",
-    b3Under100Number: document.getElementById("b3-under100-number")?.value || "",
-    b3Under100Percent: document.getElementById("b3-under100-percent")?.value || "",
-    b3Over100Number: document.getElementById("b3-over100-number")?.value || "",
-    b4Selection: getRadioValue("b4"),
-    b5SameDay: document.getElementById("b5-same-day")?.value || "",
-    b5NextDay: document.getElementById("b5-next-day")?.value || "",
-    b5WithinAWeek: document.getElementById("b5-within-a-week")?.value || "",
-    b6InlandSido: document.getElementById("b6-inland-sido")?.value || "",
-    b6InlandSigun: document.getElementById("b6-inland-sigun")?.value || "",
-    b6InlandGu: document.getElementById("b6-inland-gu")?.value || "",
-    b6InlandPoint: document.getElementById("b6-inland-point")?.value || "",
-    b6RailInter1: document.getElementById("b6-rail-inter-1")?.value || "",
-    b6RailInter2: document.getElementById("b6-rail-inter-2")?.value || "",
-    b6RoadInterSido: document.getElementById("b6-road-inter-sido")?.value || "",
-    b6RoadInterSigun: document.getElementById("b6-road-inter-sigun")?.value || "",
-    b6RoadInterGu: document.getElementById("b6-road-inter-gu")?.value || "",
-    b6RoadInterPoint: document.getElementById("b6-road-inter-point")?.value || "",
-    b6PortSido: document.getElementById("b6-port-sido")?.value || "",
-    b6PortSigun: document.getElementById("b6-port-sigun")?.value || "",
-    b6PortGu: document.getElementById("b6-port-gu")?.value || "",
-    b6PortPoint: document.getElementById("b6-port-point")?.value || "",
-    b6VolumeTotal: document.getElementById("b6-volume-total")?.value || "",
-    b6VolumeExport: document.getElementById("b6-volume-export")?.value || "",
-    b6VolumeRail: document.getElementById("b6-volume-rail")?.value || "",
+    B2: {
+      total: parseNumber(document.getElementById("b2-total")?.value),
+      road: parseNumber(document.getElementById("b2-road")?.value),
+      rail: parseNumber(document.getElementById("b2-rail")?.value),
+      coastal: parseNumber(document.getElementById("b2-coastal")?.textContent),
+    },
+    B3: {
+      underTen: {
+        number: parseNumber(document.getElementById("b3-under9-number")?.value),
+        percentage: parseNumber(document.getElementById("b3-under9-percent")?.value),
+      },
+      underHundred: {
+        number: parseNumber(document.getElementById("b3-under100-number")?.value),
+        percentage: parseNumber(document.getElementById("b3-under100-percent")?.value),
+      },
+      overHundred: {
+        number: parseNumber(document.getElementById("b3-over100-number")?.value),
+        percentage: parseNumber(document.getElementById("b3-over100-percent")?.textContent),
+      },
+    },
+    B4: {
+      selection: getRadioValue("b4"),
+    },
+    B5: {
+      sameDayPercentage: parseNumber(document.getElementById("b5-same-day")?.value),
+      nextDayPercentage: parseNumber(document.getElementById("b5-next-day")?.value),
+      withinAWeekPercentage: parseNumber(document.getElementById("b5-within-a-week")?.value),
+      overAWeekPercentage: parseNumber(document.getElementById("b5-over-a-week")?.textContent),
+      // TODO: 구현 필요
+      // average: {
+      //   days: document.getElementById("b5-average")?.value || "",
+      //   hours: 0,
+      //   minutes: 0,
+      // },
+    },
+    B6: {
+      inlandOD: {
+        sido: document.getElementById("b6-inland-sido")?.value || "",
+        sigun: document.getElementById("b6-inland-sigun")?.value || "",
+        gu: document.getElementById("b6-inland-gu")?.value || "",
+        point: document.getElementById("b6-inland-point")?.value || "",
+      },
+      portOD: {
+        sido: document.getElementById("b6-port-sido")?.value || "",
+        sigun: document.getElementById("b6-port-sigun")?.value || "",
+        gu: document.getElementById("b6-port-gu")?.value || "",
+        point: document.getElementById("b6-port-point")?.value || "",
+      },
+      intermediate: {
+        railInter1: document.getElementById("b6-rail-inter-1")?.value || "",
+        railInter2: document.getElementById("b6-rail-inter-2")?.value || "",
+        road: {
+          sido: document.getElementById("b6-road-inter-sido")?.value || "",
+          sigun: document.getElementById("b6-road-inter-sigun")?.value || "",
+          gu: document.getElementById("b6-road-inter-gu")?.value || "",
+          point: document.getElementById("b6-road-inter-point")?.value || "",
+        },
+      },
+      annualTransportVolume: {
+        total: parseNumber(document.getElementById("b6-volume-total")?.value),
+        direction: {
+          export: parseNumber(document.getElementById("b6-volume-export")?.value),
+          import: parseNumber(document.getElementById("b6-volume-import")?.textContent),
+        },
+        transport: {
+          rail: parseNumber(document.getElementById("b6-volume-rail")?.value),
+          road: parseNumber(document.getElementById("b6-volume-road")?.textContent),
+        },
+      },
+    },
   };
+
+  sessionStorage.setItem("surveyPageB", JSON.stringify(data));
+  return data;
+}
+
+// B 페이지: 페이지 로드 시 저장된 데이터 불러오기
+function loadPageBData() {
+  const saved = sessionStorage.getItem("surveyPageB");
+  return saved ? JSON.parse(saved) : null;
 }
 
 // A 페이지: 페이지 로드 시 저장된 데이터 불러오기
@@ -311,7 +372,7 @@ if (window.location.pathname.includes("a.html")) {
   window.addEventListener("DOMContentLoaded", () => {
     const savedData = loadPageAData();
     if (savedData) {
-      fillPageAForm(savedData);
+      fillPageForm(ApageFieldMapping, savedData);
     }
   });
 
@@ -328,42 +389,54 @@ if (window.location.pathname.includes("a.html")) {
   }
 }
 
-// B 페이지: 페이지 로드 시 A 페이지 데이터 확인
+// B 페이지: 페이지 로드
 if (window.location.pathname.includes("b.html")) {
   window.addEventListener("DOMContentLoaded", () => {
     const pageAData = loadPageAData();
     if (!pageAData) {
       console.warn("A 페이지 데이터가 없습니다.");
     }
+
+    const savedData = loadPageBData();
+    if (savedData) {
+      fillPageForm(BpageFieldMapping, savedData);
+    }
+
+    bindContainerVehicleConsignedCalc();
+    bindB2CoastalCalc();
+    bindB3SumCalc();
+    bindB3PercentageCalc();
+    bindB5PercentageCalc();
+    bindB6VolumeCalc();
   });
+
+  const nextButton = document.getElementById("b-to-c");
+  if (nextButton && surveyForm) {
+    nextButton.addEventListener("click", (e) => {
+      e.preventDefault();
+      savePageBData();
+      surveyForm.requestSubmit();
+    });
+  }
 }
 
 if (surveyForm) {
   surveyForm.addEventListener("submit", async (e) => {
     e.preventDefault(); // 폼 기본 제출 방지
+
+    const data = {
+      ...loadPageAData(),
+      ...loadPageBData(),
+      created_at: new Date(),
+    };
+
+    try {
+      const docRef = await addDoc(collection(db, "surveys"), data);
+      surveyForm.reset();
+      // sessionStorage.removeItem("surveyPageA");
+      // sessionStorage.removeItem("surveyPageB");
+    } catch (error) {
+      console.error("Error adding document: ", error);
+    }
   });
 }
-
-// surveyForm.addEventListener("submit", async (e) => {
-//   e.preventDefault(); // 폼 기본 제출 방지
-
-//   const name = document.getElementById("name").value;
-//   const favoriteColor = document.querySelector('input[name="favoriteColor"]:checked')?.value;
-//   const comments = document.getElementById("comments").value;
-
-//   try {
-//     // Firestore에 데이터 추가
-//     const docRef = await addDoc(collection(db, "surveyResponses"), {
-//       name: name,
-//       favoriteColor: favoriteColor,
-//       comments: comments,
-//       timestamp: new Date(),
-//     });
-//     console.log("Document written with ID: ", docRef.id);
-//     showMessage("설문조사가 성공적으로 제출되었습니다!", "success");
-//     surveyForm.reset(); // 폼 초기화
-//   } catch (e) {
-//     console.error("Error adding document: ", e);
-//     showMessage("설문조사 제출 중 오류가 발생했습니다. 다시 시도해 주세요.", "error");
-//   }
-// });

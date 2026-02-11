@@ -52,7 +52,7 @@ type ContainerVehicle struct {
 
 type AnnualRevenue struct {
 	Total                    int `firestore:"total,omitempty"`
-	ContainerInlandTransport int `firestore:"containerInlandTransport,omitempty"`
+	ContainerInlandTransport int `firestore:"inland,omitempty"`
 }
 
 // B2. 2024년 기준 귀사의 연간 컨테이너 운송량은 어떻게 되십니까?
@@ -260,8 +260,8 @@ type OriginDestination struct {
 }
 
 type Intermediate struct {
-	Station1 string            `firestore:"station1,omitempty"`
-	Station2 string            `firestore:"station2,omitempty"`
+	Station1 string            `firestore:"railInter1,omitempty"`
+	Station2 string            `firestore:"railInter2,omitempty"`
 	Road     OriginDestination `firestore:"road,omitempty"`
 }
 
