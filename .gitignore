@@ -3,3 +3,4 @@ firebaseKey*.json
 *.csv
 
 node_modules/
+.firebase/

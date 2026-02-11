@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>응답자 인적사항 및 사업체 개요</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body>
+    <div class="mx-auto w-4xl px-4">
+      <div class="my-10 overflow-hidden rounded-lg bg-white shadow-sm">
+        <div class="px-4 py-5">
+          <div class="mb-5">
+            <h2 class="text-center text-2xl font-bold">A. 응답자 인적사항 및 사업체 개요</h2>
+          </div>
+
+          <form id="surveyForm">
+            <div class="intro">
+              <p class="text-lg font-bold">1. 응답자</p>
+
+              <div class="py-2">
+                <label for="respondentName" class="text-md mb-1 block font-medium">응답자 성명</label>
+                <input
+                  id="respondentName"
+                  type="text"
+                  class="block h-[32px] w-[40%] rounded-md bg-white px-3 py-1.5 text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                />
+              </div>
+
+              <div class="grid grid-cols-2 py-2">
+                <div>
+                  <label for="respondentDepartment" class="text-md mb-1 block font-medium">소속부서명</label>
+                  <input
+                    id="respondentDepartment"
+                    type="text"
+                    class="block h-[32px] w-[80%] rounded-md bg-white px-3 py-1.5 text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                  />
+                </div>
+
+                <div>
+                  <label for="respondentPosition" class="text-md mb-1 block font-medium">직위</label>
+                  <div>
+                    <input
+                      id="respondentPosition"
+                      type="text"
+                      class="block h-[32px] w-[80%] rounded-md bg-white px-3 py-1.5 text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 py-2">
+                <div>
+                  <label for="respondentPhone" class="text-md mb-1 block font-medium">전화번호</label>
+                  <div>
+                    <input
+                      id="respondentPhone"
+                      type="text"
+                      class="block h-[32px] w-[80%] rounded-md bg-white px-3 py-1.5 text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label for="respondentEmail" class="text-md mb-1 block font-medium">이메일</label>
+                  <div>
+                    <input
+                      id="respondentEmail"
+                      type="email"
+                      class="block h-[32px] w-[80%] rounded-md bg-white px-3 py-1.5 text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="intro">
+              <p class="text-lg font-bold">2. 사업체</p>
+
+              <div class="py-2">
+                <label for="companyName" class="text-md mb-1 block font-medium">사업체명</label>
+                <input
+                  id="companyName"
+                  type="text"
+                  class="block h-[32px] w-[50%] rounded-md bg-white px-3 py-1.5 text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                />
+              </div>
+
+              <div class="py-2">
+                <label for="companyAddress" class="text-md mb-1 block font-medium">주소</label>
+                <input
+                  id="companyAddress"
+                  type="text"
+                  class="block h-[32px] w-full rounded-md bg-white px-3 py-1.5 text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                />
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="mt-4 flex justify-center">
+        <!-- <button
+          type="button"
+          class="rounded-l-md w-[100px] bg-blue-600 px-3.5 py-2.5 text-lg font-semibold text-white shadow-xs outline-white outline-1 hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 text-center"
+        >
+          이전
+        </button> -->
+        <a
+          id="a-to-b"
+          href="b.html"
+          class="w-[150px] rounded-md bg-blue-600 px-3.5 py-2.5 text-center text-lg font-semibold text-white shadow-xs outline-1 outline-white hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+        >
+          다음
+        </a>
+      </div>
+    </div>
+    <script type="module" src="script.js"></script>
+  </body>
+</html>

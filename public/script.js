@@ -1,7 +1,7 @@
 // Firebase SDK import (CDN 사용)
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js";
 import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore.js";
-import { ApageFieldMapping, BpageFieldMapping } from "./field_map.js";
+import { ApageFieldMapping, BpageFieldMapping, CpageFieldMapping } from "./field_map.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -255,7 +255,7 @@ function validatePageA() {
   }
 
   if (emptyFields.length > 0) {
-    alert(`다음 항목을 입력해주세요:\n\n${emptyFields.join("\n")}`);
+    showNotification("다음 항목을 입력해주세요: " + emptyFields.join(", "), "error");
     return false;
   }
 
@@ -367,6 +367,19 @@ function loadPageBData() {
   return saved ? JSON.parse(saved) : null;
 }
 
+// C 페이지: 페이지 저장
+function savePageCData() {
+  const data = {};
+  sessionStorage.setItem("surveyPageC", JSON.stringify(data));
+  return data;
+}
+
+// C 페이지: 페이지 로드 시 저장된 데이터 불러오기
+function loadPageCData() {
+  const saved = sessionStorage.getItem("surveyPageC");
+  return saved ? JSON.parse(saved) : null;
+}
+
 // A 페이지: 페이지 로드 시 저장된 데이터 불러오기
 if (window.location.pathname.includes("a.html")) {
   window.addEventListener("DOMContentLoaded", () => {
@@ -411,32 +424,145 @@ if (window.location.pathname.includes("b.html")) {
   });
 
   const nextButton = document.getElementById("b-to-c");
+  if (nextButton) {
+    nextButton.addEventListener("click", (e) => {
+      savePageBData();
+    });
+  }
+
+  const previousButton = document.getElementById("b-to-a");
+  if (previousButton) {
+    previousButton.addEventListener("click", (e) => {
+      savePageBData();
+    });
+  }
+}
+
+// C 페이지: 페이지 로드
+if (window.location.pathname.includes("c.html")) {
+  window.addEventListener("DOMContentLoaded", () => {
+    const pageAData = loadPageAData();
+    if (!pageAData) {
+      console.warn("A 페이지 데이터가 없습니다.");
+    }
+
+    const pageBData = loadPageBData();
+    if (!pageBData) {
+      console.warn("B 페이지 데이터가 없습니다.");
+    }
+
+    const savedData = loadPageCData();
+    if (savedData) {
+      fillPageForm(CpageFieldMapping, savedData);
+    }
+  });
+
+  const previousButton = document.getElementById("c-to-b");
+  if (previousButton) {
+    previousButton.addEventListener("click", (e) => {
+      savePageCData();
+    });
+  }
+
+  const nextButton = document.getElementById("submit");
   if (nextButton && surveyForm) {
     nextButton.addEventListener("click", (e) => {
       e.preventDefault();
-      savePageBData();
+      savePageCData();
       surveyForm.requestSubmit();
     });
   }
+}
+
+// 커스텀 알림 함수
+function showNotification(message, type = "warning") {
+  const existingNotification = document.getElementById("custom-notification");
+  if (existingNotification) {
+    existingNotification.remove();
+  }
+
+  const colors = {
+    warning: {
+      bg: "bg-yellow-50",
+      text: "text-yellow-800",
+      subtext: "text-yellow-700",
+      icon: "text-yellow-400",
+    },
+    success: {
+      bg: "bg-green-50",
+      text: "text-green-800",
+      subtext: "text-green-700",
+      icon: "text-green-400",
+    },
+    error: {
+      bg: "bg-red-50",
+      text: "text-red-800",
+      subtext: "text-red-700",
+      icon: "text-red-400",
+    },
+  };
+
+  const color = colors[type] || colors.warning;
+
+  const notification = document.createElement("div");
+  notification.id = "custom-notification";
+  notification.className = "fixed top-4 left-1/2 -translate-x-1/2 z-50 w-96 animate-fade-in";
+  notification.innerHTML = `
+    <div class="rounded-md ${color.bg} p-4 shadow-lg">
+      <div class="flex">
+        <div class="shrink-0">
+          <svg viewBox="0 0 20 20" fill="currentColor" class="size-5 ${color.icon}">
+            <path d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495ZM10 5a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 10 5Zm0 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" clip-rule="evenodd" fill-rule="evenodd"/>
+          </svg>
+        </div>
+        <div class="ml-3 flex-1">
+          <p class="text-sm font-medium ${color.text}">${message}</p>
+        </div>
+        <button onclick="this.closest('#custom-notification').remove()" class="ml-3 ${color.text} hover:opacity-70">
+          <svg class="size-5" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(notification);
+
+  setTimeout(() => {
+    notification.remove();
+  }, 5000);
 }
 
 if (surveyForm) {
   surveyForm.addEventListener("submit", async (e) => {
     e.preventDefault(); // 폼 기본 제출 방지
 
+    if (sessionStorage.getItem("surveySubmitted") === "true") {
+      showNotification("이미 제출된 설문입니다.", "warning");
+      return;
+    }
+
+    savePageCData();
+
     const data = {
       ...loadPageAData(),
       ...loadPageBData(),
+      ...loadPageCData(),
       created_at: new Date(),
     };
 
     try {
       const docRef = await addDoc(collection(db, "surveys"), data);
-      surveyForm.reset();
+      // surveyForm.reset();
       // sessionStorage.removeItem("surveyPageA");
       // sessionStorage.removeItem("surveyPageB");
+      // sessionStorage.removeItem("surveyPageC");
+      sessionStorage.setItem("surveySubmitted", "true");
+      showNotification("설문조사가 성공적으로 제출되었습니다!", "success");
     } catch (error) {
       console.error("Error adding document: ", error);
+      showNotification("설문조사 제출 중 오류가 발생했습니다.", "error");
     }
   });
 }

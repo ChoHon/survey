@@ -51,4 +51,6 @@ const BpageFieldMapping = {
   "b6-volume-rail": "B6.annualTransportVolume.transport.rail",
 };
 
-export { ApageFieldMapping, BpageFieldMapping };
+const CpageFieldMapping = {};
+
+export { ApageFieldMapping, BpageFieldMapping, CpageFieldMapping };
