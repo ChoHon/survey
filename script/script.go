@@ -60,7 +60,7 @@ func exportSurbey(exeDir, keyName string) {
 	file.Write([]byte{0xEF, 0xBB, 0xBF})
 
 	var survey structs.Survey
-	headers := []string{"문서ID"}
+	headers := []string{"문서ID", "제출 날짜"}
 
 	// A
 	headers = append(headers, []string{
@@ -148,7 +148,9 @@ func exportSurbey(exeDir, keyName string) {
 			log.Fatalln(err)
 		}
 
-		row := []string{doc.Ref.ID}
+		loc, _ := time.LoadLocation("Asia/Seoul")
+		createdAt := survey.CreatedAt.In(loc).Format("2006-01-02 15:04:05")
+		row := []string{doc.Ref.ID, createdAt}
 
 		// A
 		row = append(row, []string{

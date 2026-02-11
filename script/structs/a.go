@@ -1,5 +1,7 @@
 package structs
 
+import "time"
+
 type Survey struct {
 	Respondent Respondent `firestore:"respondent,omitempty"`
 	Company    Company    `firestore:"company,omitempty"`
@@ -16,6 +18,7 @@ type Survey struct {
 	B11        B11        `firestore:"B11,omitempty"`
 	B12        B12        `firestore:"B12,omitempty"`
 	C          []C        `firestore:"C,omitempty"`
+	CreatedAt  time.Time  `firestore:"created_at,omitempty"`
 }
 
 type Respondent struct {
