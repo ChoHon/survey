@@ -10,9 +10,9 @@ import (
 // B1-2 귀사의 컨테이너 운송수단 보유현황은 어떻게 되십니까?
 // B1-3 귀사의 연간 매출액은 어떻게 되십니까?
 type B1 struct {
-	NumberOfEmployees               int                             `firestore:"number_of_employees,omitempty"`
-	NumberOfContainerTransportation NumberOfContainerTransportation `firestore:"container_transportation,omitempty"`
-	AnnualRevenue                   AnnualRevenue                   `firestore:"annual_revenue,omitempty"`
+	NumberOfEmployees               int                             `firestore:"numberOfEmployees,omitempty"`
+	NumberOfContainerTransportation NumberOfContainerTransportation `firestore:"containerTransportation,omitempty"`
+	AnnualRevenue                   AnnualRevenue                   `firestore:"annualRevenue,omitempty"`
 }
 
 func (b B1) PrintHeader() []string {
@@ -40,8 +40,8 @@ func (b B1) PrintString() []string {
 }
 
 type NumberOfContainerTransportation struct {
-	ContainerVehicle ContainerVehicle `firestore:"container_vehicle,omitempty"`
-	PrivateVehicle   int              `firestore:"private_vehicle,omitempty"`
+	ContainerVehicle ContainerVehicle `firestore:"containerVehicle,omitempty"`
+	PrivateVehicle   int              `firestore:"privateVehicle,omitempty"`
 }
 
 type ContainerVehicle struct {
@@ -52,7 +52,7 @@ type ContainerVehicle struct {
 
 type AnnualRevenue struct {
 	Total                    int `firestore:"total,omitempty"`
-	ContainerInlandTransport int `firestore:"container_inland_transport,omitempty"`
+	ContainerInlandTransport int `firestore:"containerInlandTransport,omitempty"`
 }
 
 // B2. 2024년 기준 귀사의 연간 컨테이너 운송량은 어떻게 되십니까?
@@ -83,9 +83,9 @@ func (b B2) PrintString() []string {
 
 // B3. 귀사의 컨테이너 화주 고객사는 어떻게 구성되어 있습니까?
 type B3 struct {
-	UnderTen     NumberPercentage `firestore:"under_ten,omitempty"`
-	UnderHundred NumberPercentage `firestore:"under_hundred,omitempty"`
-	OverHundred  NumberPercentage `firestore:"over_hundred,omitempty"`
+	UnderTen     NumberPercentage `firestore:"underTen,omitempty"`
+	UnderHundred NumberPercentage `firestore:"underHundred,omitempty"`
+	OverHundred  NumberPercentage `firestore:"overHundred,omitempty"`
 }
 
 func (b B3) PrintHeader() []string {
@@ -127,7 +127,7 @@ const (
 )
 
 type B4 struct {
-	LevelOfDecisionMakingPower DecisionLevel `firestore:"level_of_decision_making_power,omitempty"`
+	LevelOfDecisionMakingPower DecisionLevel `firestore:"levelOfDecisionMakingPower,omitempty"`
 }
 
 func (b B4) PrintHeader() []string {
@@ -142,10 +142,10 @@ func (b B4) PrintString() []string {
 
 // B5. 컨테이너 화물을 국내 목적지(항만 또는 화주 문전)까지 운송을 완료하는 데까지 요구되는 시간은 어느 정도입니까?
 type B5 struct {
-	SameDayPercentage     int      `firestore:"same_day_percentage,omitempty"`
-	NextDayPercentage     int      `firestore:"next_day_percentage,omitempty"`
-	WithinAWeekPercentage int      `firestore:"within_a_week_percentage,omitempty"`
-	OverAWeekPercentage   int      `firestore:"over_a_week_percentage,omitempty"`
+	SameDayPercentage     int      `firestore:"sameDayPercentage,omitempty"`
+	NextDayPercentage     int      `firestore:"nextDayPercentage,omitempty"`
+	WithinAWeekPercentage int      `firestore:"withinAWeekPercentage,omitempty"`
+	OverAWeekPercentage   int      `firestore:"overAWeekPercentage,omitempty"`
 	Average               Duration `firestore:"average,omitempty"`
 }
 
@@ -189,10 +189,10 @@ func (d Duration) ConvertHours() string {
 // 단, 귀사가 철도를 이용중이라면 철도물동량이 가장 많은 구간을 기준으로 응답해주시기 바라며, 동일 구간의 도로운송현황도 응답해주시기 바랍니다.
 // 철도를 전혀 이용하지 않는다면 도로운송에 한해서 응답해주시기 바랍니다.
 type B6 struct {
-	InlandOD              OriginDestination     `firestore:"inland_od,omitempty"`
+	InlandOD              OriginDestination     `firestore:"inlandOD,omitempty"`
 	Intermediate          Intermediate          `firestore:"intermediate,omitempty"`
-	PortOD                OriginDestination     `firestore:"port_od,omitempty"`
-	AnnualTransportVolume AnnualTransportVolume `firestore:"annual_transport_volume,omitempty"`
+	PortOD                OriginDestination     `firestore:"portOD,omitempty"`
+	AnnualTransportVolume AnnualTransportVolume `firestore:"annualTransportVolume,omitempty"`
 }
 
 func (b B6) PrintHeader() []string {
@@ -253,8 +253,8 @@ func (b B6) PrintString() []string {
 }
 
 type OriginDestination struct {
-	SiDo  string `firestore:"si_do,omitempty"`
-	SiGun string `firestore:"si_gun,omitempty"`
+	SiDo  string `firestore:"siDo,omitempty"`
+	SiGun string `firestore:"siGun,omitempty"`
 	Gu    string `firestore:"gu,omitempty"`
 	Point string `firestore:"point,omitempty"`
 }
@@ -357,7 +357,7 @@ type Cost struct {
 }
 
 type Transshipment struct {
-	LoadAndUnload Transport `firestore:"load_and_unload,omitempty"`
+	LoadAndUnload Transport `firestore:"loadAndUnload,omitempty"`
 	Storage       Transport `firestore:"storage,omitempty"`
 }
 
@@ -438,8 +438,8 @@ func (b B10) PrintString() []string {
 }
 
 type OTP struct {
-	Under3Hours  int `firestore:"under_3_hours,omitempty"`
-	UnderB9Hours int `firestore:"under_b9_hours,omitempty"`
+	Under3Hours  int `firestore:"under3Hours,omitempty"`
+	UnderB9Hours int `firestore:"underB9Hours,omitempty"`
 }
 
 // B11. 귀사가 컨테이너 화물의 운송수단을 선택할 때 고려하는 요인을 중요한 순서대로 3가지만 선택해 주십시오
@@ -494,18 +494,18 @@ const (
 )
 
 type B12 struct {
-	CostFactor          SatisfactionLevel `firestore:"cost_factor,omitempty"`
-	TimeFactor          SatisfactionLevel `firestore:"time_factor,omitempty"`
-	ReliabilityFactor   SatisfactionLevel `firestore:"reliability_factor,omitempty"`
-	FrequencyFactor     SatisfactionLevel `firestore:"frequency_factor,omitempty"`
-	SafetyFactor        SatisfactionLevel `firestore:"safety_factor,omitempty"`
-	FlexibilityFactor   SatisfactionLevel `firestore:"flexibility_factor,omitempty"`
-	StabilityFactor     SatisfactionLevel `firestore:"stability_factor,omitempty"`
-	EcoFactor           SatisfactionLevel `firestore:"eco_factor,omitempty"`
-	DistanceFactor      SatisfactionLevel `firestore:"distance_factor,omitempty"`
-	AccessibilityFactor SatisfactionLevel `firestore:"accessibility_factor,omitempty"`
-	VolumeFactor        SatisfactionLevel `firestore:"volume_factor,omitempty"`
-	ServiceFactor       SatisfactionLevel `firestore:"service_factor,omitempty"`
+	CostFactor          SatisfactionLevel `firestore:"costFactor,omitempty"`
+	TimeFactor          SatisfactionLevel `firestore:"timeFactor,omitempty"`
+	ReliabilityFactor   SatisfactionLevel `firestore:"reliabilityFactor,omitempty"`
+	FrequencyFactor     SatisfactionLevel `firestore:"frequencyFactor,omitempty"`
+	SafetyFactor        SatisfactionLevel `firestore:"safetyFactor,omitempty"`
+	FlexibilityFactor   SatisfactionLevel `firestore:"flexibilityFactor,omitempty"`
+	StabilityFactor     SatisfactionLevel `firestore:"stabilityFactor,omitempty"`
+	EcoFactor           SatisfactionLevel `firestore:"ecoFactor,omitempty"`
+	DistanceFactor      SatisfactionLevel `firestore:"distanceFactor,omitempty"`
+	AccessibilityFactor SatisfactionLevel `firestore:"accessibilityFactor,omitempty"`
+	VolumeFactor        SatisfactionLevel `firestore:"volumeFactor,omitempty"`
+	ServiceFactor       SatisfactionLevel `firestore:"serviceFactor,omitempty"`
 }
 
 func (b B12) PrintHeader() []string {

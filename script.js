@@ -265,12 +265,15 @@ function collectPageBData() {
   };
 
   return {
-    numberOfEmployees: document.getElementById("numberOfEmployees")?.value || "",
-    containerVehicleTotal: document.getElementById("containerVehicleTotal")?.value || "",
-    containerVehicleDirect: document.getElementById("containerVehicleDirect")?.value || "",
-    privateVehicle: document.getElementById("privateVehicle")?.value || "",
-    annualRevenueTotal: document.getElementById("annualRevenueTotal")?.value || "",
-    annualRevenueInland: document.getElementById("annualRevenueInland")?.value || "",
+    B1: {
+      numberOfEmployees: document.getElementById("numberOfEmployees")?.value || "",
+      containerVehicleTotal: document.getElementById("containerVehicleTotal")?.value || "",
+      containerVehicleDirect: document.getElementById("containerVehicleDirect")?.value || "",
+      containerVehicleConsigned: document.getElementById("containerVehicleConsigned")?.value || "",
+      privateVehicle: document.getElementById("privateVehicle")?.value || "",
+      annualRevenueTotal: document.getElementById("annualRevenueTotal")?.value || "",
+      annualRevenueInland: document.getElementById("annualRevenueInland")?.value || "",
+    },
     b2Total: document.getElementById("b2-total")?.value || "",
     b2Road: document.getElementById("b2-road")?.value || "",
     b2Rail: document.getElementById("b2-rail")?.value || "",
