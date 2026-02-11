@@ -340,3 +340,27 @@ if (surveyForm) {
     e.preventDefault(); // 폼 기본 제출 방지
   });
 }
+
+// surveyForm.addEventListener("submit", async (e) => {
+//   e.preventDefault(); // 폼 기본 제출 방지
+
+//   const name = document.getElementById("name").value;
+//   const favoriteColor = document.querySelector('input[name="favoriteColor"]:checked')?.value;
+//   const comments = document.getElementById("comments").value;
+
+//   try {
+//     // Firestore에 데이터 추가
+//     const docRef = await addDoc(collection(db, "surveyResponses"), {
+//       name: name,
+//       favoriteColor: favoriteColor,
+//       comments: comments,
+//       timestamp: new Date(),
+//     });
+//     console.log("Document written with ID: ", docRef.id);
+//     showMessage("설문조사가 성공적으로 제출되었습니다!", "success");
+//     surveyForm.reset(); // 폼 초기화
+//   } catch (e) {
+//     console.error("Error adding document: ", e);
+//     showMessage("설문조사 제출 중 오류가 발생했습니다. 다시 시도해 주세요.", "error");
+//   }
+// });

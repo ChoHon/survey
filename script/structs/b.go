@@ -12,10 +12,22 @@ import (
 type B1 struct {
 	NumberOfEmployees               int                             `firestore:"number_of_employees,omitempty"`
 	NumberOfContainerTransportation NumberOfContainerTransportation `firestore:"container_transportation,omitempty"`
-	AnnualRevenue                   AnnualRevenue                   `firestore:"annual_revenue ,omitempty"`
+	AnnualRevenue                   AnnualRevenue                   `firestore:"annual_revenue,omitempty"`
 }
 
-func (b *B1) PrintString() []string {
+func (b B1) PrintHeader() []string {
+	return []string{
+		"B1-1-종사자수",
+		"B1-2-컨테이너차량(총)",
+		"B1-2-컨테이너차량(직영)",
+		"B1-2-컨테이너차량(위수탁)",
+		"B1-2-사유화차",
+		"B1-3-매출액(총)",
+		"B1-3-매출액(내륙컨운송)",
+	}
+}
+
+func (b B1) PrintString() []string {
 	return []string{
 		fmt.Sprintf("%d", b.NumberOfEmployees),
 		fmt.Sprintf("%d", b.NumberOfContainerTransportation.ContainerVehicle.Total),
@@ -33,8 +45,8 @@ type NumberOfContainerTransportation struct {
 }
 
 type ContainerVehicle struct {
-	Total    int `firestore:"total,omitempty"`
-	Direct   int `firestore:"direct,omitempty"`
+	Total     int `firestore:"total,omitempty"`
+	Direct    int `firestore:"direct,omitempty"`
 	Consigned int `firestore:"consigned,omitempty"`
 }
 
@@ -51,7 +63,16 @@ type B2 struct {
 	Coastal int `firestore:"coastal,omitempty"`
 }
 
-func (b *B2) PrintString() []string {
+func (b B2) PrintHeader() []string {
+	return []string{
+		"B2-운송량(총)",
+		"B2-운송량(도로)",
+		"B2-운송량(철도)",
+		"B2-운송량(연안해운)",
+	}
+}
+
+func (b B2) PrintString() []string {
 	return []string{
 		fmt.Sprintf("%d", b.Total),
 		fmt.Sprintf("%d", b.Road),
@@ -67,7 +88,18 @@ type B3 struct {
 	OverHundred  NumberPercentage `firestore:"over_hundred,omitempty"`
 }
 
-func (b *B3) PrintString() []string {
+func (b B3) PrintHeader() []string {
+	return []string{
+		"B3-업체수(<=9)",
+		"B3-업체수(10~99)",
+		"B3-업체수(>=100)",
+		"B3-비중(<=9)",
+		"B3-비중(10~99)",
+		"B3-비중(>=100)",
+	}
+}
+
+func (b B3) PrintString() []string {
 	return []string{
 		fmt.Sprintf("%d", b.UnderTen.Number),
 		fmt.Sprintf("%d", b.UnderHundred.Number),
@@ -98,6 +130,16 @@ type B4 struct {
 	LevelOfDecisionMakingPower DecisionLevel `firestore:"level_of_decision_making_power,omitempty"`
 }
 
+func (b B4) PrintHeader() []string {
+	return []string{"B4-운송결정권"}
+}
+
+func (b B4) PrintString() []string {
+	return []string{
+		fmt.Sprintf("%d", b.LevelOfDecisionMakingPower),
+	}
+}
+
 // B5. 컨테이너 화물을 국내 목적지(항만 또는 화주 문전)까지 운송을 완료하는 데까지 요구되는 시간은 어느 정도입니까?
 type B5 struct {
 	SameDayPercentage     int      `firestore:"same_day_percentage,omitempty"`
@@ -105,6 +147,26 @@ type B5 struct {
 	WithinAWeekPercentage int      `firestore:"within_a_week_percentage,omitempty"`
 	OverAWeekPercentage   int      `firestore:"over_a_week_percentage,omitempty"`
 	Average               Duration `firestore:"average,omitempty"`
+}
+
+func (b B5) PrintHeader() []string {
+	return []string{
+		"B5-운송기한(당일)",
+		"B5-운송기한(익일)",
+		"B5-운송기한(일주일 내)",
+		"B5-운송기한(일주일 이상)",
+		"B5-운송기한(평균)",
+	}
+}
+
+func (b B5) PrintString() []string {
+	return []string{
+		fmt.Sprintf("%d", b.SameDayPercentage),
+		fmt.Sprintf("%d", b.NextDayPercentage),
+		fmt.Sprintf("%d", b.WithinAWeekPercentage),
+		fmt.Sprintf("%d", b.OverAWeekPercentage),
+		b.Average.ConvertHours(),
+	}
 }
 
 type Duration struct {
@@ -133,9 +195,66 @@ type B6 struct {
 	AnnualTransportVolume AnnualTransportVolume `firestore:"annual_transport_volume,omitempty"`
 }
 
+func (b B6) PrintHeader() []string {
+	return []string{
+		"B6-내륙기종점(시도)",
+		"B6-내륙기종점(시군)",
+		"B6-내륙기종점(구)",
+		"B6-내륙기종점(대표지점)",
+
+		"B6-항만기종점(시도)",
+		"B6-항만기종점(시군)",
+		"B6-항만기종점(구)",
+		"B6-항만기종점(대표지점)",
+
+		"B6-철도경유지(화물역1)",
+		"B6-철도경유지(화물역2)",
+
+		"B6-도로경유지(시도)",
+		"B6-도로경유지(시군)",
+		"B6-도로경유지(구)",
+		"B6-도로경유지(경유지명)",
+
+		"B6-연간운송량(총량)",
+		"B6-연간운송량(수출)",
+		"B6-연간운송량(수입)",
+		"B6-연간운송량(철도)",
+		"B6-연간운송량(도로)",
+	}
+}
+
+func (b B6) PrintString() []string {
+	return []string{
+		// 내륙 기종점
+		b.InlandOD.SiDo,
+		b.InlandOD.SiGun,
+		b.InlandOD.Gu,
+		b.InlandOD.Point,
+		// 항만 기종점
+		b.PortOD.SiDo,
+		b.PortOD.SiGun,
+		b.PortOD.Gu,
+		b.PortOD.Point,
+		// 철도 경유지
+		b.Intermediate.Station1,
+		b.Intermediate.Station2,
+		// 도로 경유지
+		b.Intermediate.Road.SiDo,
+		b.Intermediate.Road.SiGun,
+		b.Intermediate.Road.Gu,
+		b.Intermediate.Road.Point,
+		// 운송량
+		fmt.Sprintf("%d", b.AnnualTransportVolume.Total),
+		fmt.Sprintf("%d", b.AnnualTransportVolume.Direction.Export),
+		fmt.Sprintf("%d", b.AnnualTransportVolume.Direction.Import),
+		fmt.Sprintf("%d", b.AnnualTransportVolume.Transport.Rail),
+		fmt.Sprintf("%d", b.AnnualTransportVolume.Transport.Road),
+	}
+}
+
 type OriginDestination struct {
 	SiDo  string `firestore:"si_do,omitempty"`
-	SiGun string `firestore:"si_gun_gu,omitempty"`
+	SiGun string `firestore:"si_gun,omitempty"`
 	Gu    string `firestore:"gu,omitempty"`
 	Point string `firestore:"point,omitempty"`
 }
@@ -172,9 +291,64 @@ type B7 struct {
 	Suttle2        Transport     `firestore:"suttle2,omitempty"`
 }
 
+func (b B7) PrintHeader() []string {
+	return []string{
+		"B7-셔틀운송1(운송시간)",
+		"B7-셔틀운송1(비용-20ft)",
+		"B7-셔틀운송1(비용-40ft)",
+
+		"B7-상하역1(운송시간)",
+		"B7-상하역1(비용-20ft)",
+		"B7-상하역1(비용-40ft)",
+
+		"B7-보관1(운송시간)",
+		"B7-보관1(비용-20ft)",
+		"B7-보관1(비용-40ft)",
+
+		"B7-본선(운송시간)",
+		"B7-본선(비용-20ft)",
+		"B7-본선(비용-40ft)",
+
+		"B7-상하역2(운송시간)",
+		"B7-상하역2(비용-20ft)",
+		"B7-상하역2(비용-40ft)",
+
+		"B7-보관2(운송시간)",
+		"B7-보관2(비용-20ft)",
+		"B7-보관2(비용-40ft)",
+
+		"B7-셔틀운송2(운송시간)",
+		"B7-셔틀운송2(비용-20ft)",
+		"B7-셔틀운송2(비용-40ft)",
+	}
+}
+
+func (b B7) PrintString() []string {
+	result := []string{}
+
+	// 셔틀운송1
+	result = append(result, b.Suttle1.PrintString()...)
+	result = append(result, b.Transshipment1.LoadAndUnload.PrintString()...)
+	result = append(result, b.Transshipment1.Storage.PrintString()...)
+	result = append(result, b.Main.PrintString()...)
+	result = append(result, b.Transshipment2.LoadAndUnload.PrintString()...)
+	result = append(result, b.Transshipment2.Storage.PrintString()...)
+	result = append(result, b.Suttle2.PrintString()...)
+
+	return result
+}
+
 type Transport struct {
 	Duration Duration `firestore:"duration,omitempty"`
 	Cost     Cost     `firestore:"cost,omitempty"`
+}
+
+func (t Transport) PrintString() []string {
+	return []string{
+		t.Duration.ConvertHours(),
+		fmt.Sprintf("%d", t.Cost.FT20),
+		fmt.Sprintf("%d", t.Cost.FT40),
+	}
 }
 
 type Cost struct {
@@ -194,9 +368,48 @@ type B8 struct {
 	Main2         Transport     `firestore:"main2,omitempty"`
 }
 
+func (b B8) PrintHeader() []string {
+	return []string{
+		"B7-도로본선1(운송시간)",
+		"B7-도로본선1(비용-20ft)",
+		"B7-도로본선1(비용-40ft)",
+
+		"B7-상하역(운송시간)",
+		"B7-상하역(비용-20ft)",
+		"B7-상하역(비용-40ft)",
+
+		"B7-보관(운송시간)",
+		"B7-보관(비용-20ft)",
+		"B7-보관(비용-40ft)",
+
+		"B7-도로본선2(운송시간)",
+		"B7-도로본선2(비용-20ft)",
+		"B7-도로본선2(비용-40ft)",
+	}
+}
+
+func (b B8) PrintString() []string {
+	result := []string{}
+
+	result = append(result, b.Main1.PrintString()...)
+	result = append(result, b.Transshipment.LoadAndUnload.PrintString()...)
+	result = append(result, b.Transshipment.Storage.PrintString()...)
+	result = append(result, b.Main2.PrintString()...)
+
+	return result
+}
+
 // B9. 선적기한이나 화주의 요청기한 등에 영향을 주지 않는, 허용할 수 있는 지연시간은 평균 어느정도입니까?
 type B9 struct {
 	Duration Duration `firestore:"duration,omitempty"`
+}
+
+func (b B9) PrintHeader() []string {
+	return []string{"B9-허용지연시간"}
+}
+
+func (b B9) PrintString() []string {
+	return []string{b.Duration.ConvertHours()}
 }
 
 // B10. 각 운송수단별 정시도착률을 아래와 같이 정의할 때, 각 운송수단별 컨테이너 화물의 현 정시도착률 수준은 어느 정도입니까?
@@ -204,6 +417,24 @@ type B9 struct {
 type B10 struct {
 	Rail OTP `firestore:"rail,omitempty"`
 	Road OTP `firestore:"road,omitempty"`
+}
+
+func (b B10) PrintHeader() []string {
+	return []string{
+		"B10-철도 정시도착률(3시간 이내)",
+		"B10-철도 정시도착률(허용지연시간 이내)",
+		"B10-도로 정시도착률(3시간 이내)",
+		"B10-도로 정시도착률(허용지연시간 이내)",
+	}
+}
+
+func (b B10) PrintString() []string {
+	return []string{
+		fmt.Sprintf("%d", b.Rail.Under3Hours),
+		fmt.Sprintf("%d", b.Rail.UnderB9Hours),
+		fmt.Sprintf("%d", b.Road.Under3Hours),
+		fmt.Sprintf("%d", b.Road.UnderB9Hours),
+	}
 }
 
 type OTP struct {
@@ -235,6 +466,22 @@ type B11 struct {
 	Third  TransportationDecisionFactor `firestore:"third,omitempty"`
 }
 
+func (b B11) PrintHeader() []string {
+	return []string{
+		"B11-운송수단 선택 요인(1순위)",
+		"B11-운송수단 선택 요인(2순위)",
+		"B11-운송수단 선택 요인(3순위)",
+	}
+}
+
+func (b B11) PrintString() []string {
+	return []string{
+		fmt.Sprintf("%d", b.First),
+		fmt.Sprintf("%d", b.Second),
+		fmt.Sprintf("%d", b.Third),
+	}
+}
+
 // B12. 귀사가 철도로 컨테이너 화물을 운송한다면 다음의 항목별로 어느 정도 만족하십니까?
 type SatisfactionLevel int
 
@@ -259,4 +506,38 @@ type B12 struct {
 	AccessibilityFactor SatisfactionLevel `firestore:"accessibility_factor,omitempty"`
 	VolumeFactor        SatisfactionLevel `firestore:"volume_factor,omitempty"`
 	ServiceFactor       SatisfactionLevel `firestore:"service_factor,omitempty"`
+}
+
+func (b B12) PrintHeader() []string {
+	return []string{
+		"B12-운송비용",
+		"B12-운송시간",
+		"B12-운송 신뢰성 및 정시성",
+		"B12-운행빈도",
+		"B12-안전성",
+		"B12-운송과정 조절 용이성",
+		"B12-망 안정성",
+		"B12-친환경성",
+		"B12-총 운송거리",
+		"B12-터미널 접근성",
+		"B12-연간 출하량(물동량)",
+		"B12-무형 서비스 및 관행",
+	}
+}
+
+func (b B12) PrintString() []string {
+	return []string{
+		fmt.Sprintf("%d", b.CostFactor),
+		fmt.Sprintf("%d", b.TimeFactor),
+		fmt.Sprintf("%d", b.ReliabilityFactor),
+		fmt.Sprintf("%d", b.FrequencyFactor),
+		fmt.Sprintf("%d", b.SafetyFactor),
+		fmt.Sprintf("%d", b.FlexibilityFactor),
+		fmt.Sprintf("%d", b.StabilityFactor),
+		fmt.Sprintf("%d", b.EcoFactor),
+		fmt.Sprintf("%d", b.DistanceFactor),
+		fmt.Sprintf("%d", b.AccessibilityFactor),
+		fmt.Sprintf("%d", b.VolumeFactor),
+		fmt.Sprintf("%d", b.ServiceFactor),
+	}
 }

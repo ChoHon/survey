@@ -1,4 +1,5 @@
-firebaseKey.json
+firebaseKey*.json
 *.xlsx
+*.csv
 
 node_modules/
