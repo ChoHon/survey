@@ -1250,7 +1250,7 @@ function loadPageBData() {
 function savePageCData(picked) {
   const getRadioValue = (name) => {
     const checked = document.querySelector(`input[name="${name}"]:checked`);
-    return checked ? checked.value : 0;
+    return checked ? checked.value : "X";
   };
 
   let data = {};
@@ -1258,9 +1258,15 @@ function savePageCData(picked) {
     const name = `C${num + 1}`;
 
     data[name] = {
-      usePercent: {
-        rail: parseNumber(document.getElementById(`question-${num + 1}-rail-use-percent`)?.value),
-        road: parseNumber(document.getElementById(`question-${num + 1}-road-use-percent`)?.textContent),
+      rail: {
+        cost: parseNumber(document.getElementById(`question-${num + 1}-rail-cost`)?.textContent),
+        duration: parseNumber(document.getElementById(`question-${num + 1}-rail-duration`)?.textContent),
+        usePercent: parseNumber(document.getElementById(`question-${num + 1}-rail-use-percent`)?.value),
+      },
+      road: {
+        cost: parseNumber(document.getElementById(`question-${num + 1}-road-cost`)?.textContent),
+        duration: parseNumber(document.getElementById(`question-${num + 1}-road-duration`)?.textContent),
+        usePercent: parseNumber(document.getElementById(`question-${num + 1}-road-use-percent`)?.value),
       },
       select: getRadioValue(`question-${num + 1}`),
     };
@@ -1509,14 +1515,14 @@ function makePageC(i, data) {
             </tr>
             <tr class="h-[36px] border-1">
               <td class="border-1 px-2">운송비용</td>
-              <td class="border-1 px-2 text-right">${data.rail.cost} 만원</td>
-              <td class="border-1 px-2 text-right">${data.road.cost} 만원</td>
+              <td class="border-1 px-2 text-right"><span id="question-${data.questionNum + 1}-rail-cost">${data.rail.cost}</span> 만원</td>
+              <td class="border-1 px-2 text-right"><span id="question-${data.questionNum + 1}-road-cost">${data.road.cost}</span> 만원</td>
               <td class="border-1 px-2 text-sm">${data.costCmp}</td>
             </tr>
             <tr class="h-[36px] border-1">
               <td class="border-1 px-2">운송시간</td>
-              <td class="border-1 px-2 text-right">${data.rail.duration} 시간</td>
-              <td class="border-1 px-2 text-right">${data.road.duration} 시간</td>
+              <td class="border-1 px-2 text-right"><span id="question-${data.questionNum + 1}-rail-duration">${data.rail.duration}</span> 시간</td>
+              <td class="border-1 px-2 text-right"><span id="question-${data.questionNum + 1}-road-duration">${data.road.duration}</span> 시간</td>
               <td class="border-1 px-2 text-sm">${data.durationCmp}</td>
             </tr>
             <tr class="h-[36px] border-1">

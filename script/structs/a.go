@@ -17,7 +17,26 @@ type Survey struct {
 	B10        B10        `firestore:"B10,omitempty"`
 	B11        B11        `firestore:"B11,omitempty"`
 	B12        B12        `firestore:"B12,omitempty"`
-	C          []C        `firestore:"C,omitempty"`
+	C1         C          `firestore:"C1,omitempty"`
+	C2         C          `firestore:"C2,omitempty"`
+	C3         C          `firestore:"C3,omitempty"`
+	C4         C          `firestore:"C4,omitempty"`
+	C5         C          `firestore:"C5,omitempty"`
+	C6         C          `firestore:"C6,omitempty"`
+	C7         C          `firestore:"C7,omitempty"`
+	C8         C          `firestore:"C8,omitempty"`
+	C9         C          `firestore:"C9,omitempty"`
+	C10        C          `firestore:"C10,omitempty"`
+	C11        C          `firestore:"C11,omitempty"`
+	C12        C          `firestore:"C12,omitempty"`
+	C13        C          `firestore:"C13,omitempty"`
+	C14        C          `firestore:"C14,omitempty"`
+	C15        C          `firestore:"C15,omitempty"`
+	C16        C          `firestore:"C16,omitempty"`
+	C17        C          `firestore:"C17,omitempty"`
+	C18        C          `firestore:"C18,omitempty"`
+	C19        C          `firestore:"C19,omitempty"`
+	Questions  []int      `firestore:"questions,omitempty"`
 	CreatedAt  time.Time  `firestore:"created_at,omitempty"`
 }
 

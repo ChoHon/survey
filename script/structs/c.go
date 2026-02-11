@@ -1,5 +1,7 @@
 package structs
 
+import "fmt"
+
 // 3. 운송수단선택 선호도 조사
 
 // 다음은 컨테이너 화물의 운송 비용, 운송 시간 등의 조건에 따른 운송수단 선택행태를 조사하기 위한 문항들입니다.
@@ -10,26 +12,25 @@ package structs
 // 40ft 컨테이너 1개 운송에 소요되는 비용과 시간을 기준으로 합니다.
 // 철도 운송이 물리적으로 불가능하지 않다고 가정하고 귀사의 제반여건과 운송전략, 제시된 조건을 고려하여 응답해주시면 됩니다.(총 10문항)
 
-type TransportationSelection int
-
-const (
-	SelectionRail TransportationSelection = iota
-	SelectionRoad
-)
-
 type C struct {
-	QuestionNumber          int                     `firestore:"question_number,omitempty"`
-	RailPercentage          int                     `firestore:"rail_percentage,omitempty"`
-	TransportationSelection TransportationSelection `firestore:"transportation_selection,omitempty"`
+	Rail   Codition `firestore:"rail,omitempty"`
+	Road   Codition `firestore:"road,omitempty"`
+	Select string   `firestore:"select,omitempty"`
 }
 
-// C1. 철도 정시도착률 80%, 도로 정시도착률 80%, 철도 운행횟수 일 2회
-// C2. 철도 정시도착률 80%, 도로 정시도착률 60%, 철도 운행횟수 일 2회
-// C3. 철도 정시도착률 60%, 도로 정시도착률 60%, 철도 운행횟수 일 3회
-// C4. 철도 정시도착률 60%, 도로 정시도착률 80%, 철도 운행횟수 일 2회
-// C5. 철도 정시도착률 100%, 도로 정시도착률 60%, 철도 운행횟수 일 1회
-// C6. 철도 정시도착률 100%, 도로 정시도착률 80%, 철도 운행횟수 일 3회
-// C7. 철도 정시도착률 100%, 도로 정시도착률 100%, 철도 운행횟수 일 3회
-// C8. 철도 정시도착률 60%, 도로 정시도착률 100%, 철도 운행횟수 일 2회
-// C9. 철도 정시도착률 60%, 도로 정시도착률 100%, 철도 운행횟수 일 1회
-// C10. 철도 정시도착률 80%, 도로 정시도착률 80%, 철도 운행횟수 일 2회
+type Codition struct {
+	Cost       int
+	Duration   float64
+	UsePercent int
+}
+
+func (c C) PrintString() []string {
+	return []string{
+		fmt.Sprintf("%d", c.Rail.Cost),
+		fmt.Sprintf("%0.1f", c.Rail.Duration),
+		fmt.Sprintf("%d", c.Rail.UsePercent),
+		fmt.Sprintf("%d", c.Road.Cost),
+		fmt.Sprintf("%0.1f", c.Road.Duration),
+		c.Select,
+	}
+}
