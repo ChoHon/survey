@@ -1064,6 +1064,20 @@ function savePageBData() {
       second: parseNumber(document.getElementById("b11-second")?.value),
       third: parseNumber(document.getElementById("b11-third")?.value),
     },
+    B12: {
+      costFactor: parseNumber(getRadioValue("b12-1")),
+      timeFactor: parseNumber(getRadioValue("b12-2")),
+      reliabilityFactor: parseNumber(getRadioValue("b12-3")),
+      frequencyFactor: parseNumber(getRadioValue("b12-4")),
+      safetyFactor: parseNumber(getRadioValue("b12-5")),
+      flexibilityFactor: parseNumber(getRadioValue("b12-6")),
+      stabilityFactor: parseNumber(getRadioValue("b12-7")),
+      ecoFactor: parseNumber(getRadioValue("b12-8")),
+      distanceFactor: parseNumber(getRadioValue("b12-9")),
+      accessibilityFactor: parseNumber(getRadioValue("b12-10")),
+      volumeFactor: parseNumber(getRadioValue("b12-11")),
+      serviceFactor: parseNumber(getRadioValue("b12-12")),
+    },
   };
 
   sessionStorage.setItem("surveyPageB", JSON.stringify(data));
