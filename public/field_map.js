@@ -119,6 +119,4 @@ const BpageFieldMapping = {
   "b11-third": "B11.third",
 };
 
-const CpageFieldMapping = {};
-
-export { ApageFieldMapping, BpageFieldMapping, CpageFieldMapping };
+export { ApageFieldMapping, BpageFieldMapping };

@@ -1,7 +1,8 @@
 // Firebase SDK import (CDN 사용)
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js";
 import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore.js";
-import { ApageFieldMapping, BpageFieldMapping, CpageFieldMapping } from "./field_map.js";
+import { ApageFieldMapping, BpageFieldMapping } from "./field_map.js";
+import questions from "./question.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -805,6 +806,103 @@ function bindB10GetB9Input1() {
   update();
 }
 
+// 여러행 합계 구하기
+function calcSum(ids, data, dataMap) {
+  const values = ids.map((id) => {
+    const field = dataMap[id];
+    return getNestedValue(data, field);
+  });
+  return values.reduce((sum, value) => sum + parseNumber(value), 0);
+}
+
+// 여러행 총 시간 구하기
+function calcSumTime(daysIds, hoursIds, minutesIds, data, dataMap) {
+  const days = calcSum(daysIds, data, dataMap);
+  const hours = calcSum(hoursIds, data, dataMap);
+  const minutes = calcSum(minutesIds, data, dataMap);
+
+  const sum = days * 24 + hours + minutes / 60;
+  return Math.round(sum * 10) / 10;
+}
+
+// C 기본값 계산
+function calcPageCDefaults() {
+  const data = loadPageBData();
+  if (!data) return;
+
+  let ids = [
+    "b7-suttle1-cost-40ft",
+    "b7-inter1-cost-40ft",
+    "b7-main-cost-40ft",
+    "b7-inter2-cost-40ft",
+    "b7-suttle2-cost-40ft",
+  ];
+  const sumRailCost40ft = calcSum(ids, data, BpageFieldMapping);
+
+  ids = [
+    "b7-suttle1-cost-20ft",
+    "b7-inter1-cost-20ft",
+    "b7-main-cost-20ft",
+    "b7-inter2-cost-20ft",
+    "b7-suttle2-cost-20ft",
+  ];
+  const sumRailCost20ft = calcSum(ids, data, BpageFieldMapping);
+
+  let daysIds = ["b7-suttle1-days", "b7-inter1-days", "b7-main-days", "b7-inter2-days", "b7-suttle2-days"];
+  let hoursIds = ["b7-suttle1-hours", "b7-inter1-hours", "b7-main-hours", "b7-inter2-hours", "b7-suttle2-hours"];
+  let minutesIds = [
+    "b7-suttle1-minutes",
+    "b7-inter1-minutes",
+    "b7-main-minutes",
+    "b7-inter2-minutes",
+    "b7-suttle2-minutes",
+  ];
+  const sumRailDuration = calcSumTime(daysIds, hoursIds, minutesIds, data, BpageFieldMapping);
+
+  ids = ["b8-main1-cost-40ft", "b8-inter-cost-40ft", "b8-main2-cost-40ft"];
+  const sumRoadCost40ft = calcSum(ids, data, BpageFieldMapping);
+
+  ids = ["b8-main1-cost-20ft", "b8-inter-cost-20ft", "b8-main2-cost-20ft"];
+  const sumRoadCost20ft = calcSum(ids, data, BpageFieldMapping);
+
+  daysIds = ["b8-main1-days", "b8-inter-days", "b8-main2-days"];
+  hoursIds = ["b8-main1-hours", "b8-inter-hours", "b8-main2-hours"];
+  minutesIds = ["b8-main1-minutes", "b8-inter-minutes", "b8-main2-minutes"];
+  const sumRoadDuration = calcSumTime(daysIds, hoursIds, minutesIds, data, BpageFieldMapping);
+
+  return {
+    rail: {
+      costFt20: sumRailCost20ft,
+      costFt40: sumRailCost40ft,
+      duration: sumRailDuration,
+    },
+    road: {
+      costFt20: sumRoadCost20ft,
+      costFt40: sumRoadCost40ft,
+      duration: sumRoadDuration,
+    },
+  };
+}
+
+// C 퍼센트 계산
+function bindCPercentageCalc(picked) {
+  picked.forEach((num) => {
+    const railEl = document.getElementById(`question-${num + 1}-rail-use-percent`);
+    const roadEl = document.getElementById(`question-${num + 1}-road-use-percent`);
+
+    if (!railEl || !roadEl) return;
+
+    const update = () => {
+      const railValue = parseNumber(railEl.value);
+      const roadValue = 100 - railValue;
+      roadEl.textContent = Number.isFinite(roadValue) ? String(roadValue) : "";
+    };
+
+    railEl.addEventListener("input", update);
+    update();
+  });
+}
+
 // ===== 다중 페이지 설문조사 데이터 관리 =====
 
 // A 페이지 데이터 저장
@@ -1149,8 +1247,27 @@ function loadPageBData() {
 }
 
 // C 페이지: 페이지 저장
-function savePageCData() {
-  const data = {};
+function savePageCData(picked) {
+  const getRadioValue = (name) => {
+    const checked = document.querySelector(`input[name="${name}"]:checked`);
+    return checked ? checked.value : 0;
+  };
+
+  let data = {};
+  picked.forEach((num) => {
+    const name = `C${num + 1}`;
+
+    data[name] = {
+      usePercent: {
+        rail: parseNumber(document.getElementById(`question-${num + 1}-rail-use-percent`)?.value),
+        road: parseNumber(document.getElementById(`question-${num + 1}-road-use-percent`)?.textContent),
+      },
+      select: getRadioValue(`question-${num + 1}`),
+    };
+  });
+
+  data["questions"] = picked.sort((a, b) => a - b).map((num) => num + 1);
+
   sessionStorage.setItem("surveyPageC", JSON.stringify(data));
   return data;
 }
@@ -1237,7 +1354,11 @@ if (window.location.pathname.includes("b.html")) {
 
 // C 페이지: 페이지 로드
 if (window.location.pathname.includes("c.html")) {
+  const picked = [...Array(19).keys()].sort(() => Math.random() - 0.5).slice(0, 10);
+
   window.addEventListener("DOMContentLoaded", () => {
+    console.log(picked);
+
     const pageAData = loadPageAData();
     if (!pageAData) {
       console.warn("A 페이지 데이터가 없습니다.");
@@ -1248,32 +1369,95 @@ if (window.location.pathname.includes("c.html")) {
       console.warn("B 페이지 데이터가 없습니다.");
     }
 
-    const savedData = loadPageCData();
-    if (savedData) {
-      fillPageForm(CpageFieldMapping, savedData);
+    const defaultData = calcPageCDefaults();
+
+    for (let i = 0; i < 10; i++) {
+      const pickedNum = picked[i];
+      const data = calcQuestion(defaultData, pickedNum);
+      makePageC(i + 1, data);
     }
+
+    bindCPercentageCalc(picked);
   });
 
   const previousButton = document.getElementById("c-to-b");
   if (previousButton) {
     previousButton.addEventListener("click", (e) => {
-      savePageCData();
+      savePageCData(picked);
     });
   }
 
-  const nextButton = document.getElementById("submit");
-  if (nextButton && surveyForm) {
-    nextButton.addEventListener("click", (e) => {
+  const submitButton = document.getElementById("submit");
+  if (submitButton && surveyForm) {
+    submitButton.addEventListener("click", (e) => {
       e.preventDefault();
 
-      if (!validatePage(CpageFieldMapping)) {
-        return false;
-      }
-
-      savePageCData();
+      savePageCData(picked);
       surveyForm.requestSubmit();
     });
   }
+}
+
+function calcQuestion(defaultData, pickedNum) {
+  const picked = questions[pickedNum];
+
+  let railCost = defaultData.rail.costFt40 > 0 ? defaultData.rail.costFt40 : defaultData.rail.costFt20;
+  let roadCost = defaultData.road.costFt40 > 0 ? defaultData.road.costFt40 : defaultData.road.costFt20;
+  if (railCost == 0) railCost = roadCost * 1.1;
+
+  railCost *= picked.railCost;
+  roadCost *= picked.roadCost;
+
+  let railDuration = Math.round(defaultData.rail.duration * picked.railDuration * 10) / 10;
+  let roadDuration = Math.round(defaultData.road.duration * picked.roadDuration * 10) / 10;
+
+  let costCmp = "";
+  const diff = railCost - roadCost;
+  if (diff > 0) {
+    costCmp = `철도가 ${diff} 만원 비쌈`;
+  } else if (diff < 0) {
+    costCmp = `철도가 ${diff * -1} 만원 쌈`;
+  } else {
+    costCmp = "동일";
+  }
+
+  let durationCmp = "";
+  const durationDiff = Math.round((railDuration - roadDuration) * 10) / 10;
+  if (durationDiff > 0) {
+    durationCmp = `철도가 ${durationDiff} 시간 느림`;
+  } else if (durationDiff < 0) {
+    durationCmp = `철도가 ${durationDiff * -1} 시간 빠름`;
+  } else {
+    durationCmp = "동일";
+  }
+
+  let accCmp = "";
+  const accDiff = picked.railAcc - picked.roadAcc;
+  if (accDiff > 0) {
+    accCmp = `철도가 ${accDiff} %p 높음`;
+  } else if (accDiff < 0) {
+    accCmp = `철도가 ${accDiff * -1} %p 낮음`;
+  } else {
+    accCmp = "동일";
+  }
+
+  return {
+    rail: {
+      cost: railCost,
+      duration: railDuration,
+      acc: picked.railAcc,
+      times: picked.railTimes,
+    },
+    road: {
+      cost: roadCost,
+      duration: roadDuration,
+      acc: picked.roadAcc,
+    },
+    costCmp: costCmp,
+    durationCmp: durationCmp,
+    accCmp: accCmp,
+    questionNum: pickedNum,
+  };
 }
 
 if (surveyForm) {
@@ -1284,8 +1468,6 @@ if (surveyForm) {
       showNotification("이미 제출된 설문입니다.", "warning");
       return;
     }
-
-    savePageCData();
 
     const data = {
       ...loadPageAData(),
@@ -1307,4 +1489,75 @@ if (surveyForm) {
       showNotification("설문조사 제출 중 오류가 발생했습니다.", "error");
     }
   });
+}
+
+function makePageC(i, data) {
+  const QuestionEl = document.getElementById("c");
+
+  const question = document.createElement("div");
+  question.id = `c${i}`;
+  question.className = "intro";
+  question.innerHTML = `
+        <p class="pl-10 -indent-10 text-lg font-bold">문C${i}</p>
+        <div id="question-${data.questionNum + 1}">
+          <table class="w-full text-center">
+            <tr class="h-[36px] border-1 bg-gray-200">
+              <td class="w-[35%] border-1 px-2">운송조건</td>
+              <td class="w-[22%] border-1 px-2">철도</td>
+              <td class="w-[22%] border-1 px-2">도로</td>
+              <td class="border-1 px-2">철도-도로 차이</td>
+            </tr>
+            <tr class="h-[36px] border-1">
+              <td class="border-1 px-2">운송비용</td>
+              <td class="border-1 px-2 text-right">${data.rail.cost} 만원</td>
+              <td class="border-1 px-2 text-right">${data.road.cost} 만원</td>
+              <td class="border-1 px-2 text-sm">${data.costCmp}</td>
+            </tr>
+            <tr class="h-[36px] border-1">
+              <td class="border-1 px-2">운송시간</td>
+              <td class="border-1 px-2 text-right">${data.rail.duration} 시간</td>
+              <td class="border-1 px-2 text-right">${data.road.duration} 시간</td>
+              <td class="border-1 px-2 text-sm">${data.durationCmp}</td>
+            </tr>
+            <tr class="h-[36px] border-1">
+              <td class="border-1 px-2">정시도착율(지연시간 최대 3시간 이내)</td>
+              <td class="border-1 px-2 text-right">${data.rail.acc}%</td>
+              <td class="border-1 px-2 text-right">${data.road.acc}%</td>
+              <td class="border-1 px-2 text-sm">${data.accCmp}</td>
+            </tr>
+            <tr class="h-[36px] border-1">
+              <td class="border-1 px-2">화물열차 운행횟수</td>
+              <td class="border-1 px-2 text-right">일 ${data.rail.times} 회</td>
+              <td class="border-1 px-2">-</td>
+              <td class="border-1 px-2">-</td>
+            </tr>
+            <tr class="h-[36px] border-1">
+              <td class="border-1 px-2">수단 이용비율</td>
+              <td class="border-1 px-2 text-right">
+                <input
+                  id="question-${data.questionNum + 1}-rail-use-percent"
+                  type="text"
+                  class="mx-2 h-[32px] w-[140px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                />%
+              </td>
+              <td class="border-1 px-2 text-right">
+                <span id="question-${data.questionNum + 1}-road-use-percent" class="font-bold text-blue-600"></span> %
+              </td>
+              <td class="border-1 px-2">-</td>
+            </tr>
+            <tr class="h-[36px] border-1">
+              <td class="border-1 px-2">수단 선택</td>
+              <td class="border-1 px-2">
+                <input type="radio" name="question-${data.questionNum + 1}" value="철도" class="h-full w-full outline-0" />
+              </td>
+              <td class="border-1 px-2">
+                <input type="radio" name="question-${data.questionNum + 1}" value="도로" class="h-full w-full outline-0" />
+              </td>
+              <td class="border-1 px-2">-</td>
+            </tr>
+          </table>
+        </div>
+      `;
+
+  QuestionEl.appendChild(question);
 }
