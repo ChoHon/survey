@@ -12,7 +12,6 @@ const BpageFieldMapping = {
   numberOfEmployees: "B1.numberOfEmployees",
   containerVehicleTotal: "B1.containerTransportation.containerVehicle.total",
   containerVehicleDirect: "B1.containerTransportation.containerVehicle.direct",
-  containerVehicleConsigned: "B1.containerTransportation.containerVehicle.consigned",
   privateVehicle: "B1.containerTransportation.privateVehicle",
   annualRevenueTotal: "B1.annualRevenue.total",
   annualRevenueInland: "B1.annualRevenue.inland",

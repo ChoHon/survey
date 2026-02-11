@@ -36,6 +36,65 @@ function getNestedValue(obj, path) {
   return path.split(".").reduce((current, key) => current?.[key], obj);
 }
 
+function showNotification(message, type = "warning") {
+  const existingNotification = document.getElementById("custom-notification");
+  if (existingNotification) {
+    existingNotification.remove();
+  }
+
+  const colors = {
+    warning: {
+      bg: "bg-yellow-50",
+      text: "text-yellow-800",
+      subtext: "text-yellow-700",
+      icon: "text-yellow-400",
+    },
+    success: {
+      bg: "bg-green-50",
+      text: "text-green-800",
+      subtext: "text-green-700",
+      icon: "text-green-400",
+    },
+    error: {
+      bg: "bg-red-50",
+      text: "text-red-800",
+      subtext: "text-red-700",
+      icon: "text-red-400",
+    },
+  };
+
+  const color = colors[type] || colors.warning;
+
+  const notification = document.createElement("div");
+  notification.id = "custom-notification";
+  notification.className = "fixed top-4 left-1/2 -translate-x-1/2 z-50 w-96 animate-fade-in";
+  notification.innerHTML = `
+    <div class="rounded-md ${color.bg} p-4 shadow-lg">
+      <div class="flex">
+        <div class="shrink-0">
+          <svg viewBox="0 0 20 20" fill="currentColor" class="size-5 ${color.icon}">
+            <path d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495ZM10 5a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 10 5Zm0 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" clip-rule="evenodd" fill-rule="evenodd"/>
+          </svg>
+        </div>
+        <div class="ml-3 flex-1">
+          <p class="text-sm font-medium ${color.text}">${message}</p>
+        </div>
+        <button onclick="this.closest('#custom-notification').remove()" class="ml-3 ${color.text} hover:opacity-70">
+          <svg class="size-5" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(notification);
+
+  setTimeout(() => {
+    notification.remove();
+  }, 5000);
+}
+
 // ===== 설문조사 계산 =====
 
 // B1-2 컨테이너 위수탁 차량수 계산
@@ -216,25 +275,14 @@ function fillPageForm(fieldMap, data) {
 }
 
 // A 페이지 필수 항목 검증
-function validatePageA() {
-  const requiredFields = [
-    { id: "respondentName", label: "응답자 성명" },
-    { id: "respondentDepartment", label: "소속부서명" },
-    { id: "respondentPosition", label: "직위" },
-    { id: "respondentPhone", label: "전화번호" },
-    { id: "respondentEmail", label: "이메일" },
-    { id: "companyName", label: "사업체명" },
-    { id: "companyAddress", label: "주소" },
-  ];
+function validatePage(fieldMap) {
+  const fields = Object.keys(fieldMap);
 
-  const emptyFields = [];
-
-  for (const field of requiredFields) {
-    const element = document.getElementById(field.id);
+  for (const field of fields) {
+    const element = document.getElementById(field);
     const value = element?.value?.trim();
 
     if (!value) {
-      emptyFields.push(field.label);
       // 빈 필드에 시각적 표시
       if (element) {
         element.style.borderColor = "red";
@@ -245,18 +293,14 @@ function validatePageA() {
         element.style.borderColor = "";
         element.style.borderWidth = "";
       });
-      // } else {
-      //   // 입력된 필드는 원래 스타일로 복원
-      //   if (element) {
-      //     element.style.borderColor = "";
-      //     element.style.borderWidth = "";
-      //   }
-    }
-  }
 
-  if (emptyFields.length > 0) {
-    showNotification("다음 항목을 입력해주세요: " + emptyFields.join(", "), "error");
-    return false;
+      showNotification("입력하지 않은 항목이 있습니다", "error");
+
+      // 첫 번째 빈 필드로 스크롤 이동 및 포커스
+      element.scrollIntoView({ behavior: "smooth", block: "center" });
+
+      return false;
+    }
   }
 
   return true;
@@ -393,7 +437,7 @@ if (window.location.pathname.includes("a.html")) {
   const nextButton = document.getElementById("a-to-b");
   if (nextButton) {
     nextButton.addEventListener("click", (e) => {
-      if (!validatePageA()) {
+      if (!validatePage(ApageFieldMapping)) {
         e.preventDefault(); // 검증 실패 시 페이지 이동 방지
         return false;
       }
@@ -426,6 +470,10 @@ if (window.location.pathname.includes("b.html")) {
   const nextButton = document.getElementById("b-to-c");
   if (nextButton) {
     nextButton.addEventListener("click", (e) => {
+      if (!validatePage(BpageFieldMapping)) {
+        e.preventDefault(); // 검증 실패 시 페이지 이동 방지
+        return false;
+      }
       savePageBData();
     });
   }
@@ -468,70 +516,15 @@ if (window.location.pathname.includes("c.html")) {
   if (nextButton && surveyForm) {
     nextButton.addEventListener("click", (e) => {
       e.preventDefault();
+
+      if (!validatePage(BpageFieldMapping)) {
+        return false;
+      }
+
       savePageCData();
       surveyForm.requestSubmit();
     });
   }
-}
-
-// 커스텀 알림 함수
-function showNotification(message, type = "warning") {
-  const existingNotification = document.getElementById("custom-notification");
-  if (existingNotification) {
-    existingNotification.remove();
-  }
-
-  const colors = {
-    warning: {
-      bg: "bg-yellow-50",
-      text: "text-yellow-800",
-      subtext: "text-yellow-700",
-      icon: "text-yellow-400",
-    },
-    success: {
-      bg: "bg-green-50",
-      text: "text-green-800",
-      subtext: "text-green-700",
-      icon: "text-green-400",
-    },
-    error: {
-      bg: "bg-red-50",
-      text: "text-red-800",
-      subtext: "text-red-700",
-      icon: "text-red-400",
-    },
-  };
-
-  const color = colors[type] || colors.warning;
-
-  const notification = document.createElement("div");
-  notification.id = "custom-notification";
-  notification.className = "fixed top-4 left-1/2 -translate-x-1/2 z-50 w-96 animate-fade-in";
-  notification.innerHTML = `
-    <div class="rounded-md ${color.bg} p-4 shadow-lg">
-      <div class="flex">
-        <div class="shrink-0">
-          <svg viewBox="0 0 20 20" fill="currentColor" class="size-5 ${color.icon}">
-            <path d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495ZM10 5a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 10 5Zm0 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" clip-rule="evenodd" fill-rule="evenodd"/>
-          </svg>
-        </div>
-        <div class="ml-3 flex-1">
-          <p class="text-sm font-medium ${color.text}">${message}</p>
-        </div>
-        <button onclick="this.closest('#custom-notification').remove()" class="ml-3 ${color.text} hover:opacity-70">
-          <svg class="size-5" viewBox="0 0 20 20" fill="currentColor">
-            <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"/>
-          </svg>
-        </button>
-      </div>
-    </div>
-  `;
-
-  document.body.appendChild(notification);
-
-  setTimeout(() => {
-    notification.remove();
-  }, 5000);
 }
 
 if (surveyForm) {
