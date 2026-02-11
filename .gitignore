@@ -4,3 +4,4 @@ firebaseKey*.json
 
 node_modules/
 .firebase/
+get_csv
