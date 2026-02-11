@@ -633,7 +633,7 @@
 
             <div class="intro">
               <p class="pl-10 -indent-10 text-lg font-bold">
-                문B7. 문6에서 응답한 대표운송구간을 기준으로 철도 운송과정별로 소요되는 시간과 비용을 기입해주십시오.
+                문B7. 문B6에서 응답한 대표운송구간을 기준으로 철도 운송과정별로 소요되는 시간과 비용을 기입해주십시오.
               </p>
 
               <div class="py-4">
@@ -1035,6 +1035,282 @@
                     </td>
                     <td class="w-[20%] border-1 pr-2 text-right">
                       <span id="b7-sum-cost-40ft" class="font-bold text-blue-600"></span>
+                      원
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
+            <div class="intro">
+              <p class="pl-10 -indent-10 text-lg font-bold">
+                문B8. 문B6에서 응답한 대표운송구간을 기준으로 도로 운송과정별로 소요되는 시간과 비용을 기입해주십시오.
+              </p>
+
+              <div class="py-4">
+                <!-- 내륙 기종점 -->
+                <table class="w-full text-center">
+                  <tr class="h-[20px] border-1">
+                    <td class="w-[20%] border-1 bg-gray-200" rowspan="2">구분</td>
+                    <td class="w-[40%] border-1 bg-gray-200" rowspan="2">운송시간</td>
+                    <td class="w-[40%] border-1 bg-gray-200" colspan="2">운송비용</td>
+                  </tr>
+                  <tr class="h-[20px] border-1">
+                    <td class="w-[20%] border-1 bg-gray-200">20ft</td>
+                    <td class="w-[20%] border-1 bg-gray-200">40ft</td>
+                  </tr>
+                  <tr class="h-[36px] border-1">
+                    <td class="border-1 bg-gray-200">내륙 기종점</td>
+                    <td class="border-1" colspan="3">
+                      <div class="mx-3 inline">
+                        <span id="b8-inland-sido" class="mx-5 font-bold text-blue-600"></span>시·도
+                      </div>
+                      <div class="mx-3 inline">
+                        <span id="b8-inland-sigun" class="mx-5 font-bold text-blue-600"></span>시·군
+                      </div>
+                      <div class="mx-3 inline">
+                        <span id="b8-inland-gu" class="mx-5 font-bold text-blue-600"></span>구
+                      </div>
+                      <div class="mx-3 inline">
+                        (대표지점: <span id="b8-inland-point" class="mx-5 font-bold text-blue-600"></span>)
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+
+                <div class="text-center">↕</div>
+
+                <!-- 본선1 -->
+                <table class="w-full text-center">
+                  <tr class="h-[36px] border-1">
+                    <td class="w-[20%] border-1 bg-gray-200">도로 본선운송1</td>
+                    <td class="w-[40%] border-1">
+                      <input
+                        id="b8-main1-days"
+                        type="text"
+                        class="mr-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      일
+                      <input
+                        id="b8-main1-hours"
+                        type="text"
+                        class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      시간
+                      <input
+                        id="b8-main1-minutes"
+                        type="text"
+                        class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      분
+                    </td>
+                    <td class="w-[20%] border-1 pr-2 text-right">
+                      <input
+                        id="b8-main1-cost-20ft"
+                        type="text"
+                        class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      원
+                    </td>
+                    <td class="w-[20%] border-1 pr-2 text-right">
+                      <input
+                        id="b8-main1-cost-40ft"
+                        type="text"
+                        class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      원
+                    </td>
+                  </tr>
+                </table>
+
+                <div class="text-center">↕</div>
+
+                <!-- 경유지 -->
+                <table class="w-full text-center">
+                  <tr class="h-[36px] border-1">
+                    <td class="w-[10%] border-1 bg-gray-200" rowspan="2">
+                      <div>경유지</div>
+                      <div><span id="b8-inter-point" class="font-bold text-blue-600"></span></div>
+                    </td>
+                    <td class="w-[10%] border-1 bg-gray-200">상하역1</td>
+                    <td class="w-[40%] border-1">
+                      <input
+                        id="b8-inter-days"
+                        type="text"
+                        class="mr-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      일
+                      <input
+                        id="b8-inter-hours"
+                        type="text"
+                        class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      시간
+                      <input
+                        id="b8-inter-minutes"
+                        type="text"
+                        class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      분
+                    </td>
+                    <td class="w-[20%] border-1 pr-2 text-right">
+                      <input
+                        id="b8-inter-cost-20ft"
+                        type="text"
+                        class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      원
+                    </td>
+                    <td class="w-[20%] border-1 pr-2 text-right">
+                      <input
+                        id="b8-inter-cost-40ft"
+                        type="text"
+                        class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      원
+                    </td>
+                  </tr>
+                  <tr class="h-[36px] border-1">
+                    <td class="w-[10%] border-1 bg-gray-200">보관1</td>
+                    <td class="w-[40%] border-1">
+                      <input
+                        id="b8-storage-days"
+                        type="text"
+                        class="mr-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      일
+                      <input
+                        id="b8-storage-hours"
+                        type="text"
+                        class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      시간
+                      <input
+                        id="b8-storage-minutes"
+                        type="text"
+                        class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      분
+                    </td>
+                    <td class="w-[20%] border-1 pr-2 text-right">
+                      <input
+                        id="b8-storage-cost-20ft"
+                        type="text"
+                        class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      원
+                    </td>
+                    <td class="w-[20%] border-1 pr-2 text-right">
+                      <input
+                        id="b8-storage-cost-40ft"
+                        type="text"
+                        class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      원
+                    </td>
+                  </tr>
+                </table>
+
+                <div class="text-center">↕</div>
+
+                <!-- 본선2 -->
+                <table class="w-full text-center">
+                  <tr class="h-[36px] border-1">
+                    <td class="w-[20%] border-1 bg-gray-200">도로 본선운송2</td>
+                    <td class="w-[40%] border-1">
+                      <input
+                        id="b8-main2-days"
+                        type="text"
+                        class="mr-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      일
+                      <input
+                        id="b8-main2-hours"
+                        type="text"
+                        class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      시간
+                      <input
+                        id="b8-main2-minutes"
+                        type="text"
+                        class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      분
+                    </td>
+                    <td class="w-[20%] border-1 pr-2 text-right">
+                      <input
+                        id="b8-main2-cost-20ft"
+                        type="text"
+                        class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      원
+                    </td>
+                    <td class="w-[20%] border-1 pr-2 text-right">
+                      <input
+                        id="b8-main2-cost-40ft"
+                        type="text"
+                        class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      원
+                    </td>
+                  </tr>
+                </table>
+
+                <div class="text-center">↕</div>
+
+                <!-- 항만 기종점 -->
+                <table class="w-full text-center">
+                  <tr class="h-[36px] border-1">
+                    <td class="w-[20%] border-1 bg-gray-200">항만 기종점</td>
+                    <td class="border-1" colspan="3">
+                      <div class="mx-3 inline">
+                        <span id="b8-port-sido" class="mx-5 font-bold text-blue-600"></span>시·도
+                      </div>
+                      <div class="mx-3 inline">
+                        <span id="b8-port-sigun" class="mx-5 font-bold text-blue-600"></span>시·군
+                      </div>
+                      <div class="mx-3 inline">
+                        <span id="b8-port-gu" class="mx-5 font-bold text-blue-600"></span>구
+                      </div>
+                      <div class="mx-3 inline">
+                        (대표지점: <span id="b8-port-point" class="mx-5 font-bold text-blue-600"></span>)
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- 합계 -->
+                <table class="mt-4 w-full text-center">
+                  <tr class="h-[20px] border-1">
+                    <td class="w-[20%] border-1 bg-gray-200" rowspan="3">합계</td>
+                    <td class="w-[40%] border-1 bg-gray-200" rowspan="2">운송시간</td>
+                    <td class="w-[40%] border-1 bg-gray-200" colspan="2">운송비용</td>
+                  </tr>
+                  <tr class="h-[20px] border-1">
+                    <td class="w-[20%] border-1 bg-gray-200">20ft</td>
+                    <td class="w-[20%] border-1 bg-gray-200">40ft</td>
+                  </tr>
+                  <tr class="h-[36px] border-1">
+                    <td class="w-[40%] border-1">
+                      <div class="mr-1 inline">
+                        <span id="b8-sum-days" class="font-bold text-blue-600"></span>
+                        일
+                      </div>
+                      <div class="mx-1 inline">
+                        <span id="b8-sum-hours" class="font-bold text-blue-600"></span>
+                        시간
+                      </div>
+                      <div class="ml-1 inline">
+                        <span id="b8-sum-minutes" class="font-bold text-blue-600"></span>
+                        분
+                      </div>
+                    </td>
+                    <td class="w-[20%] border-1 pr-2 text-right">
+                      <span id="b8-sum-cost-20ft" class="font-bold text-blue-600"></span>
+                      원
+                    </td>
+                    <td class="w-[20%] border-1 pr-2 text-right">
+                      <span id="b8-sum-cost-40ft" class="font-bold text-blue-600"></span>
                       원
                     </td>
                   </tr>

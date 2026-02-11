@@ -85,6 +85,27 @@ const BpageFieldMapping = {
   "b7-suttle2-minutes": "B7.suttle2.duration.minutes",
   "b7-suttle2-cost-20ft": "B7.suttle2.cost.ft20",
   "b7-suttle2-cost-40ft": "B7.suttle2.cost.ft40",
+
+  "b8-main1-days": "B8.main1.duration.days",
+  "b8-main1-hours": "B8.main1.duration.hours",
+  "b8-main1-minutes": "B8.main1.duration.minutes",
+  "b8-main1-cost-20ft": "B8.main1.cost.ft20",
+  "b8-main1-cost-40ft": "B8.main1.cost.ft40",
+  "b8-inter1-days": "B8.transshipment.loadAndUnload.duration.days",
+  "b8-inter1-hours": "B8.transshipment.loadAndUnload.duration.hours",
+  "b8-inter1-minutes": "B8.transshipment.loadAndUnload.duration.minutes",
+  "b8-inter1-cost-20ft": "B8.transshipment.loadAndUnload.cost.ft20",
+  "b8-inter1-cost-40ft": "B8.transshipment.loadAndUnload.cost.ft40",
+  "b8-storage1-days": "B8.transshipment.storage.duration.days",
+  "b8-storage1-hours": "B8.transshipment.storage.duration.hours",
+  "b8-storage1-minutes": "B8.transshipment.storage.duration.minutes",
+  "b8-storage1-cost-20ft": "B8.transshipment.storage.cost.ft20",
+  "b8-storage1-cost-40ft": "B8.transshipment.storage.cost.ft40",
+  "b8-main2-days": "B8.main2.duration.days",
+  "b8-main2-hours": "B8.main2.duration.hours",
+  "b8-main2-minutes": "B8.main2.duration.minutes",
+  "b8-main2-cost-20ft": "B8.main2.cost.ft20",
+  "b8-main2-cost-40ft": "B8.main2.cost.ft40",
 };
 
 const CpageFieldMapping = {};

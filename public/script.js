@@ -234,7 +234,7 @@ function bindB6VolumeCalc() {
   update();
 }
 
-// B7 B6 정보 가져오기1
+// B7 B6 정보 가져오기1 (내륙, 철도 경유지)
 function bindB7GetB6Input1() {
   const b6SidoEl = document.getElementById("b6-inland-sido");
   const b6SigunEl = document.getElementById("b6-inland-sigun");
@@ -248,6 +248,12 @@ function bindB7GetB6Input1() {
   const b7SigunEl = document.getElementById("b7-inland-sigun");
   const b7GuEl = document.getElementById("b7-inland-gu");
   const b7PointEl = document.getElementById("b7-inland-point");
+
+  const b8SidoEl = document.getElementById("b8-inland-sido");
+  const b8SigunEl = document.getElementById("b8-inland-sigun");
+  const b8GuEl = document.getElementById("b8-inland-gu");
+  const b8PointEl = document.getElementById("b8-inland-point");
+
   const b7InterStation1El = document.getElementById("b7-inter1-station");
   const b7InterStation2El = document.getElementById("b7-inter2-station");
 
@@ -262,16 +268,32 @@ function bindB7GetB6Input1() {
     !b7SigunEl ||
     !b7GuEl ||
     !b7PointEl ||
+    !b8SidoEl ||
+    !b8SigunEl ||
+    !b8GuEl ||
+    !b8PointEl ||
     !b7InterStation1El ||
     !b7InterStation2El
   )
     return;
 
   const update = () => {
-    b7SidoEl.textContent = b6SidoEl.value || "0";
-    b7SigunEl.textContent = b6SigunEl.value || "0";
-    b7GuEl.textContent = b6GuEl.value || "0";
-    b7PointEl.textContent = b6PointEl.value || "0";
+    const sido = b6SidoEl.value || "0";
+    b7SidoEl.textContent = sido;
+    b8SidoEl.textContent = sido;
+
+    const sigun = b6SigunEl.value || "0";
+    b7SigunEl.textContent = sigun;
+    b8SigunEl.textContent = sigun;
+
+    const gu = b6GuEl.value || "0";
+    b7GuEl.textContent = gu;
+    b8GuEl.textContent = gu;
+
+    const point = b6PointEl.value || "0";
+    b7PointEl.textContent = point;
+    b8PointEl.textContent = point;
+
     b7InterStation1El.textContent = b6RailInter1El.value || "0";
     b7InterStation2El.textContent = b6RailInter2El.value || "0";
   };
@@ -297,13 +319,43 @@ function bindB7GetB6Input2() {
   const b7GuEl = document.getElementById("b7-port-gu");
   const b7PointEl = document.getElementById("b7-port-point");
 
-  if (!b6SidoEl || !b6SigunEl || !b6GuEl || !b6PointEl || !b7SidoEl || !b7SigunEl || !b7GuEl || !b7PointEl) return;
+  const b8SidoEl = document.getElementById("b8-port-sido");
+  const b8SigunEl = document.getElementById("b8-port-sigun");
+  const b8GuEl = document.getElementById("b8-port-gu");
+  const b8PointEl = document.getElementById("b8-port-point");
+
+  if (
+    !b6SidoEl ||
+    !b6SigunEl ||
+    !b6GuEl ||
+    !b6PointEl ||
+    !b7SidoEl ||
+    !b7SigunEl ||
+    !b7GuEl ||
+    !b7PointEl ||
+    !b8SidoEl ||
+    !b8SigunEl ||
+    !b8GuEl ||
+    !b8PointEl
+  )
+    return;
 
   const update = () => {
-    b7SidoEl.textContent = b6SidoEl.value || "0";
-    b7SigunEl.textContent = b6SigunEl.value || "0";
-    b7GuEl.textContent = b6GuEl.value || "0";
-    b7PointEl.textContent = b6PointEl.value || "0";
+    const sido = b6SidoEl.value || "0";
+    b7SidoEl.textContent = sido;
+    b8SidoEl.textContent = sido;
+
+    const sigun = b6SigunEl.value || "0";
+    b7SigunEl.textContent = sigun;
+    b8SigunEl.textContent = sigun;
+
+    const gu = b6GuEl.value || "0";
+    b7GuEl.textContent = gu;
+    b8GuEl.textContent = gu;
+
+    const point = b6PointEl.value || "0";
+    b7PointEl.textContent = point;
+    b8PointEl.textContent = point;
   };
 
   b6SidoEl.addEventListener("input", update);
@@ -540,6 +592,143 @@ function bindB740ftSumCalc() {
   b7Inter2Cost40ftEl.addEventListener("input", update);
   b7Storage2Cost40ftEl.addEventListener("input", update);
   b7Suttle2Cost40ftEl.addEventListener("input", update);
+  update();
+}
+
+// B8 일수 합계 계산
+function bindB8DaysSumCalc() {
+  const b8Main1DaysEl = document.getElementById("b8-main1-days");
+  const b8InterDaysEl = document.getElementById("b8-inter-days");
+  const b8StorageDaysEl = document.getElementById("b8-storage-days");
+  const b8Main2DaysEl = document.getElementById("b8-main2-days");
+  const b8SumDaysEl = document.getElementById("b8-sum-days");
+
+  if (!b8Main1DaysEl || !b8InterDaysEl || !b8StorageDaysEl || !b8Main2DaysEl || !b8SumDaysEl) return;
+
+  const update = () => {
+    const sumDays =
+      parseNumber(b8Main1DaysEl.value) +
+      parseNumber(b8InterDaysEl.value) +
+      parseNumber(b8StorageDaysEl.value) +
+      parseNumber(b8Main2DaysEl.value);
+
+    b8SumDaysEl.textContent = Number.isFinite(sumDays) ? String(sumDays) : "";
+  };
+
+  b8Main1DaysEl.addEventListener("input", update);
+  b8InterDaysEl.addEventListener("input", update);
+  b8StorageDaysEl.addEventListener("input", update);
+  b8Main2DaysEl.addEventListener("input", update);
+  update();
+}
+
+// B8 시간 합계 계산
+function bindB8HoursSumCalc() {
+  const b8Main1HoursEl = document.getElementById("b8-main1-hours");
+  const b8InterHoursEl = document.getElementById("b8-inter-hours");
+  const b8StorageHoursEl = document.getElementById("b8-storage-hours");
+  const b8Main2HoursEl = document.getElementById("b8-main2-hours");
+  const b8SumHoursEl = document.getElementById("b8-sum-hours");
+
+  if (!b8Main1HoursEl || !b8InterHoursEl || !b8StorageHoursEl || !b8Main2HoursEl || !b8SumHoursEl) return;
+
+  const update = () => {
+    const sumHours =
+      parseNumber(b8Main1HoursEl.value) +
+      parseNumber(b8InterHoursEl.value) +
+      parseNumber(b8StorageHoursEl.value) +
+      parseNumber(b8Main2HoursEl.value);
+
+    b8SumHoursEl.textContent = Number.isFinite(sumHours) ? String(sumHours) : "";
+  };
+
+  b8Main1HoursEl.addEventListener("input", update);
+  b8InterHoursEl.addEventListener("input", update);
+  b8StorageHoursEl.addEventListener("input", update);
+  b8Main2HoursEl.addEventListener("input", update);
+  update();
+}
+
+// B8 분 합계 계산
+function bindB8MinutesSumCalc() {
+  const b8Main1MinutesEl = document.getElementById("b8-main1-minutes");
+  const b8InterMinutesEl = document.getElementById("b8-inter-minutes");
+  const b8StorageMinutesEl = document.getElementById("b8-storage-minutes");
+  const b8Main2MinutesEl = document.getElementById("b8-main2-minutes");
+  const b8SumMinutesEl = document.getElementById("b8-sum-minutes");
+
+  if (!b8Main1MinutesEl || !b8InterMinutesEl || !b8StorageMinutesEl || !b8Main2MinutesEl || !b8SumMinutesEl) return;
+
+  const update = () => {
+    const sumMinutes =
+      parseNumber(b8Main1MinutesEl.value) +
+      parseNumber(b8InterMinutesEl.value) +
+      parseNumber(b8StorageMinutesEl.value) +
+      parseNumber(b8Main2MinutesEl.value);
+
+    b8SumMinutesEl.textContent = Number.isFinite(sumMinutes) ? String(sumMinutes) : "";
+  };
+
+  b8Main1MinutesEl.addEventListener("input", update);
+  b8InterMinutesEl.addEventListener("input", update);
+  b8StorageMinutesEl.addEventListener("input", update);
+  b8Main2MinutesEl.addEventListener("input", update);
+  update();
+}
+
+// B8 20ft 합계 계산
+function bindB8Cost20ftSumCalc() {
+  const b8Main1Cost20ftEl = document.getElementById("b8-main1-cost-20ft");
+  const b8InterCost20ftEl = document.getElementById("b8-inter-cost-20ft");
+  const b8StorageCost20ftEl = document.getElementById("b8-storage-cost-20ft");
+  const b8Main2Cost20ftEl = document.getElementById("b8-main2-cost-20ft");
+  const b8SumCost20ftEl = document.getElementById("b8-sum-cost-20ft");
+
+  if (!b8Main1Cost20ftEl || !b8InterCost20ftEl || !b8StorageCost20ftEl || !b8Main2Cost20ftEl || !b8SumCost20ftEl)
+    return;
+
+  const update = () => {
+    const sumCost20ft =
+      parseNumber(b8Main1Cost20ftEl.value) +
+      parseNumber(b8InterCost20ftEl.value) +
+      parseNumber(b8StorageCost20ftEl.value) +
+      parseNumber(b8Main2Cost20ftEl.value);
+
+    b8SumCost20ftEl.textContent = Number.isFinite(sumCost20ft) ? String(sumCost20ft) : "";
+  };
+
+  b8Main1Cost20ftEl.addEventListener("input", update);
+  b8InterCost20ftEl.addEventListener("input", update);
+  b8StorageCost20ftEl.addEventListener("input", update);
+  b8Main2Cost20ftEl.addEventListener("input", update);
+  update();
+}
+
+// B8 40ft 합계 계산
+function bindB8Cost40ftSumCalc() {
+  const b8Main1Cost40ftEl = document.getElementById("b8-main1-cost-40ft");
+  const b8InterCost40ftEl = document.getElementById("b8-inter-cost-40ft");
+  const b8StorageCost40ftEl = document.getElementById("b8-storage-cost-40ft");
+  const b8Main2Cost40ftEl = document.getElementById("b8-main2-cost-40ft");
+  const b8SumCost40ftEl = document.getElementById("b8-sum-cost-40ft");
+
+  if (!b8Main1Cost40ftEl || !b8InterCost40ftEl || !b8StorageCost40ftEl || !b8Main2Cost40ftEl || !b8SumCost40ftEl)
+    return;
+
+  const update = () => {
+    const sumCost40ft =
+      parseNumber(b8Main1Cost40ftEl.value) +
+      parseNumber(b8InterCost40ftEl.value) +
+      parseNumber(b8StorageCost40ftEl.value) +
+      parseNumber(b8Main2Cost40ftEl.value);
+
+    b8SumCost40ftEl.textContent = Number.isFinite(sumCost40ft) ? String(sumCost40ft) : "";
+  };
+
+  b8Main1Cost40ftEl.addEventListener("input", update);
+  b8InterCost40ftEl.addEventListener("input", update);
+  b8StorageCost40ftEl.addEventListener("input", update);
+  b8Main2Cost40ftEl.addEventListener("input", update);
   update();
 }
 
@@ -858,20 +1047,27 @@ if (window.location.pathname.includes("b.html")) {
     bindB6VolumeCalc();
     bindB7GetB6Input1();
     bindB7GetB6Input2();
+
     bindB7DaysSumCalc();
     bindB7HoursSumCalc();
     bindB7MinutesSumCalc();
     bindB720ftSumCalc();
     bindB740ftSumCalc();
+
+    bindB8DaysSumCalc();
+    bindB8HoursSumCalc();
+    bindB8MinutesSumCalc();
+    bindB8Cost20ftSumCalc();
+    bindB8Cost40ftSumCalc();
   });
 
   const nextButton = document.getElementById("b-to-c");
   if (nextButton) {
     nextButton.addEventListener("click", (e) => {
-      if (!validatePage(BpageFieldMapping)) {
-        e.preventDefault(); // 검증 실패 시 페이지 이동 방지
-        return false;
-      }
+      // if (!validatePage(BpageFieldMapping)) {
+      //   e.preventDefault(); // 검증 실패 시 페이지 이동 방지
+      //   return false;
+      // }
       savePageBData();
     });
   }
