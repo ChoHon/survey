@@ -12,90 +12,76 @@
       <div class="overflow-hidden rounded-lg bg-white shadow-sm">
         <div class="px-4 py-5">
           <div class="mb-5">
-            <h2 class="text-2xl font-bold text-center">
-              B. 사업체별 화물운송실태 조사
-            </h2>
+            <h2 class="text-center text-2xl font-bold">B. 사업체별 화물운송실태 조사</h2>
           </div>
 
-          <div class="mt-7 mb-10 text-left intro">
+          <div class="intro mt-7 mb-10 text-left">
             <p>
-              다음은 국내 컨테이너 내륙 운송사의 컨테이너 운송실태와 운송수단
-              선택에 있어서 중요하게 생각하는 사항 등을 파악하기 위한
-              설문입니다.
-              <span class="text-red-600 font-bold"
-                >국내 내륙에서의 컨테이너 운송</span
-              >에 한하여, 2024년을 기준으로(부득이한 경우 현황 파악이 가능한
-              최신년도 기준) 응답해주시기 바랍니다. 명확하지 않는 부분이 있어도
-              최대한 상세하게 추정하여 응답해주시면 감사하겠습니다.
+              다음은 국내 컨테이너 내륙 운송사의 컨테이너 운송실태와 운송수단 선택에 있어서 중요하게 생각하는 사항 등을
+              파악하기 위한 설문입니다.
+              <span class="font-bold text-red-600">국내 내륙에서의 컨테이너 운송</span>에 한하여, 2024년을
+              기준으로(부득이한 경우 현황 파악이 가능한 최신년도 기준) 응답해주시기 바랍니다. 명확하지 않는 부분이
+              있어도 최대한 상세하게 추정하여 응답해주시면 감사하겠습니다.
             </p>
           </div>
 
           <form id="surveyForm">
             <div class="intro">
-              <p class="text-lg font-bold pl-10 -indent-10">
+              <p class="pl-10 -indent-10 text-lg font-bold">
                 문B1. 다음은 귀사의 사업체 현황 및 규모에 관한 설문입니다.
               </p>
 
               <div class="flex gap-1 py-4">
-                <label
-                  for="numberOfEmployees"
-                  class="block text-md font-medium mt-1 mr-5"
+                <label for="numberOfEmployees" class="text-md mt-1 mr-5 block font-medium"
                   >문1-1. 귀사의 종사자수는 어떻게 되십니까?</label
                 >
                 <div class="flex gap-1">
                   <input
                     id="numberOfEmployees"
                     type="text"
-                    class="block w-[80%] h-[32px] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 placeholder:text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                    class="block h-[32px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                   />
                   <span class="mt-1">명</span>
                 </div>
               </div>
 
               <div class="py-4">
-                <p class="block text-md font-medium mb-1">
+                <p class="text-md mb-1 block font-medium">
                   문1-2. 귀사의 컨테이너 운송수단 보유현황은 어떻게 되십니까?
                 </p>
                 <div class="grid grid-cols-3">
-                  <div class="px-3 mt-1 text-left">① 컨테이너 운송차량</div>
-                  <div class="flex gap-1 col-span-2">
-                    <label for="containerVehicleTotal" class="mt-1 mr-1"
-                      >총</label
-                    >
+                  <div class="mt-1 px-3 text-left">① 컨테이너 운송차량</div>
+                  <div class="col-span-2 flex gap-1">
+                    <label for="containerVehicleTotal" class="mt-1 mr-1">총</label>
                     <input
                       id="containerVehicleTotal"
                       type="text"
-                      class="block w-[36%] h-[32px] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 placeholder:text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      class="block h-[32px] w-[36%] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                     />
                     <span class="mt-1">대</span>
                   </div>
                   <div></div>
-                  <div class="flex gap-1 py-1 ml-3">
-                    <label for="containerVehicleDirect" class="mt-1 mr-2 w-10"
-                      >( 직영</label
-                    >
+                  <div class="ml-3 flex gap-1 py-1">
+                    <label for="containerVehicleDirect" class="mt-1 mr-2 w-10">( 직영</label>
                     <input
                       id="containerVehicleDirect"
                       type="text"
-                      class="block w-[60%] h-[32px] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 placeholder:text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      class="block h-[32px] w-[60%] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                     />
                     <span class="mt-1">대,</span>
                   </div>
-                  <div class="flex gap-1 py-1 ml-7">
+                  <div class="ml-7 flex gap-1 py-1">
                     <span class="mt-1">위수탁(지입)</span>
-                    <span
-                      id="containerVehicleConsigned"
-                      class="px-1 mt-1 text-blue-600 font-bold"
-                    ></span>
+                    <span id="containerVehicleConsigned" class="mt-1 px-1 font-bold text-blue-600"></span>
                     <span class="mt-1">대)</span>
                   </div>
-                  <div class="px-3 py-4 mt-1 text-left">② 사유화차</div>
-                  <div class="flex gap-1 col-span-2 py-4">
+                  <div class="mt-1 px-3 py-4 text-left">② 사유화차</div>
+                  <div class="col-span-2 flex gap-1 py-4">
                     <label for="privateVehicle" class="mt-1 mr-1">총</label>
                     <input
                       id="privateVehicle"
                       type="text"
-                      class="block w-[36%] h-[32px] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 placeholder:text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      class="block h-[32px] w-[36%] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                     />
                     <span class="mt-1">량</span>
                   </div>
@@ -103,25 +89,21 @@
               </div>
 
               <div class="py-4">
-                <div class="block text-md font-medium mb-1">
-                  문1-3. 귀사의 연간 매출액은 어떻게 되십니까?
-                </div>
+                <div class="text-md mb-1 block font-medium">문1-3. 귀사의 연간 매출액은 어떻게 되십니까?</div>
 
                 <div class="flex gap-1">
-                  <label for="annualRevenueTotal" class="px-3 mt-1">총</label>
+                  <label for="annualRevenueTotal" class="mt-1 px-3">총</label>
                   <input
                     id="annualRevenueTotal"
                     type="text"
-                    class="block w-[20%] h-[32px] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 placeholder:text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                    class="block h-[32px] w-[20%] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                   />
                   <span class="mt-1 w-10">억원</span>
-                  <label for="annualRevenueInland" class="mt-1 ml-25 w-40"
-                    >(컨테이너 내륙운송부분</label
-                  >
+                  <label for="annualRevenueInland" class="mt-1 ml-25 w-40">(컨테이너 내륙운송부분</label>
                   <input
                     id="annualRevenueInland"
                     type="text"
-                    class="block w-[20%] h-[32px] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 placeholder:text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                    class="block h-[32px] w-[20%] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                   />
                   <span class="mt-1 w-10">억원)</span>
                 </div>
@@ -129,42 +111,39 @@
             </div>
 
             <div class="intro">
-              <p class="text-lg font-bold pl-10 -indent-10">
+              <p class="pl-10 -indent-10 text-lg font-bold">
                 문B2. 2024년 기준 귀사의 연간 컨테이너 운송량은 어떻게 되십니까?
               </p>
 
               <div class="py-4">
                 <div class="flex gap-1 py-1">
-                  <label for="b2-total" class="px-3 mt-1 mr-6">① 총</label>
+                  <label for="b2-total" class="mt-1 mr-6 px-3">① 총</label>
                   <input
                     id="b2-total"
                     type="text"
-                    class="block w-[22.5%] h-[32px] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 placeholder:text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                    class="block h-[32px] w-[22.5%] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                   />
                   <span class="mt-1 w-10">TEU</span>
                 </div>
                 <div class="flex gap-1 py-1">
-                  <div class="px-3 mt-1">② 수단별</div>
-                  <label for="b2-road" class="px-2 mt-1 ml-2">도로</label>
+                  <div class="mt-1 px-3">② 수단별</div>
+                  <label for="b2-road" class="mt-1 ml-2 px-2">도로</label>
                   <input
                     id="b2-road"
                     type="text"
-                    class="block w-[15%] h-[32px] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 placeholder:text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                    class="block h-[32px] w-[15%] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                   />
                   <span class="mt-1 w-10">TEU</span>
-                  <label for="b2-rail" class="px-5 mt-1">철도</label>
+                  <label for="b2-rail" class="mt-1 px-5">철도</label>
                   <input
                     id="b2-rail"
                     type="text"
-                    class="block w-[15%] h-[32px] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 placeholder:text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                    class="block h-[32px] w-[15%] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                   />
                   <span class="mt-1 w-10">TEU</span>
-                  <div class="px-2 mt-1 ml-2">
+                  <div class="mt-1 ml-2 px-2">
                     연안해운
-                    <span
-                      id="b2-coastal"
-                      class="px-2 text-blue-600 font-bold"
-                    ></span>
+                    <span id="b2-coastal" class="px-2 font-bold text-blue-600"></span>
                     TEU
                   </div>
                 </div>
@@ -172,7 +151,7 @@
             </div>
 
             <div class="intro">
-              <p class="text-lg font-bold pl-10 -indent-10">
+              <p class="pl-10 -indent-10 text-lg font-bold">
                 문B3. 귀사의 컨테이너 화주 고객사는 어떻게 구성되어 있습니까?
               </p>
 
@@ -191,7 +170,7 @@
                         <input
                           id="b3-under9-number"
                           type="text"
-                          class="block w-[90%] h-[32px] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 placeholder:text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                          class="block h-[32px] w-[90%] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                         />
                         <div class="mt-1 ml-1">개</div>
                       </div>
@@ -201,7 +180,7 @@
                         <input
                           id="b3-under9-percent"
                           type="text"
-                          class="block w-[90%] h-[32px] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 placeholder:text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                          class="block h-[32px] w-[90%] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                         />
                         <div class="mt-1 ml-1">%</div>
                       </div>
@@ -215,7 +194,7 @@
                         <input
                           id="b3-under100-number"
                           type="text"
-                          class="block w-[90%] h-[32px] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 placeholder:text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                          class="block h-[32px] w-[90%] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                         />
                         <div class="mt-1 ml-1">개</div>
                       </div>
@@ -225,7 +204,7 @@
                         <input
                           id="b3-under100-percent"
                           type="text"
-                          class="block w-[90%] h-[32px] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 placeholder:text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                          class="block h-[32px] w-[90%] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                         />
                         <div class="mt-1 ml-1">%</div>
                       </div>
@@ -239,17 +218,14 @@
                         <input
                           id="b3-over100-number"
                           type="text"
-                          class="block w-[90%] h-[32px] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 placeholder:text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                          class="block h-[32px] w-[90%] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                         />
                         <div class="mt-1 ml-1">개</div>
                       </div>
                     </td>
                     <td class="border-1 text-right">
                       <div class="px-2">
-                        <span
-                          id="b3-over100-percent"
-                          class="px-2 text-blue-600 font-bold"
-                        ></span>
+                        <span id="b3-over100-percent" class="px-2 font-bold text-blue-600"></span>
                         %
                       </div>
                     </td>
@@ -258,10 +234,7 @@
                     <td class="w-[5%] border-1" colspan="2">합계</td>
                     <td class="border-1 text-right">
                       <div class="px-2">
-                        <span
-                          id="b3-number-sum"
-                          class="px-2 text-blue-600 font-bold"
-                        ></span>
+                        <span id="b3-number-sum" class="px-2 font-bold text-blue-600"></span>
                         개
                       </div>
                     </td>
@@ -274,12 +247,11 @@
             </div>
 
             <div class="intro">
-              <p class="text-lg font-bold pl-10 -indent-10">
-                문B4. 컨테이너 운송수단 선택에 귀사가 가지는 결정권의 수준은
-                어느정도입니까?
+              <p class="pl-10 -indent-10 text-lg font-bold">
+                문B4. 컨테이너 운송수단 선택에 귀사가 가지는 결정권의 수준은 어느정도입니까?
               </p>
 
-              <div class="py-4 ml-5">
+              <div class="ml-5 py-4">
                 <div class="space-y-2">
                   <div class="flex items-center">
                     <input
@@ -289,9 +261,7 @@
                       checked
                       class="relative size-4 appearance-none rounded-full border border-gray-300 bg-white before:absolute before:inset-1 before:rounded-full before:bg-white not-checked:before:hidden checked:border-indigo-600 checked:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:before:bg-gray-400 forced-colors:appearance-auto forced-colors:before:hidden"
                     />
-                    <label for="b4-completely" class="ml-3 mt-0.5"
-                      >① 전적으로 운송수단 선택권을 가짐</label
-                    >
+                    <label for="b4-completely" class="mt-0.5 ml-3">① 전적으로 운송수단 선택권을 가짐</label>
                   </div>
                   <div class="flex items-center">
                     <input
@@ -300,9 +270,8 @@
                       name="b4"
                       class="relative size-4 appearance-none rounded-full border border-gray-300 bg-white before:absolute before:inset-1 before:rounded-full before:bg-white not-checked:before:hidden checked:border-indigo-600 checked:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:before:bg-gray-400 forced-colors:appearance-auto forced-colors:before:hidden"
                     />
-                    <label for="b4-in-general" class="ml-3 mt-0.5"
-                      >② 전반적으로 운송수단 선택권을 가지나 일부 화주사의
-                      선호나 요청사항 반영</label
+                    <label for="b4-in-general" class="mt-0.5 ml-3"
+                      >② 전반적으로 운송수단 선택권을 가지나 일부 화주사의 선호나 요청사항 반영</label
                     >
                   </div>
                   <div class="flex items-center">
@@ -312,9 +281,8 @@
                       name="b4"
                       class="relative size-4 appearance-none rounded-full border border-gray-300 bg-white before:absolute before:inset-1 before:rounded-full before:bg-white not-checked:before:hidden checked:border-indigo-600 checked:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:before:bg-gray-400 forced-colors:appearance-auto forced-colors:before:hidden"
                     />
-                    <label for="b4-few" class="ml-3 mt-0.5"
-                      >③ 일부에 한해 운송수단 선택권을 가지며, 전반적으로
-                      화주사가 운송수단을 선택</label
+                    <label for="b4-few" class="mt-0.5 ml-3"
+                      >③ 일부에 한해 운송수단 선택권을 가지며, 전반적으로 화주사가 운송수단을 선택</label
                     >
                   </div>
                   <div class="flex items-center">
@@ -324,9 +292,7 @@
                       name="b4"
                       class="relative size-4 appearance-none rounded-full border border-gray-300 bg-white before:absolute before:inset-1 before:rounded-full before:bg-white not-checked:before:hidden checked:border-indigo-600 checked:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:before:bg-gray-400 forced-colors:appearance-auto forced-colors:before:hidden"
                     />
-                    <label for="b4-none" class="ml-3 mt-0.5"
-                      >④ 전적으로 화주사가 운송수단 선택권을 가짐</label
-                    >
+                    <label for="b4-none" class="mt-0.5 ml-3">④ 전적으로 화주사가 운송수단 선택권을 가짐</label>
                   </div>
                   <div class="flex items-center">
                     <input
@@ -335,18 +301,16 @@
                       name="b4"
                       class="relative size-4 appearance-none rounded-full border border-gray-300 bg-white before:absolute before:inset-1 before:rounded-full before:bg-white not-checked:before:hidden checked:border-indigo-600 checked:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:before:bg-gray-400 forced-colors:appearance-auto forced-colors:before:hidden"
                     />
-                    <label for="b4-single-only" class="ml-3 mt-0.5"
-                      >⑤ 해당없음(단일 운송수단만 이용)</label
-                    >
+                    <label for="b4-single-only" class="mt-0.5 ml-3">⑤ 해당없음(단일 운송수단만 이용)</label>
                   </div>
                 </div>
               </div>
             </div>
 
             <div class="intro">
-              <p class="text-lg font-bold pl-10 -indent-10">
-                문B5. 컨테이너 화물을 국내 목적지(항만 또는 화주 문전)까지
-                운송을 완료하는 데까지 요구되는 시간은 어느 정도입니까?
+              <p class="pl-10 -indent-10 text-lg font-bold">
+                문B5. 컨테이너 화물을 국내 목적지(항만 또는 화주 문전)까지 운송을 완료하는 데까지 요구되는 시간은 어느
+                정도입니까?
               </p>
 
               <div class="py-4">
@@ -364,7 +328,7 @@
                         <input
                           id="b5-same-day"
                           type="text"
-                          class="block w-[90%] h-[32px] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 placeholder:text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                          class="block h-[32px] w-[90%] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                         />
                         <div class="mt-1 ml-1">%</div>
                       </div>
@@ -374,7 +338,7 @@
                         <input
                           id="b5-next-day"
                           type="text"
-                          class="block w-[90%] h-[32px] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 placeholder:text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                          class="block h-[32px] w-[90%] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                         />
                         <div class="mt-1 ml-1">%</div>
                       </div>
@@ -384,17 +348,14 @@
                         <input
                           id="b5-within-a-week"
                           type="text"
-                          class="block w-[90%] h-[32px] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 placeholder:text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                          class="block h-[32px] w-[90%] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                         />
                         <div class="mt-1 ml-1">%</div>
                       </div>
                     </td>
                     <td class="border-1 text-right">
                       <div class="px-2">
-                        <span
-                          id="b5-over-a-week"
-                          class="px-2 text-blue-600 font-bold"
-                        ></span>
+                        <span id="b5-over-a-week" class="px-2 font-bold text-blue-600"></span>
                         %
                       </div>
                     </td>
@@ -407,19 +368,17 @@
             </div>
 
             <div class="intro">
-              <p class="text-lg font-bold pl-10 -indent-10">
-                문B6. 단거리 셔틀운송을 제외하고, 귀사가 가장 많은 컨테이너를
-                운송하는 대표운송구간이 어떻게 되십니까?(시군구 기준)
+              <p class="pl-10 -indent-10 text-lg font-bold">
+                문B6. 단거리 셔틀운송을 제외하고, 귀사가 가장 많은 컨테이너를 운송하는 대표운송구간이 어떻게
+                되십니까?(시군구 기준)
               </p>
 
               <div class="py-4">
                 <p class="mb-4">
                   <span class="text-red-600 underline"
-                    >단, 귀사가 철도를 이용중이라면 철도물동량이 가장 많은
-                    구간을 기준으로 응답</span
-                  >해주시기 바라며, 동일 구간의 도로운송현황도 응답해주시기
-                  바랍니다. 철도를 전혀 이용하지 않는다면 도로운송에 한해서
-                  응답해주시기 바랍니다.
+                    >단, 귀사가 철도를 이용중이라면 철도물동량이 가장 많은 구간을 기준으로 응답</span
+                  >해주시기 바라며, 동일 구간의 도로운송현황도 응답해주시기 바랍니다. 철도를 전혀 이용하지 않는다면
+                  도로운송에 한해서 응답해주시기 바랍니다.
                 </p>
 
                 <table class="w-full text-center">
@@ -430,7 +389,7 @@
                         <input
                           id="b6-inland-sido"
                           type="text"
-                          class="w-[100px] h-[32px] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 placeholder:text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                          class="h-[32px] w-[100px] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                         />
                         <div class="mt-1.5 ml-1">시·도</div>
                       </div>
@@ -440,7 +399,7 @@
                         <input
                           id="b6-inland-sigun"
                           type="text"
-                          class="w-[100px] h-[32px] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 placeholder:text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                          class="h-[32px] w-[100px] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                         />
                         <div class="mt-1 ml-1">시·군</div>
                       </div>
@@ -450,7 +409,7 @@
                         <input
                           id="b6-inland-gu"
                           type="text"
-                          class="w-[100px] h-[32px] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 placeholder:text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                          class="h-[32px] w-[100px] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                         />
                         <div class="mt-1 ml-1">구</div>
                       </div>
@@ -461,7 +420,7 @@
                         <input
                           id="b6-inland-point"
                           type="text"
-                          class="w-[100px] h-[32px] rounded-md bg-white px-3 py-1.5 text-center text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 placeholder:text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                          class="h-[32px] w-[100px] rounded-md bg-white px-3 py-1.5 text-center text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                         />
                         <div class="mt-1 ml-1">)</div>
                       </div>
@@ -473,12 +432,8 @@
 
                 <table class="w-full text-center">
                   <tr class="h-[36px] border-1 bg-gray-200">
-                    <td class="w-[30%] border-1 px-5" colspan="2">
-                      철도 경유지
-                    </td>
-                    <td class="w-[70%] border-1 px-2" colspan="4">
-                      도로 경유지(*이용시)
-                    </td>
+                    <td class="w-[30%] border-1 px-5" colspan="2">철도 경유지</td>
+                    <td class="w-[70%] border-1 px-2" colspan="4">도로 경유지(*이용시)</td>
                   </tr>
                   <tr class="border-1">
                     <td class="w-[10%] border-1 bg-gray-200 px-3">화물역1</td>
@@ -486,18 +441,16 @@
                       <input
                         id="b6-rail-inter-1"
                         type="text"
-                        class="w-[100%] h-[32px] px-3 py-1.5 text-center text-sm text-gray-900 outline-1 placeholder:text-gray-400 placeholder:text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                        class="h-[32px] w-[100%] px-3 py-1.5 text-center text-sm text-gray-900 outline-1 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                       />
                     </td>
-                    <td class="w-[13%] border-1 bg-gray-200 px-3">
-                      경유지 주소
-                    </td>
+                    <td class="w-[13%] border-1 bg-gray-200 px-3">경유지 주소</td>
                     <td class="w-[19%] px-2">
                       <div class="flex gap-1">
                         <input
                           id="b6-road-inter-sido"
                           type="text"
-                          class="w-[60%] h-[32px] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 placeholder:text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                          class="h-[32px] w-[60%] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                         />
                         <div class="mt-1.5 ml-1">시·도</div>
                       </div>
@@ -507,7 +460,7 @@
                         <input
                           id="b6-road-inter-sigun"
                           type="text"
-                          class="w-[68%] h-[32px] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 placeholder:text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                          class="h-[32px] w-[68%] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                         />
                         <div class="mt-1 ml-1">시·군</div>
                       </div>
@@ -517,7 +470,7 @@
                         <input
                           id="b6-road-inter-gu"
                           type="text"
-                          class="w-[90%] h-[32px] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 placeholder:text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                          class="h-[32px] w-[90%] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                         />
                         <div class="mt-1 ml-1">구</div>
                       </div>
@@ -529,7 +482,7 @@
                       <input
                         id="b6-rail-inter-2"
                         type="text"
-                        class="w-[100%] h-[32px] px-3 py-1.5 text-center text-sm text-gray-900 outline-1 placeholder:text-gray-400 placeholder:text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                        class="h-[32px] w-[100%] px-3 py-1.5 text-center text-sm text-gray-900 outline-1 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                       />
                     </td>
                     <td class="w-[13%] border-1 bg-gray-200 px-3">경유지명</td>
@@ -538,7 +491,7 @@
                         <input
                           id="b6-road-inter-point"
                           type="text"
-                          class="w-[100%] h-[32px] px-3 py-1.5 text-center text-sm text-gray-900 outline-1 placeholder:text-gray-400 placeholder:text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                          class="h-[32px] w-[100%] px-3 py-1.5 text-center text-sm text-gray-900 outline-1 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                         />
                       </div>
                     </td>
@@ -555,7 +508,7 @@
                         <input
                           id="b6-port-sido"
                           type="text"
-                          class="w-[100px] h-[32px] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 placeholder:text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                          class="h-[32px] w-[100px] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                         />
                         <div class="mt-1.5 ml-1">시·도</div>
                       </div>
@@ -565,7 +518,7 @@
                         <input
                           id="b6-port-sigun"
                           type="text"
-                          class="w-[100px] h-[32px] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 placeholder:text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                          class="h-[32px] w-[100px] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                         />
                         <div class="mt-1 ml-1">시·군</div>
                       </div>
@@ -575,7 +528,7 @@
                         <input
                           id="b6-port-gu"
                           type="text"
-                          class="w-[100px] h-[32px] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 placeholder:text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                          class="h-[32px] w-[100px] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                         />
                         <div class="mt-1 ml-1">구</div>
                       </div>
@@ -586,26 +539,24 @@
                         <input
                           id="b6-port-point"
                           type="text"
-                          class="w-[100px] h-[32px] rounded-md bg-white px-3 py-1.5 text-center text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 placeholder:text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                          class="h-[32px] w-[100px] rounded-md bg-white px-3 py-1.5 text-center text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                         />
                         <div class="mt-1 ml-1">)</div>
                       </div>
                     </td>
                   </tr>
                 </table>
-                <table class="w-full text-center mt-4">
+                <table class="mt-4 w-full text-center">
                   <tr class="h-[36px] border-1">
-                    <td class="w-[15.2%] border-1 bg-gray-200" rowspan="3">
-                      연간 운송량
-                    </td>
-                    <td class="w-[7%] border-1 bg-gray-200">합계</td>
+                    <td class="w-[15.2%] border-1 bg-gray-200" rowspan="3">연간 운송량</td>
+                    <td class="w-[7%] border-1 bg-gray-200 text-center">합계</td>
                     <td class="border-1 text-right" colspan="2">
                       <div class="mr-2">
                         총
                         <input
                           id="b6-volume-total"
                           type="text"
-                          class="mx-2 w-[80%] h-[32px] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 placeholder:text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                          class="mx-2 h-[32px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                         />
                         TEU
                       </div>
@@ -619,7 +570,7 @@
                         <input
                           id="b6-volume-export"
                           type="text"
-                          class="mx-2 w-[65%] h-[32px] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 placeholder:text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                          class="mx-2 h-[32px] w-[65%] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                         />
                         TEU
                       </div>
@@ -627,10 +578,7 @@
                     <td class="w-[35%] border-1 text-right">
                       <div class="mr-2">
                         수입
-                        <span
-                          id="b6-volume-import"
-                          class="text-blue-600 font-bold mx-2"
-                        ></span>
+                        <span id="b6-volume-import" class="mx-2 font-bold text-blue-600"></span>
                         TEU
                       </div>
                     </td>
@@ -643,7 +591,7 @@
                         <input
                           id="b6-volume-rail"
                           type="text"
-                          class="mx-2 w-[65%] h-[32px] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 placeholder:text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                          class="mx-2 h-[32px] w-[65%] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                         />
                         TEU
                       </div>
@@ -651,10 +599,7 @@
                     <td class="w-[35%] border-1 text-right">
                       <div class="mr-2">
                         도로
-                        <span
-                          id="b6-volume-road"
-                          class="text-blue-600 font-bold mx-2"
-                        ></span>
+                        <span id="b6-volume-road" class="mx-2 font-bold text-blue-600"></span>
                         TEU
                       </div>
                     </td>
@@ -666,16 +611,18 @@
         </div>
       </div>
 
-      <div class="flex justify-center mt-4">
+      <div class="mt-4 flex justify-center">
         <a
+          id="b-to-a"
           href="a.html"
-          class="rounded-l-md w-[100px] bg-blue-600 px-3.5 py-2.5 text-lg font-semibold text-white shadow-xs outline-white outline-1 hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 text-center"
+          class="w-[100px] rounded-l-md bg-blue-600 px-3.5 py-2.5 text-center text-lg font-semibold text-white shadow-xs outline-1 outline-white hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
         >
           이전
         </a>
         <a
+          id="b-to-c"
           href="c.html"
-          class="rounded-r-md w-[100px] bg-blue-600 px-3.5 py-2.5 text-lg font-semibold text-white shadow-xs outline-white outline-1 hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 text-center"
+          class="w-[100px] rounded-r-md bg-blue-600 px-3.5 py-2.5 text-center text-lg font-semibold text-white shadow-xs outline-1 outline-white hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
         >
           다음
         </a>

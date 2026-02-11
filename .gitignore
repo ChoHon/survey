@@ -1,2 +1,4 @@
 firebaseKey.json
 *.xlsx
+
+node_modules/
