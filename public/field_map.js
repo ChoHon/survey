@@ -106,6 +106,8 @@ const BpageFieldMapping = {
   "b8-main2-minutes": "B8.main2.duration.minutes",
   "b8-main2-cost-20ft": "B8.main2.cost.ft20",
   "b8-main2-cost-40ft": "B8.main2.cost.ft40",
+
+  "b9-duration-hours": "B9.duration.hours",
 };
 
 const CpageFieldMapping = {};

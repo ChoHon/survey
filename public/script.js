@@ -979,6 +979,61 @@ function savePageBData() {
         },
       },
     },
+    B8: {
+      main1: {
+        duration: {
+          days: parseNumber(document.getElementById("b8-main1-days")?.value),
+          hours: parseNumber(document.getElementById("b8-main1-hours")?.value),
+          minutes: parseNumber(document.getElementById("b8-main1-minutes")?.value),
+        },
+        cost: {
+          ft20: parseNumber(document.getElementById("b8-main1-cost-20ft")?.value),
+          ft40: parseNumber(document.getElementById("b8-main1-cost-40ft")?.value),
+        },
+      },
+      transshipment: {
+        loadAndUnload: {
+          duration: {
+            days: parseNumber(document.getElementById("b8-inter-days")?.value),
+            hours: parseNumber(document.getElementById("b8-inter-hours")?.value),
+            minutes: parseNumber(document.getElementById("b8-inter-minutes")?.value),
+          },
+          cost: {
+            ft20: parseNumber(document.getElementById("b8-inter-cost-20ft")?.value),
+            ft40: parseNumber(document.getElementById("b8-inter-cost-40ft")?.value),
+          },
+        },
+        storage: {
+          duration: {
+            days: parseNumber(document.getElementById("b8-storage-days")?.value),
+            hours: parseNumber(document.getElementById("b8-storage-hours")?.value),
+            minutes: parseNumber(document.getElementById("b8-storage-minutes")?.value),
+          },
+          cost: {
+            ft20: parseNumber(document.getElementById("b8-storage-cost-20ft")?.value),
+            ft40: parseNumber(document.getElementById("b8-storage-cost-40ft")?.value),
+          },
+        },
+      },
+      main2: {
+        duration: {
+          days: parseNumber(document.getElementById("b8-main2-days")?.value),
+          hours: parseNumber(document.getElementById("b8-main2-hours")?.value),
+          minutes: parseNumber(document.getElementById("b8-main2-minutes")?.value),
+        },
+        cost: {
+          ft20: parseNumber(document.getElementById("b8-main2-cost-20ft")?.value),
+          ft40: parseNumber(document.getElementById("b8-main2-cost-40ft")?.value),
+        },
+      },
+    },
+    B9: {
+      duration: {
+        days: 0,
+        hours: parseNumber(document.getElementById("b9-duration-hours")?.value),
+        minutes: 0,
+      },
+    },
   };
 
   sessionStorage.setItem("surveyPageB", JSON.stringify(data));
