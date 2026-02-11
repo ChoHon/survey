@@ -108,6 +108,11 @@ const BpageFieldMapping = {
   "b8-main2-cost-40ft": "B8.main2.cost.ft40",
 
   "b9-duration-hours": "B9.duration.hours",
+
+  "b10-rail-under3Hours": "B10.rail.under3Hours",
+  "b10-rail-underB9Hours": "B10.rail.underB9Hours",
+  "b10-road-under3Hours": "B10.road.under3Hours",
+  "b10-road-underB9Hours": "B10.road.underB9Hours",
 };
 
 const CpageFieldMapping = {};

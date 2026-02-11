@@ -1344,6 +1344,69 @@
                 <div class="inline">시간 이내 지연 허용</div>
               </div>
             </div>
+
+            <!-- B10 -->
+            <div class="intro">
+              <p class="pl-10 -indent-10 text-lg font-bold">
+                문B10. 각 운송수단별 정시도착률을 아래와 같이 정의할 때, 각 운송수단별 컨테이너 화물의 현 정시도착률
+                수준은 어느 정도입니까?
+              </p>
+
+              <div class="py-4 pl-10">
+                <p class="mb-4">
+                  환적, 경유 등을 모두 감안하여 최종 목적지에 도착하는 것 기준으로 응답해주십시오. 철도를 이용하지 않을
+                  경우 철도 정시도착율은 응답하지 않으셔도 됩니다.
+                </p>
+
+                <table class="w-full text-center">
+                  <tr class="h-[36px] border-1">
+                    <td class="w-[50%] border-1 bg-gray-200">구분</td>
+                    <td class="w-[25%] border-1 bg-gray-200">철도 정시도착율</td>
+                    <td class="w-[25%] border-1 bg-gray-200">도로 정시도착율</td>
+                  </tr>
+                  <tr class="h-[36px] border-1">
+                    <td class="w-[50%] border-1">지연시간 3시간 이내</td>
+                    <td class="w-[25%] border-1">
+                      <input
+                        id="b10-rail-under3Hours"
+                        type="text"
+                        class="mx-1 h-[36px] w-[100px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      %
+                    </td>
+                    <td class="w-[25%] border-1">
+                      <input
+                        id="b10-road-under3Hours"
+                        type="text"
+                        class="mx-1 h-[36px] w-[100px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      %
+                    </td>
+                  </tr>
+                  <tr class="h-[36px] border-1">
+                    <td class="w-[50%] border-1">
+                      지연시간 <span id="b10-duration-hours" class="font-bold text-blue-600"></span>시간 이내
+                    </td>
+                    <td class="w-[25%] border-1">
+                      <input
+                        id="b10-rail-underB9Hours"
+                        type="text"
+                        class="mx-1 h-[36px] w-[100px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      %
+                    </td>
+                    <td class="w-[25%] border-1">
+                      <input
+                        id="b10-road-underB9Hours"
+                        type="text"
+                        class="mx-1 h-[36px] w-[100px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      %
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
           </form>
         </div>
       </div>

@@ -732,6 +732,21 @@ function bindB8Cost40ftSumCalc() {
   update();
 }
 
+// B10 B9 정보 가져오기
+function bindB10GetB9Input1() {
+  const b9HoursEl = document.getElementById("b9-duration-hours");
+  const b10HoursEl = document.getElementById("b10-duration-hours");
+
+  if (!b9HoursEl || !b10HoursEl) return;
+
+  const update = () => {
+    b10HoursEl.textContent = parseNumber(b9HoursEl.value);
+  };
+
+  b9HoursEl.addEventListener("input", update);
+  update();
+}
+
 // ===== 다중 페이지 설문조사 데이터 관리 =====
 
 // A 페이지 데이터 저장
@@ -1034,6 +1049,16 @@ function savePageBData() {
         minutes: 0,
       },
     },
+    B10: {
+      rail: {
+        under3Hours: parseNumber(document.getElementById("b10-rail-under3Hours")?.value),
+        underB9Hours: parseNumber(document.getElementById("b10-rail-underB9Hours")?.value),
+      },
+      road: {
+        under3Hours: parseNumber(document.getElementById("b10-road-under3Hours")?.value),
+        underB9Hours: parseNumber(document.getElementById("b10-road-underB9Hours")?.value),
+      },
+    },
   };
 
   sessionStorage.setItem("surveyPageB", JSON.stringify(data));
@@ -1114,6 +1139,8 @@ if (window.location.pathname.includes("b.html")) {
     bindB8MinutesSumCalc();
     bindB8Cost20ftSumCalc();
     bindB8Cost40ftSumCalc();
+
+    bindB10GetB9Input1();
   });
 
   const nextButton = document.getElementById("b-to-c");
