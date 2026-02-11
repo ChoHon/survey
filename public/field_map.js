@@ -29,7 +29,8 @@ const BpageFieldMapping = {
   "b5-same-day": "B5.sameDayPercentage",
   "b5-next-day": "B5.nextDayPercentage",
   "b5-within-a-week": "B5.withinAWeekPercentage",
-  //   "b5-average": "B5.average",
+  "b5-average-days": "B5.average.days",
+  "b5-average-hours": "B5.average.hours",
 
   "b6-inland-sido": "B6.inlandOD.sido",
   "b6-inland-sigun": "B6.inlandOD.sigun",

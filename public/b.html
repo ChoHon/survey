@@ -9,7 +9,7 @@
   </head>
   <body>
     <div class="mx-auto w-4xl px-4">
-      <div class="overflow-hidden rounded-lg bg-white shadow-sm">
+      <div class="overflow-hidden w-[900px] rounded-lg bg-white shadow-sm">
         <div class="px-4 py-5">
           <div class="mb-5">
             <h2 class="text-center text-2xl font-bold">B. 사업체별 화물운송실태 조사</h2>
@@ -258,7 +258,6 @@
                       id="b4-completely"
                       type="radio"
                       name="b4"
-                      checked
                       class="relative size-4 appearance-none rounded-full border border-gray-300 bg-white before:absolute before:inset-1 before:rounded-full before:bg-white not-checked:before:hidden checked:border-indigo-600 checked:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:before:bg-gray-400 forced-colors:appearance-auto forced-colors:before:hidden"
                     />
                     <label for="b4-completely" class="mt-0.5 ml-3">① 전적으로 운송수단 선택권을 가짐</label>
@@ -363,6 +362,25 @@
                       <div class="px-2">100 %</div>
                     </td>
                   </tr>
+                  <tr class="h-[36px] border-1">
+                    <td class="border-1" colspan="5">
+                      <div class="flex-none gap-1">
+                        <span class="mt-1">평균</span>
+                        <input
+                          id="b5-average-days"
+                          type="text"
+                          class="h-[32px] w-[15%] ml-3 rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                        />
+                        <span class="mt-1">일</span>
+                        <input
+                          id="b5-average-hours"
+                          type="text"
+                          class="h-[32px] w-[15%] ml-3 rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                        />
+                        <span class="mt-1">시간</span>
+                      </div>
+                    </td>
+                  </tr>
                 </table>
               </div>
             </div>
@@ -389,7 +407,7 @@
                         <input
                           id="b6-inland-sido"
                           type="text"
-                          class="h-[32px] w-[100px] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                          class="h-[32px] w-[80px] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                         />
                         <div class="mt-1.5 ml-1">시·도</div>
                       </div>
@@ -444,7 +462,7 @@
                         class="h-[32px] w-[100%] px-3 py-1.5 text-center text-sm text-gray-900 outline-1 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                       />
                     </td>
-                    <td class="w-[13%] border-1 bg-gray-200 px-3">경유지 주소</td>
+                    <td class="w-[13%] border-1 bg-gray-200 px-2">경유지 주소</td>
                     <td class="w-[19%] px-2">
                       <div class="flex gap-1">
                         <input
@@ -508,7 +526,7 @@
                         <input
                           id="b6-port-sido"
                           type="text"
-                          class="h-[32px] w-[100px] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                          class="h-[32px] w-[80px] rounded-md bg-white px-3 py-1.5 text-right text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-sm placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                         />
                         <div class="mt-1.5 ml-1">시·도</div>
                       </div>

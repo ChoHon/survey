@@ -357,12 +357,11 @@ function savePageBData() {
       nextDayPercentage: parseNumber(document.getElementById("b5-next-day")?.value),
       withinAWeekPercentage: parseNumber(document.getElementById("b5-within-a-week")?.value),
       overAWeekPercentage: parseNumber(document.getElementById("b5-over-a-week")?.textContent),
-      // TODO: 구현 필요
-      // average: {
-      //   days: document.getElementById("b5-average")?.value || "",
-      //   hours: 0,
-      //   minutes: 0,
-      // },
+      average: {
+        days: parseNumber(document.getElementById("b5-average-days")?.value),
+        hours: parseNumber(document.getElementById("b5-average-hours")?.value),
+        minutes: 0,
+      },
     },
     B6: {
       inlandOD: {
