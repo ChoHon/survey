@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
 	"time"
 
 	"survey/structs"
@@ -16,13 +17,20 @@ import (
 )
 
 func main() {
-	exportSurbey()
+	// 실행파일의 디렉토리 경로 가져오기
+	exePath, _ := os.Executable()
+	exeDir := filepath.Dir(exePath)
+	keyName := "firebaseKey.dev.json"
+
+	exportSurbey(exeDir, keyName)
 }
 
-func exportSurbey() {
+func exportSurbey(exeDir, keyName string) {
 	// Firestore 초기화
 	ctx := context.Background()
-	sa := option.WithAuthCredentialsFile(option.ServiceAccount, "./firebaseKey.dev.json")
+
+	keyPath := filepath.Join(exeDir, keyName)
+	sa := option.WithAuthCredentialsFile(option.ServiceAccount, keyPath)
 
 	app, err := firebase.NewApp(ctx, nil, sa)
 	if err != nil {
@@ -37,8 +45,9 @@ func exportSurbey() {
 
 	// CSV 파일 생성
 	filename := fmt.Sprintf("survey_export_%s.csv", time.Now().Format("20060102_150405"))
+	filePath := filepath.Join(exeDir, filename)
 
-	file, err := os.Create(filename)
+	file, err := os.Create(filePath)
 	if err != nil {
 		log.Fatalln(err)
 	}
