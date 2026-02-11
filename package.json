@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "build": "echo 'No build step required for static site'"
+  },
   "devDependencies": {
     "prettier": "^3.8.1",
     "prettier-plugin-tailwindcss": "^0.7.2"
