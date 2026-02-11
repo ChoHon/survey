@@ -113,6 +113,10 @@ const BpageFieldMapping = {
   "b10-rail-underB9Hours": "B10.rail.underB9Hours",
   "b10-road-under3Hours": "B10.road.under3Hours",
   "b10-road-underB9Hours": "B10.road.underB9Hours",
+
+  "b11-first": "B11.first",
+  "b11-second": "B11.second",
+  "b11-third": "B11.third",
 };
 
 const CpageFieldMapping = {};

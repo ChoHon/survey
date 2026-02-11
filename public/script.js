@@ -1059,6 +1059,11 @@ function savePageBData() {
         underB9Hours: parseNumber(document.getElementById("b10-road-underB9Hours")?.value),
       },
     },
+    B11: {
+      first: parseNumber(document.getElementById("b11-first")?.value),
+      second: parseNumber(document.getElementById("b11-second")?.value),
+      third: parseNumber(document.getElementById("b11-third")?.value),
+    },
   };
 
   sessionStorage.setItem("surveyPageB", JSON.stringify(data));
