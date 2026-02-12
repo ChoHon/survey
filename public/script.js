@@ -257,7 +257,7 @@ function calcSumTime(daysIds, hoursIds, minutesIds, data, dataMap) {
 
 // C 기본값 계산
 function calcPageCDefaults() {
-  const data = loadPageBData();
+  const data = loadSessionData("surveyPageB");
   if (!data) return;
 
   let ids = [
@@ -352,57 +352,6 @@ function savePageAData() {
   };
   sessionStorage.setItem("surveyPageA", JSON.stringify(data));
   return data;
-}
-
-// A 페이지 데이터 불러오기
-function loadPageAData() {
-  const saved = sessionStorage.getItem("surveyPageA");
-  return saved ? JSON.parse(saved) : null;
-}
-
-// 폼에 데이터 채우기
-function fillPageForm(fieldMap, data) {
-  if (!data) return;
-
-  Object.entries(fieldMap).forEach(([elementId, dataPath]) => {
-    const value = getNestedValue(data, dataPath);
-    if (value != null) {
-      const element = document.getElementById(elementId);
-      if (element) element.value = value;
-    }
-  });
-}
-
-// 페이지 필수 항목 검증
-function validatePage(fieldMap) {
-  const fields = Object.keys(fieldMap);
-
-  for (const field of fields) {
-    const element = document.getElementById(field);
-    const value = element?.value?.trim();
-
-    if (!value) {
-      // 빈 필드에 시각적 표시
-      if (element) {
-        element.style.borderColor = "red";
-        element.style.borderWidth = "2px";
-      }
-
-      element.addEventListener("input", () => {
-        element.style.borderColor = "";
-        element.style.borderWidth = "";
-      });
-
-      showNotification("입력하지 않은 항목이 있습니다", "error");
-
-      // 첫 번째 빈 필드로 스크롤 이동 및 포커스
-      element.scrollIntoView({ behavior: "smooth", block: "center" });
-
-      return false;
-    }
-  }
-
-  return true;
 }
 
 // B 페이지 데이터 수집
@@ -670,12 +619,6 @@ function savePageBData() {
   return data;
 }
 
-// B 페이지: 페이지 로드 시 저장된 데이터 불러오기
-function loadPageBData() {
-  const saved = sessionStorage.getItem("surveyPageB");
-  return saved ? JSON.parse(saved) : null;
-}
-
 // C 페이지: 페이지 저장
 function savePageCData(picked) {
   const getRadioValue = (name) => {
@@ -708,16 +651,185 @@ function savePageCData(picked) {
   return data;
 }
 
-// C 페이지: 페이지 로드 시 저장된 데이터 불러오기
-function loadPageCData() {
-  const saved = sessionStorage.getItem("surveyPageC");
+// 세션 데이터 불러오기
+function loadSessionData(key) {
+  const saved = sessionStorage.getItem(key);
   return saved ? JSON.parse(saved) : null;
 }
 
-// A 페이지: 페이지 로드 시 저장된 데이터 불러오기
+// 폼에 데이터 채우기
+function fillPageForm(fieldMap, data) {
+  if (!data) return;
+
+  Object.entries(fieldMap).forEach(([elementId, dataPath]) => {
+    const value = getNestedValue(data, dataPath);
+    if (value != null) {
+      const element = document.getElementById(elementId);
+      if (element) element.value = value;
+    }
+  });
+}
+
+// 페이지 필수 항목 검증
+function validatePage(fieldMap) {
+  const fields = Object.keys(fieldMap);
+
+  for (const field of fields) {
+    const element = document.getElementById(field);
+    const value = element?.value?.trim();
+
+    if (!value) {
+      // 빈 필드에 시각적 표시
+      if (element) {
+        element.style.borderColor = "red";
+        element.style.borderWidth = "2px";
+      }
+
+      element.addEventListener("input", () => {
+        element.style.borderColor = "";
+        element.style.borderWidth = "";
+      });
+
+      showNotification("입력하지 않은 항목이 있습니다", "error");
+
+      // 첫 번째 빈 필드로 스크롤 이동 및 포커스
+      element.scrollIntoView({ behavior: "smooth", block: "center" });
+
+      return false;
+    }
+  }
+
+  return true;
+}
+
+// C 기본값에 문항가중치 적용
+function calcQuestion(defaultData, pickedNum) {
+  const picked = questions[pickedNum];
+
+  // 비용 기본값 선택
+  let railCost = defaultData.rail.costFt40 > 0 ? defaultData.rail.costFt40 : defaultData.rail.costFt20;
+  let roadCost = defaultData.road.costFt40 > 0 ? defaultData.road.costFt40 : defaultData.road.costFt20;
+  if (railCost == 0) railCost = roadCost * 1.1;
+
+  // 비용 가중치 적용
+  railCost *= picked.railCost;
+  roadCost *= picked.roadCost;
+
+  // 시간 가중치 적용
+  let railDuration = Math.round(defaultData.rail.duration * picked.railDuration * 10) / 10;
+  let roadDuration = Math.round(defaultData.road.duration * picked.roadDuration * 10) / 10;
+
+  // 비교 문자열 생성 헬퍼 함수
+  function compareValues(railValue, roadValue, unit, higherWord, lowerWord) {
+    const diff = railValue - roadValue;
+    if (diff > 0) {
+      return `철도가 ${diff} ${unit} ${higherWord}`;
+    } else if (diff < 0) {
+      return `철도가 ${diff * -1} ${unit} ${lowerWord}`;
+    } else {
+      return "동일";
+    }
+  }
+
+  const costCmp = compareValues(railCost, roadCost, "만원", "비쌈", "쌈");
+  const durationCmp = compareValues(Math.round((railDuration - roadDuration) * 10) / 10, 0, "시간", "느림", "빠름");
+  const accCmp = compareValues(picked.railAcc, picked.roadAcc, "%p", "높음", "낮음");
+
+  return {
+    rail: {
+      cost: railCost,
+      duration: railDuration,
+      acc: picked.railAcc,
+      times: picked.railTimes,
+    },
+    road: {
+      cost: roadCost,
+      duration: roadDuration,
+      acc: picked.roadAcc,
+    },
+    costCmp,
+    durationCmp,
+    accCmp,
+    questionNum: pickedNum,
+  };
+}
+
+// C 페이지: 문항 추가
+function makePageC(i, data) {
+  const QuestionEl = document.getElementById("c");
+
+  const question = document.createElement("div");
+  question.id = `c${i}`;
+  question.className = "intro";
+  question.innerHTML = `
+        <p class="pl-10 -indent-10 text-lg font-bold">문C${i}</p>
+        <div id="question-${data.questionNum + 1}">
+          <table class="w-full text-center">
+            <tr class="h-[36px] border-1 bg-gray-200">
+              <td class="w-[35%] border-1 px-2">운송조건</td>
+              <td class="w-[22%] border-1 px-2">철도</td>
+              <td class="w-[22%] border-1 px-2">도로</td>
+              <td class="border-1 px-2">철도-도로 차이</td>
+            </tr>
+            <tr class="h-[36px] border-1">
+              <td class="border-1 px-2">운송비용</td>
+              <td class="border-1 px-2 text-right"><span id="question-${data.questionNum + 1}-rail-cost">${data.rail.cost}</span> 만원</td>
+              <td class="border-1 px-2 text-right"><span id="question-${data.questionNum + 1}-road-cost">${data.road.cost}</span> 만원</td>
+              <td class="border-1 px-2 text-sm">${data.costCmp}</td>
+            </tr>
+            <tr class="h-[36px] border-1">
+              <td class="border-1 px-2">운송시간</td>
+              <td class="border-1 px-2 text-right"><span id="question-${data.questionNum + 1}-rail-duration">${data.rail.duration}</span> 시간</td>
+              <td class="border-1 px-2 text-right"><span id="question-${data.questionNum + 1}-road-duration">${data.road.duration}</span> 시간</td>
+              <td class="border-1 px-2 text-sm">${data.durationCmp}</td>
+            </tr>
+            <tr class="h-[36px] border-1">
+              <td class="border-1 px-2">정시도착율(지연시간 최대 3시간 이내)</td>
+              <td class="border-1 px-2 text-right">${data.rail.acc}%</td>
+              <td class="border-1 px-2 text-right">${data.road.acc}%</td>
+              <td class="border-1 px-2 text-sm">${data.accCmp}</td>
+            </tr>
+            <tr class="h-[36px] border-1">
+              <td class="border-1 px-2">화물열차 운행횟수</td>
+              <td class="border-1 px-2 text-right">일 ${data.rail.times} 회</td>
+              <td class="border-1 px-2">-</td>
+              <td class="border-1 px-2">-</td>
+            </tr>
+            <tr class="h-[36px] border-1">
+              <td class="border-1 px-2">수단 이용비율</td>
+              <td class="border-1 px-2 text-right">
+                <input
+                  id="question-${data.questionNum + 1}-rail-use-percent"
+                  type="text"
+                  class="mx-2 h-[32px] w-[100px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                />%
+              </td>
+              <td class="border-1 px-2 text-right">
+                <span id="question-${data.questionNum + 1}-road-use-percent" class="font-bold text-blue-600"></span> %
+              </td>
+              <td class="border-1 px-2">-</td>
+            </tr>
+            <tr class="h-[36px] border-1">
+              <td class="border-1 px-2">수단 선택</td>
+              <td class="border-1 px-2">
+                <input type="radio" name="question-${data.questionNum + 1}" value="철도" class="h-full w-full outline-0" />
+              </td>
+              <td class="border-1 px-2">
+                <input type="radio" name="question-${data.questionNum + 1}" value="도로" class="h-full w-full outline-0" />
+              </td>
+              <td class="border-1 px-2">-</td>
+            </tr>
+          </table>
+        </div>
+      `;
+
+  QuestionEl.appendChild(question);
+}
+
+// A 페이지: 페이지 로드
 if (window.location.pathname.includes("a.html")) {
   window.addEventListener("DOMContentLoaded", () => {
-    const savedData = loadPageAData();
+    const savedData = loadSessionData("surveyPageA");
     if (savedData) {
       fillPageForm(ApageFieldMapping, savedData);
     }
@@ -739,12 +851,12 @@ if (window.location.pathname.includes("a.html")) {
 // B 페이지: 페이지 로드
 if (window.location.pathname.includes("b.html")) {
   window.addEventListener("DOMContentLoaded", () => {
-    const pageAData = loadPageAData();
+    const pageAData = loadSessionData("surveyPageA");
     if (!pageAData) {
       console.warn("A 페이지 데이터가 없습니다.");
     }
 
-    const savedData = loadPageBData();
+    const savedData = loadSessionData("surveyPageB");
     if (savedData) {
       fillPageForm(BpageFieldMapping, savedData);
     }
@@ -828,10 +940,6 @@ if (window.location.pathname.includes("b.html")) {
   const nextButton = document.getElementById("b-to-c");
   if (nextButton) {
     nextButton.addEventListener("click", (e) => {
-      // if (!validatePage(BpageFieldMapping)) {
-      //   e.preventDefault(); // 검증 실패 시 페이지 이동 방지
-      //   return false;
-      // }
       savePageBData();
     });
   }
@@ -852,12 +960,12 @@ if (window.location.pathname.includes("c.html")) {
     .sort((a, b) => a - b);
 
   window.addEventListener("DOMContentLoaded", () => {
-    const pageAData = loadPageAData();
+    const pageAData = loadSessionData("surveyPageA");
     if (!pageAData) {
       console.warn("A 페이지 데이터가 없습니다.");
     }
 
-    const pageBData = loadPageBData();
+    const pageBData = loadSessionData("surveyPageB");
     if (!pageBData) {
       console.warn("B 페이지 데이터가 없습니다.");
     }
@@ -891,68 +999,7 @@ if (window.location.pathname.includes("c.html")) {
   }
 }
 
-function calcQuestion(defaultData, pickedNum) {
-  const picked = questions[pickedNum];
-
-  let railCost = defaultData.rail.costFt40 > 0 ? defaultData.rail.costFt40 : defaultData.rail.costFt20;
-  let roadCost = defaultData.road.costFt40 > 0 ? defaultData.road.costFt40 : defaultData.road.costFt20;
-  if (railCost == 0) railCost = roadCost * 1.1;
-
-  railCost *= picked.railCost;
-  roadCost *= picked.roadCost;
-
-  let railDuration = Math.round(defaultData.rail.duration * picked.railDuration * 10) / 10;
-  let roadDuration = Math.round(defaultData.road.duration * picked.roadDuration * 10) / 10;
-
-  let costCmp = "";
-  const diff = railCost - roadCost;
-  if (diff > 0) {
-    costCmp = `철도가 ${diff} 만원 비쌈`;
-  } else if (diff < 0) {
-    costCmp = `철도가 ${diff * -1} 만원 쌈`;
-  } else {
-    costCmp = "동일";
-  }
-
-  let durationCmp = "";
-  const durationDiff = Math.round((railDuration - roadDuration) * 10) / 10;
-  if (durationDiff > 0) {
-    durationCmp = `철도가 ${durationDiff} 시간 느림`;
-  } else if (durationDiff < 0) {
-    durationCmp = `철도가 ${durationDiff * -1} 시간 빠름`;
-  } else {
-    durationCmp = "동일";
-  }
-
-  let accCmp = "";
-  const accDiff = picked.railAcc - picked.roadAcc;
-  if (accDiff > 0) {
-    accCmp = `철도가 ${accDiff} %p 높음`;
-  } else if (accDiff < 0) {
-    accCmp = `철도가 ${accDiff * -1} %p 낮음`;
-  } else {
-    accCmp = "동일";
-  }
-
-  return {
-    rail: {
-      cost: railCost,
-      duration: railDuration,
-      acc: picked.railAcc,
-      times: picked.railTimes,
-    },
-    road: {
-      cost: roadCost,
-      duration: roadDuration,
-      acc: picked.roadAcc,
-    },
-    costCmp: costCmp,
-    durationCmp: durationCmp,
-    accCmp: accCmp,
-    questionNum: pickedNum,
-  };
-}
-
+// 제출 동작
 if (surveyForm) {
   surveyForm.addEventListener("submit", async (e) => {
     e.preventDefault(); // 폼 기본 제출 방지
@@ -963,9 +1010,9 @@ if (surveyForm) {
     }
 
     const data = {
-      ...loadPageAData(),
-      ...loadPageBData(),
-      ...loadPageCData(),
+      ...loadSessionData("surveyPageA"),
+      ...loadSessionData("surveyPageB"),
+      ...loadSessionData("surveyPageC"),
       created_at: new Date(),
     };
 
@@ -983,75 +1030,4 @@ if (surveyForm) {
       showNotification("설문조사 제출 중 오류가 발생했습니다.", "error");
     }
   });
-}
-
-function makePageC(i, data) {
-  const QuestionEl = document.getElementById("c");
-
-  const question = document.createElement("div");
-  question.id = `c${i}`;
-  question.className = "intro";
-  question.innerHTML = `
-        <p class="pl-10 -indent-10 text-lg font-bold">문C${i}</p>
-        <div id="question-${data.questionNum + 1}">
-          <table class="w-full text-center">
-            <tr class="h-[36px] border-1 bg-gray-200">
-              <td class="w-[35%] border-1 px-2">운송조건</td>
-              <td class="w-[22%] border-1 px-2">철도</td>
-              <td class="w-[22%] border-1 px-2">도로</td>
-              <td class="border-1 px-2">철도-도로 차이</td>
-            </tr>
-            <tr class="h-[36px] border-1">
-              <td class="border-1 px-2">운송비용</td>
-              <td class="border-1 px-2 text-right"><span id="question-${data.questionNum + 1}-rail-cost">${data.rail.cost}</span> 만원</td>
-              <td class="border-1 px-2 text-right"><span id="question-${data.questionNum + 1}-road-cost">${data.road.cost}</span> 만원</td>
-              <td class="border-1 px-2 text-sm">${data.costCmp}</td>
-            </tr>
-            <tr class="h-[36px] border-1">
-              <td class="border-1 px-2">운송시간</td>
-              <td class="border-1 px-2 text-right"><span id="question-${data.questionNum + 1}-rail-duration">${data.rail.duration}</span> 시간</td>
-              <td class="border-1 px-2 text-right"><span id="question-${data.questionNum + 1}-road-duration">${data.road.duration}</span> 시간</td>
-              <td class="border-1 px-2 text-sm">${data.durationCmp}</td>
-            </tr>
-            <tr class="h-[36px] border-1">
-              <td class="border-1 px-2">정시도착율(지연시간 최대 3시간 이내)</td>
-              <td class="border-1 px-2 text-right">${data.rail.acc}%</td>
-              <td class="border-1 px-2 text-right">${data.road.acc}%</td>
-              <td class="border-1 px-2 text-sm">${data.accCmp}</td>
-            </tr>
-            <tr class="h-[36px] border-1">
-              <td class="border-1 px-2">화물열차 운행횟수</td>
-              <td class="border-1 px-2 text-right">일 ${data.rail.times} 회</td>
-              <td class="border-1 px-2">-</td>
-              <td class="border-1 px-2">-</td>
-            </tr>
-            <tr class="h-[36px] border-1">
-              <td class="border-1 px-2">수단 이용비율</td>
-              <td class="border-1 px-2 text-right">
-                <input
-                  id="question-${data.questionNum + 1}-rail-use-percent"
-                  type="text"
-                  class="mx-2 h-[32px] w-[100px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                />%
-              </td>
-              <td class="border-1 px-2 text-right">
-                <span id="question-${data.questionNum + 1}-road-use-percent" class="font-bold text-blue-600"></span> %
-              </td>
-              <td class="border-1 px-2">-</td>
-            </tr>
-            <tr class="h-[36px] border-1">
-              <td class="border-1 px-2">수단 선택</td>
-              <td class="border-1 px-2">
-                <input type="radio" name="question-${data.questionNum + 1}" value="철도" class="h-full w-full outline-0" />
-              </td>
-              <td class="border-1 px-2">
-                <input type="radio" name="question-${data.questionNum + 1}" value="도로" class="h-full w-full outline-0" />
-              </td>
-              <td class="border-1 px-2">-</td>
-            </tr>
-          </table>
-        </div>
-      `;
-
-  QuestionEl.appendChild(question);
 }
