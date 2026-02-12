@@ -98,711 +98,141 @@ function showNotification(message, type = "warning") {
 
 // ===== 설문조사 계산 =====
 
-// B1-2 컨테이너 위수탁 차량수 계산
-function bindContainerVehicleConsignedCalc() {
-  const totalEl = document.getElementById("containerVehicleTotal");
-  const directEl = document.getElementById("containerVehicleDirect");
-  const consignedEl = document.getElementById("containerVehicleConsigned");
+// 합계 계산
+function bindSumCalc(ids, targetId) {
+  const els = ids.map((id) => document.getElementById(id)).filter(Boolean);
+  const targetEl = document.getElementById(targetId);
 
-  if (!totalEl || !directEl || !consignedEl) return;
+  if (els.length !== ids.length || !targetEl) return;
+
+  const update = () => {
+    const result = els.reduce((total, el) => total + parseNumber(el.value), 0);
+
+    targetEl.textContent = Number.isFinite(result) ? String(result) : "";
+  };
+
+  els.forEach((el) => el.addEventListener("input", update));
+  update();
+}
+
+// 전체에서 나머지 계산
+function bindTotalCalc(ids, totalId, targetId) {
+  const els = ids.map((id) => document.getElementById(id)).filter(Boolean);
+  const totalEl = document.getElementById(totalId);
+  const targetEl = document.getElementById(targetId);
+
+  if (els.length !== ids.length || !totalEl || !targetEl) return;
 
   const update = () => {
     const total = parseNumber(totalEl.value);
-    const direct = parseNumber(directEl.value);
-    const consigned = total - direct;
-    consignedEl.textContent = Number.isFinite(consigned) ? String(consigned) : "";
+    const result = total - els.reduce((total, el) => total + parseNumber(el.value), 0);
+
+    targetEl.textContent = Number.isFinite(result) ? String(result) : "";
   };
 
-  totalEl.addEventListener("input", update);
-  directEl.addEventListener("input", update);
+  const allEls = [...els, totalEl];
+  allEls.forEach((el) => el.addEventListener("input", update));
   update();
 }
 
-// B2 연안해운 운송량 계산
-function bindB2CoastalCalc() {
-  const totalEl = document.getElementById("b2-total");
-  const roadEl = document.getElementById("b2-road");
-  const railEl = document.getElementById("b2-rail");
-  const coastalEl = document.getElementById("b2-coastal");
+// 퍼센트 계산
+function bindPercentCalc(ids, targetId) {
+  const els = ids.map((id) => document.getElementById(id)).filter(Boolean);
+  const targetEl = document.getElementById(targetId);
 
-  if (!totalEl || !roadEl || !railEl || !coastalEl) return;
+  if (els.length !== ids.length || !targetEl) return;
 
   const update = () => {
-    const total = parseNumber(totalEl.value);
-    const road = parseNumber(roadEl.value);
-    const rail = parseNumber(railEl.value);
-    const coastal = total - road - rail;
-    coastalEl.textContent = Number.isFinite(coastal) ? String(coastal) : "";
+    const result = 100 - els.reduce((total, el) => total + parseNumber(el.value), 0);
+    targetEl.textContent = Number.isFinite(result) ? String(result) : "";
   };
 
-  totalEl.addEventListener("input", update);
-  roadEl.addEventListener("input", update);
-  railEl.addEventListener("input", update);
+  els.forEach((el) => el.addEventListener("input", update));
   update();
 }
 
-// B3 합계 계산
-function bindB3SumCalc() {
-  const under9El = document.getElementById("b3-under9-number");
-  const under100El = document.getElementById("b3-under100-number");
-  const over100El = document.getElementById("b3-over100-number");
-  const sumEl = document.getElementById("b3-number-sum");
+// 입력값 불러오기
+function bindLoadInput(ids, inputPrefix, outputPrefix) {
+  const inputEls = ids.map((id) => document.getElementById(`${inputPrefix}-${id}`)).filter(Boolean);
+  const outputEls = ids.map((id) => document.getElementById(`${outputPrefix}-${id}`)).filter(Boolean);
 
-  if (!under9El || !under100El || !over100El || !sumEl) return;
+  if (inputEls.length !== ids.length || outputEls.length !== ids.length) return;
 
   const update = () => {
-    const under9 = parseNumber(under9El.value);
-    const under100 = parseNumber(under100El.value);
-    const over100 = parseNumber(over100El.value);
-    const sum = under9 + under100 + over100;
-    sumEl.textContent = Number.isFinite(sum) ? String(sum) : "";
+    outputEls.forEach((el, index) => {
+      el.textContent = inputEls[index].value || "0";
+    });
   };
 
-  under9El.addEventListener("input", update);
-  under100El.addEventListener("input", update);
-  over100El.addEventListener("input", update);
+  inputEls.forEach((el) => el.addEventListener("input", update));
   update();
 }
 
-// B3 퍼센트 계산
-function bindB3PercentageCalc() {
-  const under9El = document.getElementById("b3-under9-percent");
-  const under100El = document.getElementById("b3-under100-percent");
-  const over100El = document.getElementById("b3-over100-percent");
+// 운송시간 최종 계산
+function bindDurationCalc(ids, prefix) {
+  const daysIds = ids.map((id) => `${id}-days`);
+  const hoursIds = ids.map((id) => `${id}-hours`);
+  const minutesIds = ids.map((id) => `${id}-minutes`);
+  const daysEls = daysIds.map((id) => document.getElementById(id)).filter(Boolean);
+  const hoursEls = hoursIds.map((id) => document.getElementById(id)).filter(Boolean);
+  const minutesEls = minutesIds.map((id) => document.getElementById(id)).filter(Boolean);
 
-  if (!under9El || !under100El || !over100El) return;
-
-  const update = () => {
-    const under9 = parseNumber(under9El.value);
-    const under100 = parseNumber(under100El.value);
-    const over100 = 100 - under9 - under100;
-    over100El.textContent = Number.isFinite(over100) ? String(over100) : "";
-  };
-
-  under9El.addEventListener("input", update);
-  under100El.addEventListener("input", update);
-  over100El.addEventListener("input", update);
-  update();
-}
-
-// B5 퍼센트 계산
-function bindB5PercentageCalc() {
-  const samedayEl = document.getElementById("b5-same-day");
-  const nextdayEl = document.getElementById("b5-next-day");
-  const withinawekEl = document.getElementById("b5-within-a-week");
-  const overaweekEl = document.getElementById("b5-over-a-week");
-
-  if (!samedayEl || !nextdayEl || !withinawekEl || !overaweekEl) return;
-
-  const update = () => {
-    const sameday = parseNumber(samedayEl.value);
-    const nextday = parseNumber(nextdayEl.value);
-    const withinawek = parseNumber(withinawekEl.value);
-    const overaweek = 100 - sameday - nextday - withinawek;
-    overaweekEl.textContent = Number.isFinite(overaweek) ? String(overaweek) : "";
-  };
-
-  samedayEl.addEventListener("input", update);
-  nextdayEl.addEventListener("input", update);
-  withinawekEl.addEventListener("input", update);
-  update();
-}
-
-// B6 운송량 계산
-function bindB6VolumeCalc() {
-  const totalEl = document.getElementById("b6-volume-total");
-  const exportEl = document.getElementById("b6-volume-export");
-  const importEl = document.getElementById("b6-volume-import");
-  const railEl = document.getElementById("b6-volume-rail");
-  const roadEl = document.getElementById("b6-volume-road");
-
-  if (!totalEl || !exportEl || !importEl || !railEl || !roadEl) return;
-
-  const update = () => {
-    const volumeTotal = parseNumber(totalEl.value);
-    const volumeExport = parseNumber(exportEl.value);
-    const volumeImport = volumeTotal - volumeExport;
-    importEl.textContent = Number.isFinite(volumeImport) ? String(volumeImport) : "";
-
-    const volumeRail = parseNumber(railEl.value);
-    const volumeRoad = volumeTotal - volumeRail;
-    roadEl.textContent = Number.isFinite(volumeRoad) ? String(volumeRoad) : "";
-  };
-
-  totalEl.addEventListener("input", update);
-  exportEl.addEventListener("input", update);
-  railEl.addEventListener("input", update);
-  update();
-}
-
-// B7 B6 정보 가져오기1 (내륙, 철도 경유지)
-function bindB7GetB6Input1() {
-  const b6SidoEl = document.getElementById("b6-inland-sido");
-  const b6SigunEl = document.getElementById("b6-inland-sigun");
-  const b6GuEl = document.getElementById("b6-inland-gu");
-  const b6PointEl = document.getElementById("b6-inland-point");
-
-  const b6RailInter1El = document.getElementById("b6-rail-inter-1");
-  const b6RailInter2El = document.getElementById("b6-rail-inter-2");
-
-  const b7SidoEl = document.getElementById("b7-inland-sido");
-  const b7SigunEl = document.getElementById("b7-inland-sigun");
-  const b7GuEl = document.getElementById("b7-inland-gu");
-  const b7PointEl = document.getElementById("b7-inland-point");
-
-  const b8SidoEl = document.getElementById("b8-inland-sido");
-  const b8SigunEl = document.getElementById("b8-inland-sigun");
-  const b8GuEl = document.getElementById("b8-inland-gu");
-  const b8PointEl = document.getElementById("b8-inland-point");
-
-  const b7InterStation1El = document.getElementById("b7-inter1-station");
-  const b7InterStation2El = document.getElementById("b7-inter2-station");
+  const daysSumEl = document.getElementById(`${prefix}-days`);
+  const hoursSumEl = document.getElementById(`${prefix}-hours`);
+  const minutesSumEl = document.getElementById(`${prefix}-minutes`);
 
   if (
-    !b6SidoEl ||
-    !b6SigunEl ||
-    !b6GuEl ||
-    !b6PointEl ||
-    !b6RailInter1El ||
-    !b6RailInter2El ||
-    !b7SidoEl ||
-    !b7SigunEl ||
-    !b7GuEl ||
-    !b7PointEl ||
-    !b8SidoEl ||
-    !b8SigunEl ||
-    !b8GuEl ||
-    !b8PointEl ||
-    !b7InterStation1El ||
-    !b7InterStation2El
+    daysEls.length !== daysIds.length ||
+    hoursEls.length !== hoursIds.length ||
+    minutesEls.length !== minutesIds.length ||
+    !daysSumEl ||
+    !hoursSumEl ||
+    !minutesSumEl
   )
     return;
 
   const update = () => {
-    const sido = b6SidoEl.value || "0";
-    b7SidoEl.textContent = sido;
-    b8SidoEl.textContent = sido;
+    let d = daysEls.reduce((total, el) => total + parseNumber(el.value), 0);
+    let h = hoursEls.reduce((total, el) => total + parseNumber(el.value), 0);
+    let m = minutesEls.reduce((total, el) => total + parseNumber(el.value), 0);
 
-    const sigun = b6SigunEl.value || "0";
-    b7SigunEl.textContent = sigun;
-    b8SigunEl.textContent = sigun;
+    while (m >= 60) {
+      h += 1;
+      m -= 60;
+    }
 
-    const gu = b6GuEl.value || "0";
-    b7GuEl.textContent = gu;
-    b8GuEl.textContent = gu;
+    while (h >= 24) {
+      d++;
+      h -= 24;
+    }
 
-    const point = b6PointEl.value || "0";
-    b7PointEl.textContent = point;
-    b8PointEl.textContent = point;
-
-    b7InterStation1El.textContent = b6RailInter1El.value || "0";
-    b7InterStation2El.textContent = b6RailInter2El.value || "0";
+    daysSumEl.textContent = Number.isFinite(d) ? String(d) : "";
+    hoursSumEl.textContent = Number.isFinite(h) ? String(h) : "";
+    minutesSumEl.textContent = Number.isFinite(m) ? String(m) : "";
   };
 
-  b6SidoEl.addEventListener("input", update);
-  b6SigunEl.addEventListener("input", update);
-  b6GuEl.addEventListener("input", update);
-  b6PointEl.addEventListener("input", update);
-  b6RailInter1El.addEventListener("input", update);
-  b6RailInter2El.addEventListener("input", update);
+  const els = [...daysEls, ...hoursEls, ...minutesEls];
+  els.forEach((el) => el.addEventListener("input", update));
   update();
 }
 
-// B7 B6 정보 가져오기2
-function bindB7GetB6Input2() {
-  const b6SidoEl = document.getElementById("b6-port-sido");
-  const b6SigunEl = document.getElementById("b6-port-sigun");
-  const b6GuEl = document.getElementById("b6-port-gu");
-  const b6PointEl = document.getElementById("b6-port-point");
+// 운송비용 합계 계산
+function bindCostSumCalc(ids, prefix, is_20ft) {
+  const suffix = is_20ft ? "20ft" : "40ft";
 
-  const b7SidoEl = document.getElementById("b7-port-sido");
-  const b7SigunEl = document.getElementById("b7-port-sigun");
-  const b7GuEl = document.getElementById("b7-port-gu");
-  const b7PointEl = document.getElementById("b7-port-point");
+  const costIds = ids.map((id) => `${id}-cost-${suffix}`);
+  const costEls = costIds.map((id) => document.getElementById(id)).filter(Boolean);
 
-  const b8SidoEl = document.getElementById("b8-port-sido");
-  const b8SigunEl = document.getElementById("b8-port-sigun");
-  const b8GuEl = document.getElementById("b8-port-gu");
-  const b8PointEl = document.getElementById("b8-port-point");
+  const sumEl = document.getElementById(`${prefix}-cost-${suffix}`);
 
-  if (
-    !b6SidoEl ||
-    !b6SigunEl ||
-    !b6GuEl ||
-    !b6PointEl ||
-    !b7SidoEl ||
-    !b7SigunEl ||
-    !b7GuEl ||
-    !b7PointEl ||
-    !b8SidoEl ||
-    !b8SigunEl ||
-    !b8GuEl ||
-    !b8PointEl
-  )
-    return;
+  if (costEls.length !== costIds.length || !sumEl) return;
 
   const update = () => {
-    const sido = b6SidoEl.value || "0";
-    b7SidoEl.textContent = sido;
-    b8SidoEl.textContent = sido;
-
-    const sigun = b6SigunEl.value || "0";
-    b7SigunEl.textContent = sigun;
-    b8SigunEl.textContent = sigun;
-
-    const gu = b6GuEl.value || "0";
-    b7GuEl.textContent = gu;
-    b8GuEl.textContent = gu;
-
-    const point = b6PointEl.value || "0";
-    b7PointEl.textContent = point;
-    b8PointEl.textContent = point;
+    const costSum = costEls.reduce((total, el) => total + parseNumber(el.value), 0);
+    sumEl.textContent = Number.isFinite(costSum) ? String(costSum) : "";
   };
 
-  b6SidoEl.addEventListener("input", update);
-  b6SigunEl.addEventListener("input", update);
-  b6GuEl.addEventListener("input", update);
-  b6PointEl.addEventListener("input", update);
-  update();
-}
-
-// B7 일수 합계 계산
-function bindB7DaysSumCalc() {
-  const b7Suttle1DaysEl = document.getElementById("b7-suttle1-days");
-  const b7Inter1DaysEl = document.getElementById("b7-inter1-days");
-  const b7Storage1DaysEl = document.getElementById("b7-storage1-days");
-  const b7MainDaysEl = document.getElementById("b7-main-days");
-  const b7Inter2DaysEl = document.getElementById("b7-inter2-days");
-  const b7Storage2DaysEl = document.getElementById("b7-storage2-days");
-  const b7Suttle2DaysEl = document.getElementById("b7-suttle2-days");
-  const b7SumDaysEl = document.getElementById("b7-sum-days");
-
-  if (
-    !b7Suttle1DaysEl ||
-    !b7Inter1DaysEl ||
-    !b7Storage1DaysEl ||
-    !b7MainDaysEl ||
-    !b7Inter2DaysEl ||
-    !b7Storage2DaysEl ||
-    !b7Suttle2DaysEl ||
-    !b7SumDaysEl
-  )
-    return;
-
-  const update = () => {
-    const sumDays =
-      parseNumber(b7Suttle1DaysEl.value) +
-      parseNumber(b7Inter1DaysEl.value) +
-      parseNumber(b7Storage1DaysEl.value) +
-      parseNumber(b7MainDaysEl.value) +
-      parseNumber(b7Inter2DaysEl.value) +
-      parseNumber(b7Storage2DaysEl.value) +
-      parseNumber(b7Suttle2DaysEl.value);
-
-    b7SumDaysEl.textContent = Number.isFinite(sumDays) ? String(sumDays) : "";
-  };
-
-  b7Suttle1DaysEl.addEventListener("input", update);
-  b7Inter1DaysEl.addEventListener("input", update);
-  b7Storage1DaysEl.addEventListener("input", update);
-  b7MainDaysEl.addEventListener("input", update);
-  b7Inter2DaysEl.addEventListener("input", update);
-  b7Storage2DaysEl.addEventListener("input", update);
-  b7Suttle2DaysEl.addEventListener("input", update);
-  update();
-}
-
-// B7 시간 합계 계산
-function bindB7HoursSumCalc() {
-  const b7Suttle1HoursEl = document.getElementById("b7-suttle1-hours");
-  const b7Inter1HoursEl = document.getElementById("b7-inter1-hours");
-  const b7Storage1HoursEl = document.getElementById("b7-storage1-hours");
-  const b7MainHoursEl = document.getElementById("b7-main-hours");
-  const b7Inter2HoursEl = document.getElementById("b7-inter2-hours");
-  const b7Storage2HoursEl = document.getElementById("b7-storage2-hours");
-  const b7Suttle2HoursEl = document.getElementById("b7-suttle2-hours");
-  const b7SumHoursEl = document.getElementById("b7-sum-hours");
-
-  if (
-    !b7Suttle1HoursEl ||
-    !b7Inter1HoursEl ||
-    !b7Storage1HoursEl ||
-    !b7MainHoursEl ||
-    !b7Inter2HoursEl ||
-    !b7Storage2HoursEl ||
-    !b7Suttle2HoursEl ||
-    !b7SumHoursEl
-  )
-    return;
-
-  const update = () => {
-    const sumHours =
-      parseNumber(b7Suttle1HoursEl.value) +
-      parseNumber(b7Inter1HoursEl.value) +
-      parseNumber(b7Storage1HoursEl.value) +
-      parseNumber(b7MainHoursEl.value) +
-      parseNumber(b7Inter2HoursEl.value) +
-      parseNumber(b7Storage2HoursEl.value) +
-      parseNumber(b7Suttle2HoursEl.value);
-
-    b7SumHoursEl.textContent = Number.isFinite(sumHours) ? String(sumHours) : "";
-  };
-
-  b7Suttle1HoursEl.addEventListener("input", update);
-  b7Inter1HoursEl.addEventListener("input", update);
-  b7Storage1HoursEl.addEventListener("input", update);
-  b7MainHoursEl.addEventListener("input", update);
-  b7Inter2HoursEl.addEventListener("input", update);
-  b7Storage2HoursEl.addEventListener("input", update);
-  b7Suttle2HoursEl.addEventListener("input", update);
-  update();
-}
-
-// B7 분 합계 계산
-function bindB7MinutesSumCalc() {
-  const b7Suttle1MinutesEl = document.getElementById("b7-suttle1-minutes");
-  const b7Inter1MinutesEl = document.getElementById("b7-inter1-minutes");
-  const b7Storage1MinutesEl = document.getElementById("b7-storage1-minutes");
-  const b7MainMinutesEl = document.getElementById("b7-main-minutes");
-  const b7Inter2MinutesEl = document.getElementById("b7-inter2-minutes");
-  const b7Storage2MinutesEl = document.getElementById("b7-storage2-minutes");
-  const b7Suttle2MinutesEl = document.getElementById("b7-suttle2-minutes");
-  const b7SumMinutesEl = document.getElementById("b7-sum-minutes");
-
-  if (
-    !b7Suttle1MinutesEl ||
-    !b7Inter1MinutesEl ||
-    !b7Storage1MinutesEl ||
-    !b7MainMinutesEl ||
-    !b7Inter2MinutesEl ||
-    !b7Storage2MinutesEl ||
-    !b7Suttle2MinutesEl ||
-    !b7SumMinutesEl
-  )
-    return;
-
-  const update = () => {
-    const sumMinutes =
-      parseNumber(b7Suttle1MinutesEl.value) +
-      parseNumber(b7Inter1MinutesEl.value) +
-      parseNumber(b7Storage1MinutesEl.value) +
-      parseNumber(b7MainMinutesEl.value) +
-      parseNumber(b7Inter2MinutesEl.value) +
-      parseNumber(b7Storage2MinutesEl.value) +
-      parseNumber(b7Suttle2MinutesEl.value);
-
-    b7SumMinutesEl.textContent = Number.isFinite(sumMinutes) ? String(sumMinutes) : "";
-  };
-
-  b7Suttle1MinutesEl.addEventListener("input", update);
-  b7Inter1MinutesEl.addEventListener("input", update);
-  b7Storage1MinutesEl.addEventListener("input", update);
-  b7MainMinutesEl.addEventListener("input", update);
-  b7Inter2MinutesEl.addEventListener("input", update);
-  b7Storage2MinutesEl.addEventListener("input", update);
-  b7Suttle2MinutesEl.addEventListener("input", update);
-  update();
-}
-
-// B7 운송시간 최종 계산
-function bindB7DurationCalc() {
-  bindB7DaysSumCalc();
-  bindB7HoursSumCalc();
-  bindB7MinutesSumCalc();
-
-  const b7SumDaysEl = document.getElementById("b7-sum-days");
-  const b7SumHoursEl = document.getElementById("b7-sum-hours");
-  const b7SumMinutesEl = document.getElementById("b7-sum-minutes");
-
-  let d = parseNumber(b7SumDaysEl.textContent);
-  let h = parseNumber(b7SumHoursEl.textContent);
-  let m = parseNumber(b7SumMinutesEl.textContent);
-
-  while (m >= 60) {
-    h += 1;
-    m -= 60;
-  }
-
-  while (h >= 24) {
-    d++;
-    h -= 24;
-  }
-
-  b7SumDaysEl.textContent = d;
-  b7SumHoursEl.textContent = h;
-  b7SumMinutesEl.textContent = m;
-}
-
-// B7 20ft 합계 계산
-function bindB720ftSumCalc() {
-  const b7Suttle1Cost20ftEl = document.getElementById("b7-suttle1-cost-20ft");
-  const b7Inter1Cost20ftEl = document.getElementById("b7-inter1-cost-20ft");
-  const b7Storage1Cost20ftEl = document.getElementById("b7-storage1-cost-20ft");
-  const b7MainCost20ftEl = document.getElementById("b7-main-cost-20ft");
-  const b7Inter2Cost20ftEl = document.getElementById("b7-inter2-cost-20ft");
-  const b7Storage2Cost20ftEl = document.getElementById("b7-storage2-cost-20ft");
-  const b7Suttle2Cost20ftEl = document.getElementById("b7-suttle2-cost-20ft");
-  const b7SumCost20ftEl = document.getElementById("b7-sum-cost-20ft");
-
-  if (
-    !b7Suttle1Cost20ftEl ||
-    !b7Inter1Cost20ftEl ||
-    !b7Storage1Cost20ftEl ||
-    !b7MainCost20ftEl ||
-    !b7Inter2Cost20ftEl ||
-    !b7Storage2Cost20ftEl ||
-    !b7Suttle2Cost20ftEl ||
-    !b7SumCost20ftEl
-  )
-    return;
-
-  const update = () => {
-    const sumCost20ft =
-      parseNumber(b7Suttle1Cost20ftEl.value) +
-      parseNumber(b7Inter1Cost20ftEl.value) +
-      parseNumber(b7Storage1Cost20ftEl.value) +
-      parseNumber(b7MainCost20ftEl.value) +
-      parseNumber(b7Inter2Cost20ftEl.value) +
-      parseNumber(b7Storage2Cost20ftEl.value) +
-      parseNumber(b7Suttle2Cost20ftEl.value);
-
-    b7SumCost20ftEl.textContent = Number.isFinite(sumCost20ft) ? String(sumCost20ft) : "";
-  };
-
-  b7Suttle1Cost20ftEl.addEventListener("input", update);
-  b7Inter1Cost20ftEl.addEventListener("input", update);
-  b7Storage1Cost20ftEl.addEventListener("input", update);
-  b7MainCost20ftEl.addEventListener("input", update);
-  b7Inter2Cost20ftEl.addEventListener("input", update);
-  b7Storage2Cost20ftEl.addEventListener("input", update);
-  b7Suttle2Cost20ftEl.addEventListener("input", update);
-  update();
-}
-
-// B7 40ft 합계 계산
-function bindB740ftSumCalc() {
-  const b7Suttle1Cost40ftEl = document.getElementById("b7-suttle1-cost-40ft");
-  const b7Inter1Cost40ftEl = document.getElementById("b7-inter1-cost-40ft");
-  const b7Storage1Cost40ftEl = document.getElementById("b7-storage1-cost-40ft");
-  const b7MainCost40ftEl = document.getElementById("b7-main-cost-40ft");
-  const b7Inter2Cost40ftEl = document.getElementById("b7-inter2-cost-40ft");
-  const b7Storage2Cost40ftEl = document.getElementById("b7-storage2-cost-40ft");
-  const b7Suttle2Cost40ftEl = document.getElementById("b7-suttle2-cost-40ft");
-  const b7SumCost40ftEl = document.getElementById("b7-sum-cost-40ft");
-
-  if (
-    !b7Suttle1Cost40ftEl ||
-    !b7Inter1Cost40ftEl ||
-    !b7Storage1Cost40ftEl ||
-    !b7MainCost40ftEl ||
-    !b7Inter2Cost40ftEl ||
-    !b7Storage2Cost40ftEl ||
-    !b7Suttle2Cost40ftEl ||
-    !b7SumCost40ftEl
-  )
-    return;
-
-  const update = () => {
-    const sumCost40ft =
-      parseNumber(b7Suttle1Cost40ftEl.value) +
-      parseNumber(b7Inter1Cost40ftEl.value) +
-      parseNumber(b7Storage1Cost40ftEl.value) +
-      parseNumber(b7MainCost40ftEl.value) +
-      parseNumber(b7Inter2Cost40ftEl.value) +
-      parseNumber(b7Storage2Cost40ftEl.value) +
-      parseNumber(b7Suttle2Cost40ftEl.value);
-
-    b7SumCost40ftEl.textContent = Number.isFinite(sumCost40ft) ? String(sumCost40ft) : "";
-  };
-
-  b7Suttle1Cost40ftEl.addEventListener("input", update);
-  b7Inter1Cost40ftEl.addEventListener("input", update);
-  b7Storage1Cost40ftEl.addEventListener("input", update);
-  b7MainCost40ftEl.addEventListener("input", update);
-  b7Inter2Cost40ftEl.addEventListener("input", update);
-  b7Storage2Cost40ftEl.addEventListener("input", update);
-  b7Suttle2Cost40ftEl.addEventListener("input", update);
-  update();
-}
-
-// B8 일수 합계 계산
-function bindB8DaysSumCalc() {
-  const b8Main1DaysEl = document.getElementById("b8-main1-days");
-  const b8InterDaysEl = document.getElementById("b8-inter-days");
-  const b8StorageDaysEl = document.getElementById("b8-storage-days");
-  const b8Main2DaysEl = document.getElementById("b8-main2-days");
-  const b8SumDaysEl = document.getElementById("b8-sum-days");
-
-  if (!b8Main1DaysEl || !b8InterDaysEl || !b8StorageDaysEl || !b8Main2DaysEl || !b8SumDaysEl) return;
-
-  const update = () => {
-    const sumDays =
-      parseNumber(b8Main1DaysEl.value) +
-      parseNumber(b8InterDaysEl.value) +
-      parseNumber(b8StorageDaysEl.value) +
-      parseNumber(b8Main2DaysEl.value);
-
-    b8SumDaysEl.textContent = Number.isFinite(sumDays) ? String(sumDays) : "";
-  };
-
-  b8Main1DaysEl.addEventListener("input", update);
-  b8InterDaysEl.addEventListener("input", update);
-  b8StorageDaysEl.addEventListener("input", update);
-  b8Main2DaysEl.addEventListener("input", update);
-  update();
-}
-
-// B8 시간 합계 계산
-function bindB8HoursSumCalc() {
-  const b8Main1HoursEl = document.getElementById("b8-main1-hours");
-  const b8InterHoursEl = document.getElementById("b8-inter-hours");
-  const b8StorageHoursEl = document.getElementById("b8-storage-hours");
-  const b8Main2HoursEl = document.getElementById("b8-main2-hours");
-  const b8SumHoursEl = document.getElementById("b8-sum-hours");
-
-  if (!b8Main1HoursEl || !b8InterHoursEl || !b8StorageHoursEl || !b8Main2HoursEl || !b8SumHoursEl) return;
-
-  const update = () => {
-    const sumHours =
-      parseNumber(b8Main1HoursEl.value) +
-      parseNumber(b8InterHoursEl.value) +
-      parseNumber(b8StorageHoursEl.value) +
-      parseNumber(b8Main2HoursEl.value);
-
-    b8SumHoursEl.textContent = Number.isFinite(sumHours) ? String(sumHours) : "";
-  };
-
-  b8Main1HoursEl.addEventListener("input", update);
-  b8InterHoursEl.addEventListener("input", update);
-  b8StorageHoursEl.addEventListener("input", update);
-  b8Main2HoursEl.addEventListener("input", update);
-  update();
-}
-
-// B8 분 합계 계산
-function bindB8MinutesSumCalc() {
-  const b8Main1MinutesEl = document.getElementById("b8-main1-minutes");
-  const b8InterMinutesEl = document.getElementById("b8-inter-minutes");
-  const b8StorageMinutesEl = document.getElementById("b8-storage-minutes");
-  const b8Main2MinutesEl = document.getElementById("b8-main2-minutes");
-  const b8SumMinutesEl = document.getElementById("b8-sum-minutes");
-
-  if (!b8Main1MinutesEl || !b8InterMinutesEl || !b8StorageMinutesEl || !b8Main2MinutesEl || !b8SumMinutesEl) return;
-
-  const update = () => {
-    const sumMinutes =
-      parseNumber(b8Main1MinutesEl.value) +
-      parseNumber(b8InterMinutesEl.value) +
-      parseNumber(b8StorageMinutesEl.value) +
-      parseNumber(b8Main2MinutesEl.value);
-
-    b8SumMinutesEl.textContent = Number.isFinite(sumMinutes) ? String(sumMinutes) : "";
-  };
-
-  b8Main1MinutesEl.addEventListener("input", update);
-  b8InterMinutesEl.addEventListener("input", update);
-  b8StorageMinutesEl.addEventListener("input", update);
-  b8Main2MinutesEl.addEventListener("input", update);
-  update();
-}
-
-// B8 운송시간 최종 계산
-function bindB8DurationCalc() {
-  bindB8DaysSumCalc();
-  bindB8HoursSumCalc();
-  bindB8MinutesSumCalc();
-
-  const b8SumDaysEl = document.getElementById("b8-sum-days");
-  const b8SumHoursEl = document.getElementById("b8-sum-hours");
-  const b8SumMinutesEl = document.getElementById("b8-sum-minutes");
-
-  let d = parseNumber(b8SumDaysEl.textContent);
-  let h = parseNumber(b8SumHoursEl.textContent);
-  let m = parseNumber(b8SumMinutesEl.textContent);
-
-  while (m >= 60) {
-    h += 1;
-    m -= 60;
-  }
-
-  while (h >= 24) {
-    d++;
-    h -= 24;
-  }
-
-  b8SumDaysEl.textContent = d;
-  b8SumHoursEl.textContent = h;
-  b8SumMinutesEl.textContent = m;
-}
-
-// B8 20ft 합계 계산
-function bindB8Cost20ftSumCalc() {
-  const b8Main1Cost20ftEl = document.getElementById("b8-main1-cost-20ft");
-  const b8InterCost20ftEl = document.getElementById("b8-inter-cost-20ft");
-  const b8StorageCost20ftEl = document.getElementById("b8-storage-cost-20ft");
-  const b8Main2Cost20ftEl = document.getElementById("b8-main2-cost-20ft");
-  const b8SumCost20ftEl = document.getElementById("b8-sum-cost-20ft");
-
-  if (!b8Main1Cost20ftEl || !b8InterCost20ftEl || !b8StorageCost20ftEl || !b8Main2Cost20ftEl || !b8SumCost20ftEl)
-    return;
-
-  const update = () => {
-    const sumCost20ft =
-      parseNumber(b8Main1Cost20ftEl.value) +
-      parseNumber(b8InterCost20ftEl.value) +
-      parseNumber(b8StorageCost20ftEl.value) +
-      parseNumber(b8Main2Cost20ftEl.value);
-
-    b8SumCost20ftEl.textContent = Number.isFinite(sumCost20ft) ? String(sumCost20ft) : "";
-  };
-
-  b8Main1Cost20ftEl.addEventListener("input", update);
-  b8InterCost20ftEl.addEventListener("input", update);
-  b8StorageCost20ftEl.addEventListener("input", update);
-  b8Main2Cost20ftEl.addEventListener("input", update);
-  update();
-}
-
-// B8 40ft 합계 계산
-function bindB8Cost40ftSumCalc() {
-  const b8Main1Cost40ftEl = document.getElementById("b8-main1-cost-40ft");
-  const b8InterCost40ftEl = document.getElementById("b8-inter-cost-40ft");
-  const b8StorageCost40ftEl = document.getElementById("b8-storage-cost-40ft");
-  const b8Main2Cost40ftEl = document.getElementById("b8-main2-cost-40ft");
-  const b8SumCost40ftEl = document.getElementById("b8-sum-cost-40ft");
-
-  if (!b8Main1Cost40ftEl || !b8InterCost40ftEl || !b8StorageCost40ftEl || !b8Main2Cost40ftEl || !b8SumCost40ftEl)
-    return;
-
-  const update = () => {
-    const sumCost40ft =
-      parseNumber(b8Main1Cost40ftEl.value) +
-      parseNumber(b8InterCost40ftEl.value) +
-      parseNumber(b8StorageCost40ftEl.value) +
-      parseNumber(b8Main2Cost40ftEl.value);
-
-    b8SumCost40ftEl.textContent = Number.isFinite(sumCost40ft) ? String(sumCost40ft) : "";
-  };
-
-  b8Main1Cost40ftEl.addEventListener("input", update);
-  b8InterCost40ftEl.addEventListener("input", update);
-  b8StorageCost40ftEl.addEventListener("input", update);
-  b8Main2Cost40ftEl.addEventListener("input", update);
-  update();
-}
-
-// B10 B9 정보 가져오기
-function bindB10GetB9Input1() {
-  const b9HoursEl = document.getElementById("b9-duration-hours");
-  const b10HoursEl = document.getElementById("b10-duration-hours");
-
-  if (!b9HoursEl || !b10HoursEl) return;
-
-  const update = () => {
-    b10HoursEl.textContent = parseNumber(b9HoursEl.value);
-  };
-
-  b9HoursEl.addEventListener("input", update);
+  costEls.forEach((el) => el.addEventListener("input", update));
   update();
 }
 
@@ -1046,8 +476,8 @@ function savePageBData() {
         point: document.getElementById("b6-port-point")?.value || "",
       },
       intermediate: {
-        railInter1: document.getElementById("b6-rail-inter-1")?.value || "",
-        railInter2: document.getElementById("b6-rail-inter-2")?.value || "",
+        railInter1: document.getElementById("b6-rail-inter1-station")?.value || "",
+        railInter2: document.getElementById("b6-rail-inter2-station")?.value || "",
         road: {
           sido: document.getElementById("b6-road-inter-sido")?.value || "",
           sigun: document.getElementById("b6-road-inter-sigun")?.value || "",
@@ -1272,7 +702,7 @@ function savePageCData(picked) {
     };
   });
 
-  data["questions"] = picked.sort((a, b) => a - b).map((num) => num + 1);
+  data["questions"] = picked.map((num) => num + 1);
 
   sessionStorage.setItem("surveyPageC", JSON.stringify(data));
   return data;
@@ -1319,24 +749,80 @@ if (window.location.pathname.includes("b.html")) {
       fillPageForm(BpageFieldMapping, savedData);
     }
 
-    bindContainerVehicleConsignedCalc();
-    bindB2CoastalCalc();
-    bindB3SumCalc();
-    bindB3PercentageCalc();
-    bindB5PercentageCalc();
-    bindB6VolumeCalc();
-    bindB7GetB6Input1();
-    bindB7GetB6Input2();
+    const B1_2Ids = ["containerVehicleDirect"];
+    const B1_2TotalId = "containerVehicleTotal";
+    const B1_2TargetId = "containerVehicleConsigned";
+    bindTotalCalc(B1_2Ids, B1_2TotalId, B1_2TargetId);
 
-    bindB7DurationCalc();
-    bindB720ftSumCalc();
-    bindB740ftSumCalc();
+    const B2Ids = ["b2-road", "b2-rail"];
+    const B2TotalId = "b2-total";
+    const B2TargetId = "b2-coastal";
+    bindTotalCalc(B2Ids, B2TotalId, B2TargetId);
 
-    bindB8DurationCalc();
-    bindB8Cost20ftSumCalc();
-    bindB8Cost40ftSumCalc();
+    const B3NumberIds = ["b3-under9-number", "b3-under100-number", "b3-over100-number"];
+    const B3NumberTargetId = "b3-number-sum";
+    bindSumCalc(B3NumberIds, B3NumberTargetId);
 
-    bindB10GetB9Input1();
+    const B3PercentIds = ["b3-under9-percent", "b3-under100-percent"];
+    const B3PercentTargetId = "b3-over100-percent";
+    bindPercentCalc(B3PercentIds, B3PercentTargetId);
+
+    const B5Ids = ["b5-same-day", "b5-next-day", "b5-within-a-week"];
+    const B5TargetId = "b5-over-a-week";
+    bindPercentCalc(B5Ids, B5TargetId);
+
+    const B6TotalId = "b6-volume-total";
+    const B6DirectionIds = ["b6-volume-export"];
+    const B6DirectionTargetId = "b6-volume-import";
+    bindTotalCalc(B6DirectionIds, B6TotalId, B6DirectionTargetId);
+
+    const B6TransportIds = ["b6-volume-rail"];
+    const B6TransportTargetId = "b6-volume-road";
+    bindTotalCalc(B6TransportIds, B6TotalId, B6TransportTargetId);
+
+    const LoadInputPrefix = "b6";
+    const LoadIds = [
+      "inland-sido",
+      "inland-sigun",
+      "inland-gu",
+      "inland-point",
+      "port-sido",
+      "port-sigun",
+      "port-gu",
+      "port-point",
+    ];
+    const B7LoadOutputPrefix = "b7";
+    bindLoadInput(LoadIds, LoadInputPrefix, B7LoadOutputPrefix);
+
+    const B8LoadOutputPrefix = "b8";
+    bindLoadInput(LoadIds, LoadInputPrefix, B8LoadOutputPrefix);
+
+    const stationInputPrefix = "b6-rail";
+    const stationIds = ["inter1-station", "inter2-station"];
+    const stationOuputPrefix = "b7";
+    bindLoadInput(stationIds, stationInputPrefix, stationOuputPrefix);
+
+    const intermediateInputPrefix = "b6-road";
+    const intermediateIds = ["inter-point"];
+    const intermediateOuputPrefix = "b8";
+    bindLoadInput(intermediateIds, intermediateInputPrefix, intermediateOuputPrefix);
+
+    const B7Ids = ["b7-suttle1", "b7-inter1", "b7-storage1", "b7-main", "b7-inter2", "b7-storage2", "b7-suttle2"];
+    const B7Prefix = "b7-sum";
+    bindDurationCalc(B7Ids, B7Prefix);
+    bindCostSumCalc(B7Ids, B7Prefix, true);
+    bindCostSumCalc(B7Ids, B7Prefix, false);
+
+    const B8Ids = ["b8-main1", "b8-inter", "b8-storage", "b8-main2"];
+    const B8Prefix = "b8-sum";
+    bindDurationCalc(B8Ids, B8Prefix);
+    bindCostSumCalc(B8Ids, B8Prefix, true);
+    bindCostSumCalc(B8Ids, B8Prefix, false);
+
+    const latencyInputPrefix = "b9";
+    const latencyIds = ["duration-hours"];
+    const latencyOutputPrefix = "b10";
+    bindLoadInput(latencyIds, latencyInputPrefix, latencyOutputPrefix);
   });
 
   const nextButton = document.getElementById("b-to-c");
@@ -1360,11 +846,12 @@ if (window.location.pathname.includes("b.html")) {
 
 // C 페이지: 페이지 로드
 if (window.location.pathname.includes("c.html")) {
-  const picked = [...Array(19).keys()].sort(() => Math.random() - 0.5).slice(0, 10);
+  const picked = [...Array(19).keys()]
+    .sort(() => Math.random() - 0.5)
+    .slice(0, 10)
+    .sort((a, b) => a - b);
 
   window.addEventListener("DOMContentLoaded", () => {
-    console.log(picked);
-
     const pageAData = loadPageAData();
     if (!pageAData) {
       console.warn("A 페이지 데이터가 없습니다.");
@@ -1484,12 +971,13 @@ if (surveyForm) {
 
     try {
       const docRef = await addDoc(collection(db, "surveys"), data);
-      // surveyForm.reset();
-      // sessionStorage.removeItem("surveyPageA");
-      // sessionStorage.removeItem("surveyPageB");
-      // sessionStorage.removeItem("surveyPageC");
       sessionStorage.setItem("surveySubmitted", "true");
-      showNotification("설문조사가 성공적으로 제출되었습니다!", "success");
+      showNotification("설문조사가 성공적으로 제출되었습니다! 5초 후에 처음 페이지로 돌아갑니다", "success");
+
+      // 5초 후 index.html로 이동
+      setTimeout(() => {
+        window.location.href = "index.html";
+      }, 5000);
     } catch (error) {
       console.error("Error adding document: ", error);
       showNotification("설문조사 제출 중 오류가 발생했습니다.", "error");
@@ -1543,7 +1031,7 @@ function makePageC(i, data) {
                 <input
                   id="question-${data.questionNum + 1}-rail-use-percent"
                   type="text"
-                  class="mx-2 h-[32px] w-[140px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                  class="mx-2 h-[32px] w-[100px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                 />%
               </td>
               <td class="border-1 px-2 text-right">
