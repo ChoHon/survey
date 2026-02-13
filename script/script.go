@@ -143,8 +143,8 @@ func exportSurbey(exeDir string) error {
 			loc := time.FixedZone("KST", 9*60*60)
 			createdAt := survey.CreatedAt.In(loc).Format("2006-01-02 15:04:05")
 
-			questionStrs := make([]string, len(survey.Questions))
-			for i, q := range survey.Questions {
+			questionStrs := make([]string, len(survey.WeightType))
+			for i, q := range survey.WeightType {
 				questionStrs[i] = strconv.Itoa(q)
 			}
 
