@@ -117,6 +117,8 @@ const BpageFieldMapping = {
   "b11-first": "B11.first",
   "b11-second": "B11.second",
   "b11-third": "B11.third",
+
+  "b13-text": "B13.text",
 };
 
 export { ApageFieldMapping, BpageFieldMapping };

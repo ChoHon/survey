@@ -613,6 +613,9 @@ function savePageBData() {
       volumeFactor: parseNumber(getRadioValue("b12-11")),
       serviceFactor: parseNumber(getRadioValue("b12-12")),
     },
+    B13: {
+      text: document.getElementById("b13-text")?.value,
+    },
   };
 
   sessionStorage.setItem("surveyPageB", JSON.stringify(data));

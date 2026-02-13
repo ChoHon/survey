@@ -79,107 +79,26 @@ func exportSurbey(exeDir string) error {
 	var survey structs.Survey
 	headers := []string{"문서ID", "제출 날짜", "C문항 유형"}
 
-	// A
-	headers = append(headers, []string{
-		"A1-성명", "A2-부서", "A3-직위",
-		"A4-전화번호", "A5-이메일",
-		"A6-사업체명", "A7-주소",
-	}...)
+	for _, category := range []string{"A", "B", "C"} {
+		v := reflect.ValueOf(survey)
 
-	// B
-	headers = append(headers, survey.B1.PrintHeader()...)
-	headers = append(headers, survey.B2.PrintHeader()...)
-	headers = append(headers, survey.B3.PrintHeader()...)
-	headers = append(headers, survey.B4.PrintHeader()...)
-	headers = append(headers, survey.B5.PrintHeader()...)
-	headers = append(headers, survey.B6.PrintHeader()...)
-	headers = append(headers, survey.B7.PrintHeader()...)
-	headers = append(headers, survey.B8.PrintHeader()...)
-	headers = append(headers, survey.B9.PrintHeader()...)
-	headers = append(headers, survey.B10.PrintHeader()...)
-	headers = append(headers, survey.B11.PrintHeader()...)
-	headers = append(headers, survey.B12.PrintHeader()...)
+		for i := 1; ; i++ {
+			field := v.FieldByName(fmt.Sprintf("%s%d", category, i))
+			if !field.IsValid() {
+				break
+			}
 
-	cHeaders := []string{
-		// C1
-		"C1-철도 비용", "C1-철도 시간", "C1-철송률",
-		"C1-도로 비용", "C1-도로 시간",
-		"C1-철송선택",
-		// C2
-		"C2-철도 비용", "C2-철도 시간", "C2-철송률",
-		"C2-도로 비용", "C2-도로 시간",
-		"C2-철송선택",
-		// C3
-		"C3-철도 비용", "C3-철도 시간", "C3-철송률",
-		"C3-도로 비용", "C3-도로 시간",
-		"C3-철송선택",
-		// C4
-		"C4-철도 비용", "C4-철도 시간", "C4-철송률",
-		"C4-도로 비용", "C4-도로 시간",
-		"C4-철송선택",
-		// C5
-		"C5-철도 비용", "C5-철도 시간", "C5-철송률",
-		"C5-도로 비용", "C5-도로 시간",
-		"C5-철송선택",
-		// C6
-		"C6-철도 비용", "C6-철도 시간", "C6-철송률",
-		"C6-도로 비용", "C6-도로 시간",
-		"C6-철송선택",
-		// C7
-		"C7-철도 비용", "C7-철도 시간", "C7-철송률",
-		"C7-도로 비용", "C7-도로 시간",
-		"C7-철송선택",
-		// C8
-		"C8-철도 비용", "C8-철도 시간", "C8-철송률",
-		"C8-도로 비용", "C8-도로 시간",
-		"C8-철송선택",
-		// C9
-		"C9-철도 비용", "C9-철도 시간", "C9-철송률",
-		"C9-도로 비용", "C9-도로 시간",
-		"C9-철송선택",
-		// C10
-		"C10-철도 비용", "C10-철도 시간", "C10-철송률",
-		"C10-도로 비용", "C10-도로 시간",
-		"C10-철송선택",
-		// C11
-		"C11-철도 비용", "C11-철도 시간", "C11-철송률",
-		"C11-도로 비용", "C11-도로 시간",
-		"C11-철송선택",
-		// C12
-		"C12-철도 비용", "C12-철도 시간", "C12-철송률",
-		"C12-도로 비용", "C12-도로 시간",
-		"C12-철송선택",
-		// C13
-		"C13-철도 비용", "C13-철도 시간", "C13-철송률",
-		"C13-도로 비용", "C13-도로 시간",
-		"C13-철송선택",
-		// C14
-		"C14-철도 비용", "C14-철도 시간", "C14-철송률",
-		"C14-도로 비용", "C14-도로 시간",
-		"C14-철송선택",
-		// C15
-		"C15-철도 비용", "C15-철도 시간", "C15-철송률",
-		"C15-도로 비용", "C15-도로 시간",
-		"C15-철송선택",
-		// C16
-		"C16-철도 비용", "C16-철도 시간", "C16-철송률",
-		"C16-도로 비용", "C16-도로 시간",
-		"C16-철송선택",
-		// C17
-		"C17-철도 비용", "C17-철도 시간", "C17-철송률",
-		"C17-도로 비용", "C17-도로 시간",
-		"C17-철송선택",
-		// C18
-		"C18-철도 비용", "C18-철도 시간", "C18-철송률",
-		"C18-도로 비용", "C18-도로 시간",
-		"C18-철송선택",
-		// C19
-		"C19-철도 비용", "C19-철도 시간", "C19-철송률",
-		"C19-도로 비용", "C19-도로 시간",
-		"C19-철송선택",
+			if category == "C" {
+				if c, ok := field.Interface().(structs.C); ok {
+					headers = append(headers, c.PrintHeader(i)...)
+				}
+			} else {
+				if p, ok := field.Interface().(structs.Question); ok {
+					headers = append(headers, p.PrintHeader()...)
+				}
+			}
+		}
 	}
-	headers = append(headers, cHeaders...)
-
 	writer.Write(headers)
 
 	fmt.Println("4. CSV 헤더 쓰기 완료 ")
@@ -195,11 +114,6 @@ func exportSurbey(exeDir string) error {
 				break
 			}
 			return fmt.Errorf("문서 조회 실패: %w", err)
-		}
-
-		if doc.Ref.ID == "metadata" {
-			print(doc.Data())
-			continue
 		}
 
 		total++
@@ -227,29 +141,16 @@ func exportSurbey(exeDir string) error {
 
 			row := []string{doc.Ref.ID, createdAt, strings.Join(questionStrs, ", ")}
 
-			// A
-			row = append(row, []string{
-				survey.Respondent.Name, survey.Respondent.Department, survey.Respondent.Position,
-				survey.Respondent.Phone, survey.Respondent.Email,
-				survey.Company.Name, survey.Company.Address,
-			}...)
+			for _, category := range []string{"A", "B", "C"} {
+				v := reflect.ValueOf(survey)
 
-			// B
-			v := reflect.ValueOf(survey)
-			for i := 1; i <= 12; i++ {
-				field := v.FieldByName(fmt.Sprintf("B%d", i))
-				if field.IsValid() {
-					if p, ok := field.Interface().(interface{ PrintString() []string }); ok {
-						row = append(row, p.PrintString()...)
+				for i := 1; ; i++ {
+					field := v.FieldByName(fmt.Sprintf("%s%d", category, i))
+					if !field.IsValid() {
+						break
 					}
-				}
-			}
 
-			// C
-			for i := 1; i <= 19; i++ {
-				field := v.FieldByName(fmt.Sprintf("C%d", i))
-				if field.IsValid() {
-					if p, ok := field.Interface().(interface{ PrintString() []string }); ok {
+					if p, ok := field.Interface().(structs.Question); ok {
 						row = append(row, p.PrintString()...)
 					}
 				}

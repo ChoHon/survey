@@ -541,3 +541,15 @@ func (b B12) PrintString() []string {
 		fmt.Sprintf("%d", b.ServiceFactor),
 	}
 }
+
+type B13 struct {
+	Text string `firestore:"text,omitempty"`
+}
+
+func (b B13) PrintHeader() []string {
+	return []string{"B13-기타 의견"}
+}
+
+func (b B13) PrintString() []string {
+	return []string{b.Text}
+}

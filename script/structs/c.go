@@ -24,6 +24,17 @@ type Codition struct {
 	UsePercent int
 }
 
+func (c C) PrintHeader(num int) []string {
+	return []string{
+		fmt.Sprintf("C%d-철도 비용", num),
+		fmt.Sprintf("C%d-철도 시간", num),
+		fmt.Sprintf("C%d-철송률", num),
+		fmt.Sprintf("C%d-도로 비용", num),
+		fmt.Sprintf("C%d-도로 시간", num),
+		fmt.Sprintf("C%d-철송선택", num),
+	}
+}
+
 func (c C) PrintString() []string {
 	return []string{
 		fmt.Sprintf("%d", c.Rail.Cost),
