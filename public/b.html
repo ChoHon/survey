@@ -412,36 +412,12 @@
 
                 <table class="w-full text-center">
                   <tr class="h-[36px] border-1">
-                    <td class="border-1 bg-gray-200 px-5">내륙 기종점</td>
-                    <td class="px-2">
-                      <div class="flex gap-1">
-                        <input
-                          id="b6-inland-sido"
-                          type="text"
-                          class="h-[32px] w-[80px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                        />
-                        <div class="mt-1.5 ml-1">시·도</div>
-                      </div>
+                    <td class="w-[22%] border-1 bg-gray-200 px-5">내륙 기종점</td>
+                    <td class="w-[24%] bg-red-100 pl-5">
+                      <select id="b6-inland-sido" class="h-full w-full outline-0"></select>
                     </td>
-                    <td class="px-2">
-                      <div class="flex gap-1">
-                        <input
-                          id="b6-inland-sigun"
-                          type="text"
-                          class="h-[32px] w-[100px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                        />
-                        <div class="mt-1 ml-1">시·군</div>
-                      </div>
-                    </td>
-                    <td class="px-2">
-                      <div class="flex gap-1">
-                        <input
-                          id="b6-inland-gu"
-                          type="text"
-                          class="h-[32px] w-[100px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                        />
-                        <div class="mt-1 ml-1">구</div>
-                      </div>
+                    <td class="w-[24%] bg-red-100 pl-5">
+                      <select id="b6-inland-sigungu" class="h-full w-full outline-0"></select>
                     </td>
                     <td class="px-2">
                       <div class="flex gap-1">
@@ -449,7 +425,7 @@
                         <input
                           id="b6-inland-point"
                           type="text"
-                          class="h-[32px] w-[100px] rounded-md bg-white px-3 py-1.5 text-center text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                          class="h-[32px] w-[150px] rounded-md bg-white px-2 py-1.5 text-center text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                         />
                         <div class="mt-1 ml-1">)</div>
                       </div>
@@ -461,66 +437,42 @@
 
                 <table class="w-full text-center">
                   <tr class="h-[36px] border-1 bg-gray-200">
-                    <td class="w-[30%] border-1 px-5" colspan="2">철도 경유지</td>
-                    <td class="w-[70%] border-1 px-2" colspan="4">도로 경유지(*이용시)</td>
+                    <td class="w-[22%] border-1 px-5" colspan="2">철도 경유지</td>
+                    <td class="border-1 px-2" colspan="4">도로 경유지(*이용시)</td>
                   </tr>
-                  <tr class="border-1">
-                    <td class="w-[10%] border-1 bg-gray-200 px-3">화물역1</td>
-                    <td class="w-[20%] border-1">
+                  <tr class="h-[36px] border-1">
+                    <td class="w-[9%] border-1 bg-gray-200 px-3">화물역1</td>
+                    <td class="border-1">
                       <input
                         id="b6-rail-inter1-station"
                         type="text"
-                        class="h-[32px] w-[100%] px-3 py-1.5 text-center text-gray-900 outline-1 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                        class="h-[36px] w-full px-3 py-1.5 text-center text-gray-900 outline-1 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                       />
                     </td>
-                    <td class="w-[13%] border-1 bg-gray-200 px-2">경유지 주소</td>
-                    <td class="w-[19%] px-2">
-                      <div class="flex gap-1">
-                        <input
-                          id="b6-road-inter-sido"
-                          type="text"
-                          class="h-[32px] w-[60%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                        />
-                        <div class="mt-1.5 ml-1">시·도</div>
-                      </div>
+                    <td class="w-[12%] border-1 bg-gray-200 px-2">경유지 주소</td>
+                    <td class="w-[33%] bg-red-100 pl-5">
+                      <select id="b6-road-inter-sido" class="h-full w-full outline-0"></select>
                     </td>
-                    <td class="w-[19%] px-2">
-                      <div class="flex gap-1">
-                        <input
-                          id="b6-road-inter-sigun"
-                          type="text"
-                          class="h-[32px] w-[68%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                        />
-                        <div class="mt-1 ml-1">시·군</div>
-                      </div>
-                    </td>
-                    <td class="w-[19%] px-2">
-                      <div class="flex gap-1">
-                        <input
-                          id="b6-road-inter-gu"
-                          type="text"
-                          class="h-[32px] w-[90%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                        />
-                        <div class="mt-1 ml-1">구</div>
-                      </div>
+                    <td class="w-[33%] bg-red-100 pl-5">
+                      <select id="b6-road-inter-sigungu" class="h-full w-full outline-0"></select>
                     </td>
                   </tr>
-                  <tr>
-                    <td class="w-[10%] border-1 bg-gray-200 px-3">화물역2</td>
-                    <td class="w-[20%] border-1">
+                  <tr class="h-[36px] border-1">
+                    <td class="border-1 bg-gray-200 px-3">화물역2</td>
+                    <td class="border-1">
                       <input
                         id="b6-rail-inter2-station"
                         type="text"
-                        class="h-[32px] w-[100%] px-3 py-1.5 text-center text-gray-900 outline-1 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                        class="h-[36px] w-full px-3 py-1.5 text-center text-gray-900 outline-1 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                       />
                     </td>
-                    <td class="w-[13%] border-1 bg-gray-200 px-3">경유지명</td>
-                    <td class="w-[19%] border-1" colspan="3">
+                    <td class="border-1 bg-gray-200 px-3">경유지명</td>
+                    <td class="border-1" colspan="3">
                       <div class="flex gap-1">
                         <input
                           id="b6-road-inter-point"
                           type="text"
-                          class="h-[32px] w-[100%] px-3 py-1.5 text-center text-gray-900 outline-1 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                          class="h-[36px] w-full bg-red-100 px-3 py-1.5 text-center text-gray-900 outline-1 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                         />
                       </div>
                     </td>
@@ -531,36 +483,12 @@
 
                 <table class="w-full text-center">
                   <tr class="h-[36px] border-1">
-                    <td class="border-1 bg-gray-200 px-5">항만 기종점</td>
-                    <td class="px-2">
-                      <div class="flex gap-1">
-                        <input
-                          id="b6-port-sido"
-                          type="text"
-                          class="h-[32px] w-[80px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                        />
-                        <div class="mt-1.5 ml-1">시·도</div>
-                      </div>
+                    <td class="w-[22%] border-1 bg-gray-200 px-5">항만 기종점</td>
+                    <td class="w-[25%] bg-red-100 pl-5">
+                      <select id="b6-port-sido" class="h-full w-full outline-0"></select>
                     </td>
-                    <td class="px-2">
-                      <div class="flex gap-1">
-                        <input
-                          id="b6-port-sigun"
-                          type="text"
-                          class="h-[32px] w-[100px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                        />
-                        <div class="mt-1 ml-1">시·군</div>
-                      </div>
-                    </td>
-                    <td class="px-2">
-                      <div class="flex gap-1">
-                        <input
-                          id="b6-port-gu"
-                          type="text"
-                          class="h-[32px] w-[100px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                        />
-                        <div class="mt-1 ml-1">구</div>
-                      </div>
+                    <td class="w-[25%] bg-red-100 pl-5">
+                      <select id="b6-port-sigungu" class="h-full w-full outline-0"></select>
                     </td>
                     <td class="px-2">
                       <div class="flex gap-1">
@@ -575,9 +503,10 @@
                     </td>
                   </tr>
                 </table>
+
                 <table class="mt-4 w-full text-center">
                   <tr class="h-[36px] border-1">
-                    <td class="w-[15.2%] border-1 bg-gray-200" rowspan="3">연간 운송량</td>
+                    <td class="w-[15%] border-1 bg-gray-200" rowspan="3">연간 운송량</td>
                     <td class="w-[7%] border-1 bg-gray-200 text-center">합계</td>
                     <td class="border-1 text-right" colspan="2">
                       <div class="mr-2">

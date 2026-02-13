@@ -202,21 +202,18 @@ type B6 struct {
 func (b B6) PrintHeader() []string {
 	return []string{
 		"B6-내륙기종점(시도)",
-		"B6-내륙기종점(시군)",
-		"B6-내륙기종점(구)",
+		"B6-내륙기종점(시군구)",
 		"B6-내륙기종점(대표지점)",
 
 		"B6-항만기종점(시도)",
-		"B6-항만기종점(시군)",
-		"B6-항만기종점(구)",
+		"B6-항만기종점(시군구)",
 		"B6-항만기종점(대표지점)",
 
 		"B6-철도경유지(화물역1)",
 		"B6-철도경유지(화물역2)",
 
 		"B6-도로경유지(시도)",
-		"B6-도로경유지(시군)",
-		"B6-도로경유지(구)",
+		"B6-도로경유지(시군구)",
 		"B6-도로경유지(경유지명)",
 
 		"B6-연간운송량(총량)",
@@ -231,21 +228,18 @@ func (b B6) PrintString() []string {
 	return []string{
 		// 내륙 기종점
 		b.InlandOD.SiDo,
-		b.InlandOD.SiGun,
-		b.InlandOD.Gu,
+		b.InlandOD.SiGunGu,
 		b.InlandOD.Point,
 		// 항만 기종점
 		b.PortOD.SiDo,
-		b.PortOD.SiGun,
-		b.PortOD.Gu,
+		b.PortOD.SiGunGu,
 		b.PortOD.Point,
 		// 철도 경유지
 		b.Intermediate.Station1,
 		b.Intermediate.Station2,
 		// 도로 경유지
 		b.Intermediate.Road.SiDo,
-		b.Intermediate.Road.SiGun,
-		b.Intermediate.Road.Gu,
+		b.Intermediate.Road.SiGunGu,
 		b.Intermediate.Road.Point,
 		// 운송량
 		fmt.Sprintf("%d", b.AnnualTransportVolume.Total),
@@ -257,10 +251,9 @@ func (b B6) PrintString() []string {
 }
 
 type OriginDestination struct {
-	SiDo  string `firestore:"siDo,omitempty"`
-	SiGun string `firestore:"siGun,omitempty"`
-	Gu    string `firestore:"gu,omitempty"`
-	Point string `firestore:"point,omitempty"`
+	SiDo    string `firestore:"sido,omitempty"`
+	SiGunGu string `firestore:"sigungu,omitempty"`
+	Point   string `firestore:"point,omitempty"`
 }
 
 type Intermediate struct {

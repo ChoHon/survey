@@ -3,6 +3,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.0/firebase
 import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore.js";
 import { ApageFieldMapping, BpageFieldMapping, CpageFieldMapping } from "./field_map.js";
 import questions from "./question.js";
+import { district, subDistrict } from "./district.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -221,7 +222,7 @@ function bindDurationCalc(ids, prefix) {
       h -= 24;
     }
 
-    daysSumEl.textContent = Number.isFinite(d) ? String(d) : "";
+    daysSumEl.textContent = Number.isFinite(d) ? formatNumber(d) : "";
     hoursSumEl.textContent = Number.isFinite(h) ? String(h) : "";
     minutesSumEl.textContent = Number.isFinite(m) ? String(m) : "";
   };
@@ -244,7 +245,7 @@ function bindCostSumCalc(ids, prefix, is_20ft) {
 
   const update = () => {
     const costSum = costEls.reduce((total, el) => total + parseNumber(el.value), 0);
-    sumEl.textContent = Number.isFinite(costSum) ? String(costSum) : "";
+    sumEl.textContent = Number.isFinite(costSum) ? formatNumber(costSum) : "";
   };
 
   costEls.forEach((el) => el.addEventListener("input", update));
@@ -394,7 +395,7 @@ function savePageBData() {
       },
     },
     B4: {
-      levelOfDecisionMakingPower: parseNumber(getRadioValue("b4")),
+      levelOfDecisionMakingPower: parseNumber(getRadioValue("b4-select")),
     },
     B5: {
       sameDayPercentage: parseNumber(document.getElementById("b5-same-day")?.value),
@@ -410,14 +411,12 @@ function savePageBData() {
     B6: {
       inlandOD: {
         sido: document.getElementById("b6-inland-sido")?.value || "",
-        sigun: document.getElementById("b6-inland-sigun")?.value || "",
-        gu: document.getElementById("b6-inland-gu")?.value || "",
+        sigungu: document.getElementById("b6-inland-sigungu")?.value || "",
         point: document.getElementById("b6-inland-point")?.value || "",
       },
       portOD: {
         sido: document.getElementById("b6-port-sido")?.value || "",
-        sigun: document.getElementById("b6-port-sigun")?.value || "",
-        gu: document.getElementById("b6-port-gu")?.value || "",
+        sigungu: document.getElementById("b6-port-sigungu")?.value || "",
         point: document.getElementById("b6-port-point")?.value || "",
       },
       intermediate: {
@@ -425,8 +424,7 @@ function savePageBData() {
         railInter2: document.getElementById("b6-rail-inter2-station")?.value || "",
         road: {
           sido: document.getElementById("b6-road-inter-sido")?.value || "",
-          sigun: document.getElementById("b6-road-inter-sigun")?.value || "",
-          gu: document.getElementById("b6-road-inter-gu")?.value || "",
+          sigungu: document.getElementById("b6-road-inter-sigungu")?.value || "",
           point: document.getElementById("b6-road-inter-point")?.value || "",
         },
       },
@@ -674,7 +672,13 @@ function fillPageForm(fieldMap, data) {
       }
 
       const element = document.getElementById(elementId);
-      if (element) element.value = value;
+      if (element) {
+        element.value = value;
+
+        if (elementId.includes("sido")) {
+          element.dispatchEvent(new Event("input"));
+        }
+      }
     }
   });
 }
@@ -741,6 +745,38 @@ function localeString() {
       }
     });
   });
+}
+
+// B6 주소 선택지 추가
+function addAddressOption(prefix) {
+  const sidoElementId = `${prefix}-sido`;
+  const sigunguElementId = `${prefix}-sigungu`;
+
+  const sidoElement = document.getElementById(sidoElementId);
+  const sigunguElement = document.getElementById(sigunguElementId);
+
+  for (const key in district) {
+    const selectOption = document.createElement("option");
+    selectOption.value = key;
+    selectOption.textContent = district[key];
+    sidoElement.appendChild(selectOption);
+  }
+
+  const update = () => {
+    const sido = sidoElement.value;
+
+    sigunguElement.innerHTML = "";
+
+    subDistrict[sido].forEach((d) => {
+      const selectOption = document.createElement("option");
+      selectOption.value = d;
+      selectOption.textContent = d;
+      sigunguElement.appendChild(selectOption);
+    });
+  };
+
+  sidoElement.addEventListener("input", update);
+  sidoElement.value = 0;
 }
 
 // C 기본값에 문항가중치 적용
@@ -908,6 +944,10 @@ if (window.location.pathname.includes("b.html")) {
     if (!pageAData) {
       console.warn("A 페이지 데이터가 없습니다.");
     }
+
+    addAddressOption("b6-inland");
+    addAddressOption("b6-port");
+    addAddressOption("b6-road-inter");
 
     const savedData = loadSessionData("surveyPageB");
     if (savedData) {
