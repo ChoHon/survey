@@ -160,7 +160,7 @@ function bindLoadInput(ids, inputPrefix, outputPrefix) {
 
   const update = () => {
     outputEls.forEach((el, index) => {
-      el.textContent = inputEls[index].value || "0";
+      el.textContent = inputEls[index].value || "";
     });
   };
 
