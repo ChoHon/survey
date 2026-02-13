@@ -1,13 +1,16 @@
 package main
 
 import (
+	"bufio"
 	"context"
+	_ "embed"
 	"encoding/csv"
 	"fmt"
-	"log"
 	"os"
 	"path/filepath"
 	"reflect"
+	"strconv"
+	"strings"
 	"time"
 
 	"survey/structs"
@@ -17,32 +20,43 @@ import (
 	"google.golang.org/api/option"
 )
 
+//go:embed firebaseKey.json
+var firebaseKeyJSON []byte
+
 func main() {
 	// 실행파일의 디렉토리 경로 가져오기
 	exePath, _ := os.Executable()
 	exeDir := filepath.Dir(exePath)
-	keyName := "firebaseKey.dev.json"
 
-	exportSurbey(exeDir, keyName)
+	if err := exportSurbey(exeDir); err != nil {
+		fmt.Printf("\n오류 발생: %v\n", err)
+
+		fmt.Println("\n엔터를 누르면 종료됩니다...")
+		bufio.NewReader(os.Stdin).ReadBytes('\n')
+	}
+
 }
 
-func exportSurbey(exeDir, keyName string) {
+func exportSurbey(exeDir string) error {
 	// Firestore 초기화
 	ctx := context.Background()
 
-	keyPath := filepath.Join(exeDir, keyName)
-	sa := option.WithAuthCredentialsFile(option.ServiceAccount, keyPath)
+	sa := option.WithAuthCredentialsJSON(option.ServiceAccount, firebaseKeyJSON)
 
 	app, err := firebase.NewApp(ctx, nil, sa)
 	if err != nil {
-		log.Fatalln(err)
+		return fmt.Errorf("Firebase 앱 초기화 실패: %w", err)
 	}
+
+	fmt.Println("1. Firebase 연동 완료 ")
 
 	client, err := app.Firestore(ctx)
 	if err != nil {
-		log.Fatalln(err)
+		return fmt.Errorf("Firestore 클라이언트 생성 실패: %w", err)
 	}
 	defer client.Close()
+
+	fmt.Println("2. Firestore Database 연동 완료 ")
 
 	// CSV 파일 생성
 	filename := fmt.Sprintf("survey_export_%s.csv", time.Now().Format("20060102_150405"))
@@ -50,9 +64,11 @@ func exportSurbey(exeDir, keyName string) {
 
 	file, err := os.Create(filePath)
 	if err != nil {
-		log.Fatalln(err)
+		return fmt.Errorf("CSV 파일 생성 실패: %w", err)
 	}
 	defer file.Close()
+
+	fmt.Println("3. CSV 파일 생성 완료 ")
 
 	writer := csv.NewWriter(file)
 	defer writer.Flush()
@@ -61,7 +77,7 @@ func exportSurbey(exeDir, keyName string) {
 	file.Write([]byte{0xEF, 0xBB, 0xBF})
 
 	var survey structs.Survey
-	headers := []string{"문서ID", "제출 날짜"}
+	headers := []string{"문서ID", "제출 날짜", "C문항 유형"}
 
 	// A
 	headers = append(headers, []string{
@@ -166,6 +182,11 @@ func exportSurbey(exeDir, keyName string) {
 
 	writer.Write(headers)
 
+	fmt.Println("4. CSV 헤더 쓰기 완료 ")
+
+	total := 0
+	success := 0
+
 	iter := client.Collection("surveys").Documents(ctx)
 	for {
 		doc, err := iter.Next()
@@ -173,7 +194,7 @@ func exportSurbey(exeDir, keyName string) {
 			if err == iterator.Done {
 				break
 			}
-			log.Fatalln(err)
+			return fmt.Errorf("문서 조회 실패: %w", err)
 		}
 
 		if doc.Ref.ID == "metadata" {
@@ -181,44 +202,69 @@ func exportSurbey(exeDir, keyName string) {
 			continue
 		}
 
-		var survey structs.Survey
-		if err := doc.DataTo(&survey); err != nil {
-			log.Fatalln(err)
-		}
+		total++
 
-		loc, _ := time.LoadLocation("Asia/Seoul")
-		createdAt := survey.CreatedAt.In(loc).Format("2006-01-02 15:04:05")
-		row := []string{doc.Ref.ID, createdAt}
+		func() {
+			defer func() {
+				if r := recover(); r != nil {
+					fmt.Printf("⚠️  문서 처리 중 panic 발생 (ID: %s): %v\n", doc.Ref.ID, r)
+				}
+			}()
 
-		// A
-		row = append(row, []string{
-			survey.Respondent.Name, survey.Respondent.Department, survey.Respondent.Position,
-			survey.Respondent.Phone, survey.Respondent.Email,
-			survey.Company.Name, survey.Company.Address,
-		}...)
+			var survey structs.Survey
+			if err := doc.DataTo(&survey); err != nil {
+				fmt.Printf("⚠️  문서 데이터 파싱 실패 (ID: %s): %v\n", doc.Ref.ID, err)
+				return
+			}
 
-		// B
-		v := reflect.ValueOf(survey)
-		for i := 1; i <= 12; i++ {
-			field := v.FieldByName(fmt.Sprintf("B%d", i))
-			if field.IsValid() {
-				if p, ok := field.Interface().(interface{ PrintString() []string }); ok {
-					row = append(row, p.PrintString()...)
+			loc := time.FixedZone("KST", 9*60*60)
+			createdAt := survey.CreatedAt.In(loc).Format("2006-01-02 15:04:05")
+
+			questionStrs := make([]string, len(survey.Questions))
+			for i, q := range survey.Questions {
+				questionStrs[i] = strconv.Itoa(q)
+			}
+
+			row := []string{doc.Ref.ID, createdAt, strings.Join(questionStrs, ", ")}
+
+			// A
+			row = append(row, []string{
+				survey.Respondent.Name, survey.Respondent.Department, survey.Respondent.Position,
+				survey.Respondent.Phone, survey.Respondent.Email,
+				survey.Company.Name, survey.Company.Address,
+			}...)
+
+			// B
+			v := reflect.ValueOf(survey)
+			for i := 1; i <= 12; i++ {
+				field := v.FieldByName(fmt.Sprintf("B%d", i))
+				if field.IsValid() {
+					if p, ok := field.Interface().(interface{ PrintString() []string }); ok {
+						row = append(row, p.PrintString()...)
+					}
 				}
 			}
-		}
 
-		// C
-		for i := 1; i <= 19; i++ {
-			field := v.FieldByName(fmt.Sprintf("C%d", i))
-			if field.IsValid() {
-				if p, ok := field.Interface().(interface{ PrintString() []string }); ok {
-					row = append(row, p.PrintString()...)
+			// C
+			for i := 1; i <= 19; i++ {
+				field := v.FieldByName(fmt.Sprintf("C%d", i))
+				if field.IsValid() {
+					if p, ok := field.Interface().(interface{ PrintString() []string }); ok {
+						row = append(row, p.PrintString()...)
+					}
 				}
 			}
-		}
 
-		writer.Write(row)
+			if err := writer.Write(row); err != nil {
+				fmt.Printf("⚠️  CSV 쓰기 실패 (ID: %s): %v\n", doc.Ref.ID, err)
+				return
+			}
+
+			success++
+		}()
 	}
 
+	fmt.Printf("5. CSV 데이터 쓰기 완료(%d/%d)\n", success, total)
+
+	return nil
 }
