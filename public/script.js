@@ -33,8 +33,19 @@ function parseNumber(value) {
   return Number.isFinite(n) ? n : 0;
 }
 
-function formatFloatToFixed(num) {
-  return Number.isInteger(num) ? num : num.toFixed(1);
+function formatNumber(num) {
+  if (num == null) return "0";
+  if (typeof num === "string") return num;
+
+  // 소수점이 있는 경우
+  if (!Number.isInteger(num)) {
+    const fixed = num.toFixed(1);
+    const [integer, decimal] = fixed.split(".");
+    return `${Number(integer).toLocaleString("ko-KR")}.${decimal}`;
+  }
+
+  // 정수인 경우
+  return num.toLocaleString("ko-KR");
 }
 
 function getNestedValue(obj, path) {
@@ -112,7 +123,7 @@ function bindSumCalc(ids, targetId) {
   const update = () => {
     const result = els.reduce((total, el) => total + parseNumber(el.value), 0);
 
-    targetEl.textContent = Number.isFinite(result) ? String(result) : "";
+    targetEl.textContent = Number.isFinite(result) ? formatNumber(result) : "";
   };
 
   els.forEach((el) => el.addEventListener("input", update));
@@ -131,7 +142,7 @@ function bindTotalCalc(ids, totalId, targetId) {
     const total = parseNumber(totalEl.value);
     const result = total - els.reduce((total, el) => total + parseNumber(el.value), 0);
 
-    targetEl.textContent = Number.isFinite(result) ? String(result) : "";
+    targetEl.textContent = Number.isFinite(result) ? formatNumber(result) : "";
   };
 
   const allEls = [...els, totalEl];
@@ -210,9 +221,9 @@ function bindDurationCalc(ids, prefix) {
       h -= 24;
     }
 
-    daysSumEl.textContent = Number.isFinite(d) ? String(d) : "";
-    hoursSumEl.textContent = Number.isFinite(h) ? String(h) : "";
-    minutesSumEl.textContent = Number.isFinite(m) ? String(m) : "";
+    daysSumEl.textContent = Number.isFinite(d) ? formatFloatToFixed(d) : "";
+    hoursSumEl.textContent = Number.isFinite(h) ? formatFloatToFixed(h) : "";
+    minutesSumEl.textContent = Number.isFinite(m) ? formatFloatToFixed(m) : "";
   };
 
   const els = [...daysEls, ...hoursEls, ...minutesEls];
@@ -714,6 +725,24 @@ function validatePage(fieldMap) {
   return true;
 }
 
+// 입력값 쉼표 추가/제거 (미완)
+function localeString() {
+  document.querySelectorAll('input[type="text"]').forEach((input) => {
+    // 포커스 시: 쉼표 제거 (편집 가능하도록)
+    input.addEventListener("focus", function () {
+      this.value = this.value.replace(/,/g, "");
+    });
+
+    // 포커스 아웃 시: 쉼표 추가
+    input.addEventListener("blur", function () {
+      const num = parseNumber(this.value);
+      if (num !== 0 || this.value.trim() !== "") {
+        this.value = formatNumber(num);
+      }
+    });
+  });
+}
+
 // C 기본값에 문항가중치 적용
 function calcQuestion(defaultData, pickedNum) {
   const picked = questions[pickedNum];
@@ -732,15 +761,15 @@ function calcQuestion(defaultData, pickedNum) {
   let roadDuration = Math.round(defaultData.road.duration * picked.roadDuration * 1000) / 1000;
 
   // 화면에 보여지는 값
-  const railDisplayCost = formatFloatToFixed(Math.round(railCost / 1000) / 10);
-  const roadDisplayCost = formatFloatToFixed(Math.round(roadCost / 1000) / 10);
-  const railDisplayDuration = formatFloatToFixed(Math.round(railDuration * 10) / 10);
-  const roadDisplayDuration = formatFloatToFixed(Math.round(roadDuration * 10) / 10);
+  const railDisplayCost = formatNumber(Math.round(railCost / 1000) / 10);
+  const roadDisplayCost = formatNumber(Math.round(roadCost / 1000) / 10);
+  const railDisplayDuration = formatNumber(Math.round(railDuration * 10) / 10);
+  const roadDisplayDuration = formatNumber(Math.round(roadDuration * 10) / 10);
 
   // 비교 문자열 생성 헬퍼 함수
   function compareValues(railValue, roadValue, unit, higherWord, lowerWord) {
     const diff = railValue - roadValue;
-    const diffString = formatFloatToFixed(Math.abs(diff));
+    const diffString = formatNumber(Math.abs(diff));
 
     if (diff > 0) {
       return `철도가 ${diffString} ${unit} ${higherWord}`;
