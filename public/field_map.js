@@ -121,4 +121,14 @@ const BpageFieldMapping = {
   "b13-text": "B13.text",
 };
 
-export { ApageFieldMapping, BpageFieldMapping };
+const CpageFieldMapping = Object.fromEntries(
+  [...Array(10).keys()].flatMap((i) => {
+    const num = i + 1;
+    return [
+      [`c${num}-rail-use-percent`, `C${num}.rail.usePercent`],
+      [`c${num}-select`, `C${num}.select`],
+    ];
+  }),
+);
+
+export { ApageFieldMapping, BpageFieldMapping, CpageFieldMapping };

@@ -1,7 +1,7 @@
 // Firebase SDK import (CDN 사용)
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js";
 import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore.js";
-import { ApageFieldMapping, BpageFieldMapping } from "./field_map.js";
+import { ApageFieldMapping, BpageFieldMapping, CpageFieldMapping } from "./field_map.js";
 import questions from "./question.js";
 
 // Your web app's Firebase configuration
@@ -314,25 +314,6 @@ function calcPageCDefaults() {
   };
 }
 
-// C 퍼센트 계산
-function bindCPercentageCalc(picked) {
-  picked.forEach((num) => {
-    const railEl = document.getElementById(`question-${num + 1}-rail-use-percent`);
-    const roadEl = document.getElementById(`question-${num + 1}-road-use-percent`);
-
-    if (!railEl || !roadEl) return;
-
-    const update = () => {
-      const railValue = parseNumber(railEl.value);
-      const roadValue = 100 - railValue;
-      roadEl.textContent = Number.isFinite(roadValue) ? String(roadValue) : "";
-    };
-
-    railEl.addEventListener("input", update);
-    update();
-  });
-}
-
 // ===== 다중 페이지 설문조사 데이터 관리 =====
 
 // A 페이지 데이터 저장
@@ -637,14 +618,17 @@ function savePageCData(picked) {
       rail: {
         cost: parseNumber(document.getElementById(`c${num}-rail-cost`)?.textContent),
         duration: parseNumber(document.getElementById(`c${num}-rail-duration`)?.textContent),
+        acc: parseNumber(document.getElementById(`c${num}-rail-acc`)?.textContent),
+        times: parseNumber(document.getElementById(`c${num}-rail-times`)?.textContent),
         usePercent: parseNumber(document.getElementById(`c${num}-rail-use-percent`)?.value),
       },
       road: {
         cost: parseNumber(document.getElementById(`c${num}-road-cost`)?.textContent),
         duration: parseNumber(document.getElementById(`c${num}-road-duration`)?.textContent),
+        acc: parseNumber(document.getElementById(`c${num}-road-acc`)?.textContent),
         usePercent: parseNumber(document.getElementById(`c${num}-road-use-percent`)?.textContent),
       },
-      select: getRadioValue(`c${num}`),
+      select: getRadioValue(`c${num}-select`),
     };
   }
 
@@ -666,7 +650,14 @@ function fillPageForm(fieldMap, data) {
 
   Object.entries(fieldMap).forEach(([elementId, dataPath]) => {
     const value = getNestedValue(data, dataPath);
+
     if (value != null) {
+      // 선택지 불러오기
+      if (value != "X" && elementId.includes("select")) {
+        const element = document.querySelector(`input[name="${elementId}"][value="${value}"]`);
+        if (element) element.checked = true;
+      }
+
       const element = document.getElementById(elementId);
       if (element) element.value = value;
     }
@@ -678,6 +669,20 @@ function validatePage(fieldMap) {
   const fields = Object.keys(fieldMap);
 
   for (const field of fields) {
+    if (field.includes("select")) {
+      const elements = document.querySelectorAll(`input[name="${field}"]`);
+      if (Array.from(elements).some((el) => el.checked)) {
+        continue;
+      }
+
+      showNotification("입력하지 않은 선택지가 있습니다", "error");
+
+      // 첫 번째 빈 필드로 스크롤 이동 및 포커스
+      elements[0].scrollIntoView({ behavior: "smooth", block: "center" });
+
+      return false;
+    }
+
     const element = document.getElementById(field);
     const value = element?.value?.trim();
 
@@ -686,12 +691,12 @@ function validatePage(fieldMap) {
       if (element) {
         element.style.borderColor = "red";
         element.style.borderWidth = "2px";
-      }
 
-      element.addEventListener("input", () => {
-        element.style.borderColor = "";
-        element.style.borderWidth = "";
-      });
+        element.addEventListener("input", () => {
+          element.style.borderColor = "";
+          element.style.borderWidth = "";
+        });
+      }
 
       showNotification("입력하지 않은 항목이 있습니다", "error");
 
@@ -788,13 +793,13 @@ function makePageC(i, data) {
             </tr>
             <tr class="h-[36px] border-1">
               <td class="border-1 px-2">정시도착율(지연시간 최대 3시간 이내)</td>
-              <td class="border-1 px-2 text-right">${data.rail.acc}%</td>
-              <td class="border-1 px-2 text-right">${data.road.acc}%</td>
+              <td class="border-1 px-2 text-right"><span id="c${i}-rail-acc">${data.rail.acc}</span>%</td>
+              <td class="border-1 px-2 text-right"><span id="c${i}-road-acc">${data.road.acc}</span>%</td>
               <td class="border-1 px-2 text-sm">${data.accCmp}</td>
             </tr>
             <tr class="h-[36px] border-1">
               <td class="border-1 px-2">화물열차 운행횟수</td>
-              <td class="border-1 px-2 text-right">일 ${data.rail.times} 회</td>
+              <td class="border-1 px-2 text-right">일 <span id="c${i}-rail-times">${data.rail.times}</span> 회</td>
               <td class="border-1 px-2">-</td>
               <td class="border-1 px-2">-</td>
             </tr>
@@ -815,10 +820,10 @@ function makePageC(i, data) {
             <tr class="h-[36px] border-1">
               <td class="border-1 px-2">수단 선택</td>
               <td class="border-1 px-2">
-                <input type="radio" name="c${i}" value="철도" class="h-full w-full outline-0" />
+                <input type="radio" name="c${i}-select" value="철도" class="h-full w-full outline-0" />
               </td>
               <td class="border-1 px-2">
-                <input type="radio" name="c${i}" value="도로" class="h-full w-full outline-0" />
+                <input type="radio" name="c${i}-select" value="도로" class="h-full w-full outline-0" />
               </td>
               <td class="border-1 px-2">-</td>
             </tr>
@@ -964,7 +969,6 @@ if (window.location.pathname.includes("c.html")) {
     .sort((a, b) => a - b);
 
   const picked = [0, ...randomNums];
-  console.log(picked);
 
   window.addEventListener("DOMContentLoaded", () => {
     const pageAData = loadSessionData("surveyPageA");
@@ -991,7 +995,10 @@ if (window.location.pathname.includes("c.html")) {
       bindPercentCalc(ids, targetId);
     }
 
-    bindCPercentageCalc(picked);
+    const savedData = loadSessionData("surveyPageC");
+    if (savedData) {
+      fillPageForm(CpageFieldMapping, savedData);
+    }
   });
 
   const previousButton = document.getElementById("c-to-b");
@@ -1005,6 +1012,11 @@ if (window.location.pathname.includes("c.html")) {
   if (submitButton && surveyForm) {
     submitButton.addEventListener("click", (e) => {
       e.preventDefault();
+
+      if (!validatePage(CpageFieldMapping)) {
+        e.preventDefault();
+        return false;
+      }
 
       savePageCData(picked);
       surveyForm.requestSubmit();
