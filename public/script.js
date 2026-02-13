@@ -33,6 +33,10 @@ function parseNumber(value) {
   return Number.isFinite(n) ? n : 0;
 }
 
+function formatFloatToFixed(num) {
+  return Number.isInteger(num) ? num : num.toFixed(1);
+}
+
 function getNestedValue(obj, path) {
   return path.split(".").reduce((current, key) => current?.[key], obj);
 }
@@ -252,7 +256,7 @@ function calcSumTime(daysIds, hoursIds, minutesIds, data, dataMap) {
   const minutes = calcSum(minutesIds, data, dataMap);
 
   const sum = days * 24 + hours + minutes / 60;
-  return Math.round(sum * 10) / 10;
+  return Math.round(sum * 1000) / 1000;
 }
 
 // C 기본값 계산
@@ -604,7 +608,7 @@ function savePageBData() {
 }
 
 // C 페이지: 페이지 저장
-function savePageCData(picked) {
+function savePageCData(picked, calcData) {
   const getRadioValue = (name) => {
     const checked = document.querySelector(`input[name="${name}"]:checked`);
     return checked ? checked.value : "X";
@@ -616,16 +620,16 @@ function savePageCData(picked) {
 
     data[name] = {
       rail: {
-        cost: parseNumber(document.getElementById(`c${num}-rail-cost`)?.textContent),
-        duration: parseNumber(document.getElementById(`c${num}-rail-duration`)?.textContent),
-        acc: parseNumber(document.getElementById(`c${num}-rail-acc`)?.textContent),
-        times: parseNumber(document.getElementById(`c${num}-rail-times`)?.textContent),
+        cost: Math.round(calcData[num].rail.cost),
+        duration: calcData[num].rail.duration,
+        acc: calcData[num].rail.acc,
+        times: calcData[num].rail.times,
         usePercent: parseNumber(document.getElementById(`c${num}-rail-use-percent`)?.value),
       },
       road: {
-        cost: parseNumber(document.getElementById(`c${num}-road-cost`)?.textContent),
-        duration: parseNumber(document.getElementById(`c${num}-road-duration`)?.textContent),
-        acc: parseNumber(document.getElementById(`c${num}-road-acc`)?.textContent),
+        cost: Math.round(calcData[num].road.cost),
+        duration: calcData[num].road.duration,
+        acc: calcData[num].road.acc,
         usePercent: parseNumber(document.getElementById(`c${num}-road-use-percent`)?.textContent),
       },
       select: getRadioValue(`c${num}-select`),
@@ -724,35 +728,47 @@ function calcQuestion(defaultData, pickedNum) {
   roadCost *= picked.roadCost;
 
   // 시간 가중치 적용
-  let railDuration = Math.round(defaultData.rail.duration * picked.railDuration * 10) / 10;
-  let roadDuration = Math.round(defaultData.road.duration * picked.roadDuration * 10) / 10;
+  let railDuration = Math.round(defaultData.rail.duration * picked.railDuration * 1000) / 1000;
+  let roadDuration = Math.round(defaultData.road.duration * picked.roadDuration * 1000) / 1000;
+
+  // 화면에 보여지는 값
+  const railDisplayCost = formatFloatToFixed(Math.round(railCost / 1000) / 10);
+  const roadDisplayCost = formatFloatToFixed(Math.round(roadCost / 1000) / 10);
+  const railDisplayDuration = formatFloatToFixed(Math.round(railDuration * 10) / 10);
+  const roadDisplayDuration = formatFloatToFixed(Math.round(roadDuration * 10) / 10);
 
   // 비교 문자열 생성 헬퍼 함수
   function compareValues(railValue, roadValue, unit, higherWord, lowerWord) {
     const diff = railValue - roadValue;
+    const diffString = formatFloatToFixed(Math.abs(diff));
+
     if (diff > 0) {
-      return `철도가 ${diff} ${unit} ${higherWord}`;
+      return `철도가 ${diffString} ${unit} ${higherWord}`;
     } else if (diff < 0) {
-      return `철도가 ${diff * -1} ${unit} ${lowerWord}`;
+      return `철도가 ${diffString} ${unit} ${lowerWord}`;
     } else {
       return "동일";
     }
   }
 
-  const costCmp = compareValues(railCost, roadCost, "만원", "비쌈", "쌈");
-  const durationCmp = compareValues(Math.round((railDuration - roadDuration) * 10) / 10, 0, "시간", "느림", "빠름");
+  const costCmp = compareValues(railCost / 10000, roadCost / 10000, "만원", "비쌈", "쌈");
+  const durationCmp = compareValues(railDuration, roadDuration, "시간", "느림", "빠름");
   const accCmp = compareValues(picked.railAcc, picked.roadAcc, "%p", "높음", "낮음");
 
   return {
     rail: {
       cost: railCost,
+      displayCost: railDisplayCost,
       duration: railDuration,
+      displayDuration: railDisplayDuration,
       acc: picked.railAcc,
       times: picked.railTimes,
     },
     road: {
       cost: roadCost,
+      displayCost: roadDisplayCost,
       duration: roadDuration,
+      displayDuration: roadDisplayDuration,
       acc: picked.roadAcc,
     },
     costCmp,
@@ -781,14 +797,14 @@ function makePageC(i, data) {
             </tr>
             <tr class="h-[36px] border-1">
               <td class="border-1 px-2">운송비용</td>
-              <td class="border-1 px-2 text-right"><span id="c${i}-rail-cost">${data.rail.cost}</span> 만원</td>
-              <td class="border-1 px-2 text-right"><span id="c${i}-road-cost">${data.road.cost}</span> 만원</td>
+              <td class="border-1 px-2 text-right"><span id="c${i}-rail-cost">${data.rail.displayCost}</span> 만원</td>
+              <td class="border-1 px-2 text-right"><span id="c${i}-road-cost">${data.road.displayCost}</span> 만원</td>
               <td class="border-1 px-2 text-sm">${data.costCmp}</td>
             </tr>
             <tr class="h-[36px] border-1">
               <td class="border-1 px-2">운송시간</td>
-              <td class="border-1 px-2 text-right"><span id="c${i}-rail-duration">${data.rail.duration}</span> 시간</td>
-              <td class="border-1 px-2 text-right"><span id="c${i}-road-duration">${data.road.duration}</span> 시간</td>
+              <td class="border-1 px-2 text-right"><span id="c${i}-rail-duration">${data.rail.displayDuration}</span> 시간</td>
+              <td class="border-1 px-2 text-right"><span id="c${i}-road-duration">${data.road.displayDuration}</span> 시간</td>
               <td class="border-1 px-2 text-sm">${data.durationCmp}</td>
             </tr>
             <tr class="h-[36px] border-1">
@@ -969,6 +985,7 @@ if (window.location.pathname.includes("c.html")) {
     .sort((a, b) => a - b);
 
   const picked = [0, ...randomNums];
+  const calcData = {};
 
   window.addEventListener("DOMContentLoaded", () => {
     const pageAData = loadSessionData("surveyPageA");
@@ -987,6 +1004,7 @@ if (window.location.pathname.includes("c.html")) {
       const pickedNum = picked[i];
       const data = calcQuestion(defaultData, pickedNum);
       makePageC(i + 1, data);
+      calcData[i + 1] = data;
     }
 
     for (let i = 1; i <= 10; i++) {
@@ -1004,7 +1022,7 @@ if (window.location.pathname.includes("c.html")) {
   const previousButton = document.getElementById("c-to-b");
   if (previousButton) {
     previousButton.addEventListener("click", (e) => {
-      savePageCData(picked);
+      savePageCData(picked, calcData);
     });
   }
 
@@ -1018,7 +1036,7 @@ if (window.location.pathname.includes("c.html")) {
         return false;
       }
 
-      savePageCData(picked);
+      savePageCData(picked, calcData);
       surveyForm.requestSubmit();
     });
   }
