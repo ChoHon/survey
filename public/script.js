@@ -957,10 +957,14 @@ if (window.location.pathname.includes("b.html")) {
 
 // C 페이지: 페이지 로드
 if (window.location.pathname.includes("c.html")) {
-  const picked = [...Array(19).keys()]
+  const randomNums = [...Array(18).keys()]
+    .map((num) => num + 1)
     .sort(() => Math.random() - 0.5)
-    .slice(0, 10)
+    .slice(0, 9)
     .sort((a, b) => a - b);
+
+  const picked = [0, ...randomNums];
+  console.log(picked);
 
   window.addEventListener("DOMContentLoaded", () => {
     const pageAData = loadSessionData("surveyPageA");
