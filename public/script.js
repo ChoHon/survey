@@ -174,6 +174,11 @@ function bindLoadInput(ids, inputPrefix, outputPrefix) {
 
   if (inputEls.length !== ids.length || outputEls.length !== ids.length) return;
 
+  if (inputPrefix == "b6" && outputPrefix == "b7") {
+    console.log(inputEls[0].value, inputEls[1].value);
+    console.log(outputEls[0].value);
+  }
+
   const update = () => {
     outputEls.forEach((el, index) => {
       el.textContent = inputEls[index].value || "";
@@ -986,16 +991,7 @@ if (window.location.pathname.includes("b.html")) {
     bindTotalCalc(B6TransportIds, B6TotalId, B6TransportTargetId);
 
     const LoadInputPrefix = "b6";
-    const LoadIds = [
-      "inland-sido",
-      "inland-sigun",
-      "inland-gu",
-      "inland-point",
-      "port-sido",
-      "port-sigun",
-      "port-gu",
-      "port-point",
-    ];
+    const LoadIds = ["inland-sido", "inland-sigungu", "inland-point", "port-sido", "port-sigungu", "port-point"];
     const B7LoadOutputPrefix = "b7";
     bindLoadInput(LoadIds, LoadInputPrefix, B7LoadOutputPrefix);
 
