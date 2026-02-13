@@ -3,6 +3,7 @@ package structs
 import (
 	"fmt"
 	"math"
+	"strings"
 )
 
 // B1. 다음은 귀사의 사업체 현황 및 규모에 관한 설문입니다.
@@ -182,7 +183,10 @@ func (d Duration) ConvertHours() string {
 	hours := d.Days*24 + d.Hours
 	result := float64(hours) + rounded
 
-	return fmt.Sprintf("%f", result)
+	s := fmt.Sprintf("%.3f", result)
+	s = strings.TrimRight(s, "0")
+	s = strings.TrimRight(s, ".")
+	return s
 }
 
 // B6. 단거리 셔틀운송을 제외하고, 귀사가 가장 많은 컨테이너를 운송하는 대표운송구간이 어떻게 되십니까?(시군구 기준)

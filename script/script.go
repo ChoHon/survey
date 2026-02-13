@@ -32,7 +32,7 @@ func main() {
 
 	var exeDir string
 	if isGoRun {
-		exeDir = "~/Documents/"
+		exeDir = "/root/survey/script/"
 	} else {
 		exeDir = filepath.Dir(exePath)
 	}

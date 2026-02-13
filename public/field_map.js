@@ -26,6 +26,8 @@ const BpageFieldMapping = {
   "b3-under100-percent": "B3.underHundred.percentage",
   "b3-over100-number": "B3.overHundred.number",
 
+  "b4-select": "B4.levelOfDecisionMakingPower",
+
   "b5-same-day": "B5.sameDayPercentage",
   "b5-next-day": "B5.nextDayPercentage",
   "b5-within-a-week": "B5.withinAWeekPercentage",
@@ -117,6 +119,19 @@ const BpageFieldMapping = {
   "b11-first": "B11.first",
   "b11-second": "B11.second",
   "b11-third": "B11.third",
+
+  "b12-1-select": "B12.costFactor",
+  "b12-2-select": "B12.timeFactor",
+  "b12-3-select": "B12.reliabilityFactor",
+  "b12-4-select": "B12.frequencyFactor",
+  "b12-5-select": "B12.safetyFactor",
+  "b12-6-select": "B12.flexibilityFactor",
+  "b12-7-select": "B12.stabilityFactor",
+  "b12-8-select": "B12.ecoFactor",
+  "b12-9-select": "B12.distanceFactor",
+  "b12-10-select": "B12.accessibilityFactor",
+  "b12-11-select": "B12.volumeFactor",
+  "b12-12-select": "B12.serviceFactor",
 
   "b13-text": "B13.text",
 };

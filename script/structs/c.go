@@ -1,6 +1,9 @@
 package structs
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
 // 3. 운송수단선택 선호도 조사
 
@@ -21,6 +24,8 @@ type C struct {
 type Codition struct {
 	Cost       int     `firestore:"cost,omitempty"`
 	Duration   float64 `firestore:"duration,omitempty"`
+	Acc        int     `firestore:"acc,omitempty"`
+	Times      int     `firestore:"times,omitempty"`
 	UsePercent float64 `firestore:"usePercent,omitempty"`
 }
 
@@ -28,20 +33,31 @@ func (c C) PrintHeader(num int) []string {
 	return []string{
 		fmt.Sprintf("C%d-철도 비용", num),
 		fmt.Sprintf("C%d-철도 시간", num),
-		fmt.Sprintf("C%d-철송률", num),
+		fmt.Sprintf("C%d-철도 정시도착율", num),
+		fmt.Sprintf("C%d-철도 운행횟수", num),
 		fmt.Sprintf("C%d-도로 비용", num),
 		fmt.Sprintf("C%d-도로 시간", num),
+		fmt.Sprintf("C%d-도로 정시도착율", num),
+		fmt.Sprintf("C%d-철송률", num),
 		fmt.Sprintf("C%d-철송선택", num),
 	}
 }
 
 func (c C) PrintString() []string {
 	return []string{
-		fmt.Sprintf("%d", c.Rail.Cost),
-		fmt.Sprintf("%0.1f", c.Rail.Duration),
-		fmt.Sprintf("%0.1f", c.Rail.UsePercent),
-		fmt.Sprintf("%d", c.Road.Cost),
-		fmt.Sprintf("%0.1f", c.Road.Duration),
+		c.formatCost(c.Rail.Cost),
+		fmt.Sprintf("%0.3f", c.Rail.Duration),
+		fmt.Sprintf("%d", c.Rail.Acc),
+		fmt.Sprintf("%d", c.Rail.Times),
+		c.formatCost(c.Road.Cost),
+		fmt.Sprintf("%0.3f", c.Road.Duration),
+		fmt.Sprintf("%d", c.Road.Acc),
+		fmt.Sprintf("%0.3f", c.Rail.UsePercent),
 		c.Select,
 	}
+}
+
+func (c C) formatCost(value int) string {
+	cost := int(math.Round(float64(value)/100.0)) * 100
+	return fmt.Sprintf("%d", cost)
 }

@@ -221,9 +221,9 @@ function bindDurationCalc(ids, prefix) {
       h -= 24;
     }
 
-    daysSumEl.textContent = Number.isFinite(d) ? formatFloatToFixed(d) : "";
-    hoursSumEl.textContent = Number.isFinite(h) ? formatFloatToFixed(h) : "";
-    minutesSumEl.textContent = Number.isFinite(m) ? formatFloatToFixed(m) : "";
+    daysSumEl.textContent = Number.isFinite(d) ? String(d) : "";
+    hoursSumEl.textContent = Number.isFinite(h) ? String(h) : "";
+    minutesSumEl.textContent = Number.isFinite(m) ? String(m) : "";
   };
 
   const els = [...daysEls, ...hoursEls, ...minutesEls];
@@ -596,18 +596,18 @@ function savePageBData() {
       third: parseNumber(document.getElementById("b11-third")?.value),
     },
     B12: {
-      costFactor: parseNumber(getRadioValue("b12-1")),
-      timeFactor: parseNumber(getRadioValue("b12-2")),
-      reliabilityFactor: parseNumber(getRadioValue("b12-3")),
-      frequencyFactor: parseNumber(getRadioValue("b12-4")),
-      safetyFactor: parseNumber(getRadioValue("b12-5")),
-      flexibilityFactor: parseNumber(getRadioValue("b12-6")),
-      stabilityFactor: parseNumber(getRadioValue("b12-7")),
-      ecoFactor: parseNumber(getRadioValue("b12-8")),
-      distanceFactor: parseNumber(getRadioValue("b12-9")),
-      accessibilityFactor: parseNumber(getRadioValue("b12-10")),
-      volumeFactor: parseNumber(getRadioValue("b12-11")),
-      serviceFactor: parseNumber(getRadioValue("b12-12")),
+      costFactor: parseNumber(getRadioValue("b12-1-select")),
+      timeFactor: parseNumber(getRadioValue("b12-2-select")),
+      reliabilityFactor: parseNumber(getRadioValue("b12-3-select")),
+      frequencyFactor: parseNumber(getRadioValue("b12-4-select")),
+      safetyFactor: parseNumber(getRadioValue("b12-5-select")),
+      flexibilityFactor: parseNumber(getRadioValue("b12-6-select")),
+      stabilityFactor: parseNumber(getRadioValue("b12-7-select")),
+      ecoFactor: parseNumber(getRadioValue("b12-8-select")),
+      distanceFactor: parseNumber(getRadioValue("b12-9-select")),
+      accessibilityFactor: parseNumber(getRadioValue("b12-10-select")),
+      volumeFactor: parseNumber(getRadioValue("b12-11-select")),
+      serviceFactor: parseNumber(getRadioValue("b12-12-select")),
     },
     B13: {
       text: document.getElementById("b13-text")?.value,
@@ -668,7 +668,7 @@ function fillPageForm(fieldMap, data) {
 
     if (value != null) {
       // 선택지 불러오기
-      if (value != "X" && elementId.includes("select")) {
+      if (value != "X" && value != 0 && elementId.includes("select")) {
         const element = document.querySelector(`input[name="${elementId}"][value="${value}"]`);
         if (element) element.checked = true;
       }
