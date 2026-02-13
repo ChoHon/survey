@@ -174,11 +174,6 @@ function bindLoadInput(ids, inputPrefix, outputPrefix) {
 
   if (inputEls.length !== ids.length || outputEls.length !== ids.length) return;
 
-  if (inputPrefix == "b6" && outputPrefix == "b7") {
-    console.log(inputEls[0].value, inputEls[1].value);
-    console.log(outputEls[0].value);
-  }
-
   const update = () => {
     outputEls.forEach((el, index) => {
       el.textContent = inputEls[index].value || "";
@@ -667,7 +662,7 @@ function fillPageForm(fieldMap, data) {
   if (!data) return;
 
   Object.entries(fieldMap).forEach(([elementId, dataPath]) => {
-    const value = getNestedValue(data, dataPath);
+    let value = getNestedValue(data, dataPath);
 
     if (value != null) {
       // 선택지 불러오기
@@ -678,7 +673,7 @@ function fillPageForm(fieldMap, data) {
 
       const element = document.getElementById(elementId);
       if (element) {
-        element.value = value;
+        element.value = formatNumber(value);
 
         if (elementId.includes("sido")) {
           element.dispatchEvent(new Event("input"));
@@ -734,16 +729,13 @@ function validatePage(fieldMap) {
   return true;
 }
 
-// 입력값 쉼표 추가/제거 (미완)
+// 입력값 쉼표 추가/제거
 function localeString() {
-  document.querySelectorAll('input[type="text"]').forEach((input) => {
-    // 포커스 시: 쉼표 제거 (편집 가능하도록)
-    input.addEventListener("focus", function () {
+  document.querySelectorAll('input[name="numbertype"]').forEach((input) => {
+    // 숫자타입 입력박스에 입력시
+    input.addEventListener("input", function () {
       this.value = this.value.replace(/,/g, "");
-    });
 
-    // 포커스 아웃 시: 쉼표 추가
-    input.addEventListener("blur", function () {
       const num = parseNumber(this.value);
       if (num !== 0 || this.value.trim() !== "") {
         this.value = formatNumber(num);
@@ -1024,6 +1016,8 @@ if (window.location.pathname.includes("b.html")) {
     const latencyIds = ["duration-hours"];
     const latencyOutputPrefix = "b10";
     bindLoadInput(latencyIds, latencyInputPrefix, latencyOutputPrefix);
+
+    localeString();
   });
 
   const nextButton = document.getElementById("b-to-c");
