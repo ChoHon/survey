@@ -630,25 +630,25 @@ function savePageCData(picked) {
   };
 
   let data = {};
-  picked.forEach((num) => {
-    const name = `C${num + 1}`;
+  for (let num = 1; num <= 10; num++) {
+    const name = `C${num}`;
 
     data[name] = {
       rail: {
-        cost: parseNumber(document.getElementById(`question-${num + 1}-rail-cost`)?.textContent),
-        duration: parseNumber(document.getElementById(`question-${num + 1}-rail-duration`)?.textContent),
-        usePercent: parseNumber(document.getElementById(`question-${num + 1}-rail-use-percent`)?.value),
+        cost: parseNumber(document.getElementById(`c${num}-rail-cost`)?.textContent),
+        duration: parseNumber(document.getElementById(`c${num}-rail-duration`)?.textContent),
+        usePercent: parseNumber(document.getElementById(`c${num}-rail-use-percent`)?.value),
       },
       road: {
-        cost: parseNumber(document.getElementById(`question-${num + 1}-road-cost`)?.textContent),
-        duration: parseNumber(document.getElementById(`question-${num + 1}-road-duration`)?.textContent),
-        usePercent: parseNumber(document.getElementById(`question-${num + 1}-road-use-percent`)?.value),
+        cost: parseNumber(document.getElementById(`c${num}-road-cost`)?.textContent),
+        duration: parseNumber(document.getElementById(`c${num}-road-duration`)?.textContent),
+        usePercent: parseNumber(document.getElementById(`c${num}-road-use-percent`)?.textContent),
       },
-      select: getRadioValue(`question-${num + 1}`),
+      select: getRadioValue(`c${num}`),
     };
-  });
+  }
 
-  data["questions"] = picked.map((num) => num + 1);
+  data["weight_type"] = picked.map((num) => num + 1);
 
   sessionStorage.setItem("surveyPageC", JSON.stringify(data));
   return data;
@@ -766,7 +766,7 @@ function makePageC(i, data) {
   question.className = "intro";
   question.innerHTML = `
         <p class="pl-10 -indent-10 text-lg font-bold">문C${i}</p>
-        <div id="question-${data.questionNum + 1}">
+        <div>
           <table class="w-full text-center">
             <tr class="h-[36px] border-1 bg-gray-200">
               <td class="w-[35%] border-1 px-2">운송조건</td>
@@ -776,14 +776,14 @@ function makePageC(i, data) {
             </tr>
             <tr class="h-[36px] border-1">
               <td class="border-1 px-2">운송비용</td>
-              <td class="border-1 px-2 text-right"><span id="question-${data.questionNum + 1}-rail-cost">${data.rail.cost}</span> 만원</td>
-              <td class="border-1 px-2 text-right"><span id="question-${data.questionNum + 1}-road-cost">${data.road.cost}</span> 만원</td>
+              <td class="border-1 px-2 text-right"><span id="c${i}-rail-cost">${data.rail.cost}</span> 만원</td>
+              <td class="border-1 px-2 text-right"><span id="c${i}-road-cost">${data.road.cost}</span> 만원</td>
               <td class="border-1 px-2 text-sm">${data.costCmp}</td>
             </tr>
             <tr class="h-[36px] border-1">
               <td class="border-1 px-2">운송시간</td>
-              <td class="border-1 px-2 text-right"><span id="question-${data.questionNum + 1}-rail-duration">${data.rail.duration}</span> 시간</td>
-              <td class="border-1 px-2 text-right"><span id="question-${data.questionNum + 1}-road-duration">${data.road.duration}</span> 시간</td>
+              <td class="border-1 px-2 text-right"><span id="c${i}-rail-duration">${data.rail.duration}</span> 시간</td>
+              <td class="border-1 px-2 text-right"><span id="c${i}-road-duration">${data.road.duration}</span> 시간</td>
               <td class="border-1 px-2 text-sm">${data.durationCmp}</td>
             </tr>
             <tr class="h-[36px] border-1">
@@ -802,23 +802,23 @@ function makePageC(i, data) {
               <td class="border-1 px-2">수단 이용비율</td>
               <td class="border-1 px-2 text-right">
                 <input
-                  id="question-${data.questionNum + 1}-rail-use-percent"
+                  id="c${i}-rail-use-percent"
                   type="text"
                   class="mx-2 h-[32px] w-[100px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                 />%
               </td>
               <td class="border-1 px-2 text-right">
-                <span id="question-${data.questionNum + 1}-road-use-percent" class="font-bold text-blue-600"></span> %
+                <span id="c${i}-road-use-percent" class="font-bold text-blue-600"></span> %
               </td>
               <td class="border-1 px-2">-</td>
             </tr>
             <tr class="h-[36px] border-1">
               <td class="border-1 px-2">수단 선택</td>
               <td class="border-1 px-2">
-                <input type="radio" name="question-${data.questionNum + 1}" value="철도" class="h-full w-full outline-0" />
+                <input type="radio" name="c${i}" value="철도" class="h-full w-full outline-0" />
               </td>
               <td class="border-1 px-2">
-                <input type="radio" name="question-${data.questionNum + 1}" value="도로" class="h-full w-full outline-0" />
+                <input type="radio" name="c${i}" value="도로" class="h-full w-full outline-0" />
               </td>
               <td class="border-1 px-2">-</td>
             </tr>
@@ -983,6 +983,12 @@ if (window.location.pathname.includes("c.html")) {
       const pickedNum = picked[i];
       const data = calcQuestion(defaultData, pickedNum);
       makePageC(i + 1, data);
+    }
+
+    for (let i = 1; i <= 10; i++) {
+      const ids = [`c${i}-rail-use-percent`];
+      const targetId = `c${i}-road-use-percent`;
+      bindPercentCalc(ids, targetId);
     }
 
     bindCPercentageCalc(picked);

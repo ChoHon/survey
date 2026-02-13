@@ -19,9 +19,9 @@ type C struct {
 }
 
 type Codition struct {
-	Cost       int
-	Duration   float64
-	UsePercent int
+	Cost       int     `firestore:"cost,omitempty"`
+	Duration   float64 `firestore:"duration,omitempty"`
+	UsePercent float64 `firestore:"usePercent,omitempty"`
 }
 
 func (c C) PrintHeader(num int) []string {
@@ -39,7 +39,7 @@ func (c C) PrintString() []string {
 	return []string{
 		fmt.Sprintf("%d", c.Rail.Cost),
 		fmt.Sprintf("%0.1f", c.Rail.Duration),
-		fmt.Sprintf("%d", c.Rail.UsePercent),
+		fmt.Sprintf("%0.1f", c.Rail.UsePercent),
 		fmt.Sprintf("%d", c.Road.Cost),
 		fmt.Sprintf("%0.1f", c.Road.Duration),
 		c.Select,

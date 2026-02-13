@@ -26,7 +26,16 @@ var firebaseKeyJSON []byte
 func main() {
 	// 실행파일의 디렉토리 경로 가져오기
 	exePath, _ := os.Executable()
-	exeDir := filepath.Dir(exePath)
+
+	// go run으로 실행되었는지 확인
+	isGoRun := strings.Contains(exePath, "go-build")
+
+	var exeDir string
+	if isGoRun {
+		exeDir = "~/Documents/"
+	} else {
+		exeDir = filepath.Dir(exePath)
+	}
 
 	if err := exportSurbey(exeDir); err != nil {
 		fmt.Printf("\n오류 발생: %v\n", err)
@@ -93,7 +102,7 @@ func exportSurbey(exeDir string) error {
 					headers = append(headers, c.PrintHeader(i)...)
 				}
 			} else {
-				if p, ok := field.Interface().(structs.Question); ok {
+				if p, ok := field.Interface().(interface{ PrintHeader() []string }); ok {
 					headers = append(headers, p.PrintHeader()...)
 				}
 			}

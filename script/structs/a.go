@@ -3,7 +3,6 @@ package structs
 import "time"
 
 type Question interface {
-	PrintHeader() []string
 	PrintString() []string
 }
 
