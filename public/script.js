@@ -862,59 +862,59 @@ function makePageC(i, data) {
         <p class="pl-10 -indent-10 text-lg font-bold">문C${i}</p>
         <div>
           <table class="w-full text-center">
-            <tr class="h-[36px] border-1 bg-gray-200">
-              <td class="w-[35%] border-1 px-2">운송조건</td>
-              <td class="w-[22%] border-1 px-2">철도</td>
-              <td class="w-[22%] border-1 px-2">도로</td>
-              <td class="border-1 px-2">철도-도로 차이</td>
+            <tr class="h-[36px] border bg-gray-200">
+              <td class="w-[35%] border px-2">운송조건</td>
+              <td class="w-[22%] border px-2">철도</td>
+              <td class="w-[22%] border px-2">도로</td>
+              <td class="border px-2">철도-도로 차이</td>
             </tr>
-            <tr class="h-[36px] border-1">
-              <td class="border-1 px-2">운송비용</td>
-              <td class="border-1 px-2 text-right"><span id="c${i}-rail-cost">${data.rail.displayCost}</span> 만원</td>
-              <td class="border-1 px-2 text-right"><span id="c${i}-road-cost">${data.road.displayCost}</span> 만원</td>
-              <td class="border-1 px-2 text-sm">${data.costCmp}</td>
+            <tr class="h-[36px] border">
+              <td class="border px-2">운송비용</td>
+              <td class="border px-2 text-right"><span id="c${i}-rail-cost">${data.rail.displayCost}</span> 만원</td>
+              <td class="border px-2 text-right"><span id="c${i}-road-cost">${data.road.displayCost}</span> 만원</td>
+              <td class="border px-2 text-sm">${data.costCmp}</td>
             </tr>
-            <tr class="h-[36px] border-1">
-              <td class="border-1 px-2">운송시간</td>
-              <td class="border-1 px-2 text-right"><span id="c${i}-rail-duration">${data.rail.displayDuration}</span> 시간</td>
-              <td class="border-1 px-2 text-right"><span id="c${i}-road-duration">${data.road.displayDuration}</span> 시간</td>
-              <td class="border-1 px-2 text-sm">${data.durationCmp}</td>
+            <tr class="h-[36px] border">
+              <td class="border px-2">운송시간</td>
+              <td class="border px-2 text-right"><span id="c${i}-rail-duration">${data.rail.displayDuration}</span> 시간</td>
+              <td class="border px-2 text-right"><span id="c${i}-road-duration">${data.road.displayDuration}</span> 시간</td>
+              <td class="border px-2 text-sm">${data.durationCmp}</td>
             </tr>
-            <tr class="h-[36px] border-1">
-              <td class="border-1 px-2">정시도착율(지연시간 최대 3시간 이내)</td>
-              <td class="border-1 px-2 text-right"><span id="c${i}-rail-acc">${data.rail.acc}</span>%</td>
-              <td class="border-1 px-2 text-right"><span id="c${i}-road-acc">${data.road.acc}</span>%</td>
-              <td class="border-1 px-2 text-sm">${data.accCmp}</td>
+            <tr class="h-[36px] border">
+              <td class="border px-2">정시도착율(지연시간 최대 3시간 이내)</td>
+              <td class="border px-2 text-right"><span id="c${i}-rail-acc">${data.rail.acc}</span>%</td>
+              <td class="border px-2 text-right"><span id="c${i}-road-acc">${data.road.acc}</span>%</td>
+              <td class="border px-2 text-sm">${data.accCmp}</td>
             </tr>
-            <tr class="h-[36px] border-1">
-              <td class="border-1 px-2">화물열차 운행횟수</td>
-              <td class="border-1 px-2 text-right">일 <span id="c${i}-rail-times">${data.rail.times}</span> 회</td>
-              <td class="border-1 px-2">-</td>
-              <td class="border-1 px-2">-</td>
+            <tr class="h-[36px] border">
+              <td class="border px-2">화물열차 운행횟수</td>
+              <td class="border px-2 text-right">일 <span id="c${i}-rail-times">${data.rail.times}</span> 회</td>
+              <td class="border px-2">-</td>
+              <td class="border px-2">-</td>
             </tr>
-            <tr class="h-[36px] border-1">
-              <td class="border-1 px-2">수단 이용비율</td>
-              <td class="border-1 px-2 text-right">
+            <tr class="h-[36px] border">
+              <td class="border px-2">수단 이용비율</td>
+              <td class="border px-2 text-right">
                 <input
                   id="c${i}-rail-use-percent"
                   type="text"
                   class="mx-2 h-[32px] w-[100px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                 />%
               </td>
-              <td class="border-1 px-2 text-right">
+              <td class="border px-2 text-right">
                 <span id="c${i}-road-use-percent" class="font-bold text-blue-600"></span> %
               </td>
-              <td class="border-1 px-2">-</td>
+              <td class="border px-2">-</td>
             </tr>
-            <tr class="h-[36px] border-1">
-              <td class="border-1 px-2">수단 선택</td>
-              <td class="border-1 px-2">
+            <tr class="h-[36px] border">
+              <td class="border px-2">수단 선택</td>
+              <td class="border px-2">
                 <input type="radio" name="c${i}-select" value="철도" class="h-full w-full outline-0" />
               </td>
-              <td class="border-1 px-2">
+              <td class="border px-2">
                 <input type="radio" name="c${i}-select" value="도로" class="h-full w-full outline-0" />
               </td>
-              <td class="border-1 px-2">-</td>
+              <td class="border px-2">-</td>
             </tr>
           </table>
         </div>

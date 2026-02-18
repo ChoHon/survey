@@ -28,3 +28,56 @@ h1 {
   color: #555;
   line-height: 1.5;
 }
+
+.input-base {
+  @apply h-[32px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600;
+}
+
+.input-center {
+  @apply h-[32px] rounded-md bg-white px-3 py-1.5 text-center text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600;
+}
+
+.input-full {
+  @apply h-full w-full px-3 py-1.5 text-center text-gray-900 outline-1 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600;
+}
+
+.input-b8-cost {
+  @apply mr-2 h-[32px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600;
+}
+
+.tr-base {
+  @apply h-[36px] border;
+}
+
+.tr-header {
+  @apply h-[36px] border bg-gray-200;
+}
+
+.tr-narrow {
+  @apply h-[20px] border;
+}
+
+.td-base {
+  @apply border px-2;
+}
+
+.td-header {
+  @apply border bg-gray-200 px-2;
+}
+
+.td-input {
+  @apply bg-red-100;
+  height: 1px;
+}
+
+.td-right {
+  @apply border px-2 text-right;
+}
+
+.select-base {
+  @apply h-full w-full outline-0;
+}
+
+.auto-fill {
+  @apply mx-2 font-bold text-blue-600;
+}
