@@ -22,6 +22,7 @@ type Survey struct {
 	B11        B11        `firestore:"B11,omitempty"`
 	B12        B12        `firestore:"B12,omitempty"`
 	B13        B13        `firestore:"B13,omitempty"`
+	B14        B14        `firestore:"B14,omitempty"`
 	C1         C          `firestore:"C1,omitempty"`
 	C2         C          `firestore:"C2,omitempty"`
 	C3         C          `firestore:"C3,omitempty"`

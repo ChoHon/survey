@@ -160,7 +160,7 @@ function bindPercentCalc(ids, targetId) {
 
   const update = () => {
     const result = 100 - els.reduce((total, el) => total + parseNumber(el.value), 0);
-    targetEl.textContent = Number.isFinite(result) ? String(result) : "";
+    targetEl.textContent = Number.isFinite(result) ? formatNumber(result) : "";
   };
 
   els.forEach((el) => el.addEventListener("input", update));
@@ -277,43 +277,43 @@ function calcPageCDefaults() {
   if (!data) return;
 
   let ids = [
-    "b7-suttle1-cost-40ft",
-    "b7-inter1-cost-40ft",
-    "b7-main-cost-40ft",
-    "b7-inter2-cost-40ft",
-    "b7-suttle2-cost-40ft",
+    "b8-suttle1-cost-40ft",
+    "b8-inter1-cost-40ft",
+    "b8-main-cost-40ft",
+    "b8-inter2-cost-40ft",
+    "b8-suttle2-cost-40ft",
   ];
   const sumRailCost40ft = calcSum(ids, data, BpageFieldMapping);
 
   ids = [
-    "b7-suttle1-cost-20ft",
-    "b7-inter1-cost-20ft",
-    "b7-main-cost-20ft",
-    "b7-inter2-cost-20ft",
-    "b7-suttle2-cost-20ft",
+    "b8-suttle1-cost-20ft",
+    "b8-inter1-cost-20ft",
+    "b8-main-cost-20ft",
+    "b8-inter2-cost-20ft",
+    "b8-suttle2-cost-20ft",
   ];
   const sumRailCost20ft = calcSum(ids, data, BpageFieldMapping);
 
-  let daysIds = ["b7-suttle1-days", "b7-inter1-days", "b7-main-days", "b7-inter2-days", "b7-suttle2-days"];
-  let hoursIds = ["b7-suttle1-hours", "b7-inter1-hours", "b7-main-hours", "b7-inter2-hours", "b7-suttle2-hours"];
+  let daysIds = ["b8-suttle1-days", "b8-inter1-days", "b8-main-days", "b8-inter2-days", "b8-suttle2-days"];
+  let hoursIds = ["b8-suttle1-hours", "b8-inter1-hours", "b8-main-hours", "b8-inter2-hours", "b8-suttle2-hours"];
   let minutesIds = [
-    "b7-suttle1-minutes",
-    "b7-inter1-minutes",
-    "b7-main-minutes",
-    "b7-inter2-minutes",
-    "b7-suttle2-minutes",
+    "b8-suttle1-minutes",
+    "b8-inter1-minutes",
+    "b8-main-minutes",
+    "b8-inter2-minutes",
+    "b8-suttle2-minutes",
   ];
   const sumRailDuration = calcSumTime(daysIds, hoursIds, minutesIds, data, BpageFieldMapping);
 
-  ids = ["b8-main1-cost-40ft", "b8-inter-cost-40ft", "b8-main2-cost-40ft"];
+  ids = ["b9-main1-cost-40ft", "b9-inter-cost-40ft", "b9-main2-cost-40ft"];
   const sumRoadCost40ft = calcSum(ids, data, BpageFieldMapping);
 
-  ids = ["b8-main1-cost-20ft", "b8-inter-cost-20ft", "b8-main2-cost-20ft"];
+  ids = ["b9-main1-cost-20ft", "b9-inter-cost-20ft", "b9-main2-cost-20ft"];
   const sumRoadCost20ft = calcSum(ids, data, BpageFieldMapping);
 
-  daysIds = ["b8-main1-days", "b8-inter-days", "b8-main2-days"];
-  hoursIds = ["b8-main1-hours", "b8-inter-hours", "b8-main2-hours"];
-  minutesIds = ["b8-main1-minutes", "b8-inter-minutes", "b8-main2-minutes"];
+  daysIds = ["b9-main1-days", "b9-inter-days", "b9-main2-days"];
+  hoursIds = ["b9-main1-hours", "b9-inter-hours", "b9-main2-hours"];
+  minutesIds = ["b9-main1-minutes", "b9-inter-minutes", "b9-main2-minutes"];
   const sumRoadDuration = calcSumTime(daysIds, hoursIds, minutesIds, data, BpageFieldMapping);
 
   return {
@@ -395,220 +395,226 @@ function savePageBData() {
       },
     },
     B4: {
-      levelOfDecisionMakingPower: parseNumber(getRadioValue("b4-select")),
+      overYear: parseNumber(document.getElementById("b4-over-year")?.value),
+      year: parseNumber(document.getElementById("b4-year")?.value),
+      underYear: parseNumber(document.getElementById("b4-under-year")?.value),
+      caseByCase: parseNumber(document.getElementById("b4-case-by-case")?.value),
     },
     B5: {
-      sameDayPercentage: parseNumber(document.getElementById("b5-same-day")?.value),
-      nextDayPercentage: parseNumber(document.getElementById("b5-next-day")?.value),
-      withinAWeekPercentage: parseNumber(document.getElementById("b5-within-a-week")?.value),
-      overAWeekPercentage: parseNumber(document.getElementById("b5-over-a-week")?.textContent),
+      levelOfDecisionMakingPower: parseNumber(getRadioValue("b5-select")),
+    },
+    B6: {
+      sameDayPercentage: parseNumber(document.getElementById("b6-same-day")?.value),
+      nextDayPercentage: parseNumber(document.getElementById("b6-next-day")?.value),
+      withinAWeekPercentage: parseNumber(document.getElementById("b6-within-a-week")?.value),
+      overAWeekPercentage: parseNumber(document.getElementById("b6-over-a-week")?.textContent),
       average: {
-        days: parseNumber(document.getElementById("b5-average-days")?.value),
-        hours: parseNumber(document.getElementById("b5-average-hours")?.value),
+        days: parseNumber(document.getElementById("b6-average-days")?.value),
+        hours: parseNumber(document.getElementById("b6-average-hours")?.value),
         minutes: 0,
       },
     },
-    B6: {
+    B7: {
       inlandOD: {
-        sido: document.getElementById("b6-inland-sido")?.value || "",
-        sigungu: document.getElementById("b6-inland-sigungu")?.value || "",
-        point: document.getElementById("b6-inland-point")?.value || "",
+        sido: document.getElementById("b7-inland-sido")?.value || "",
+        sigungu: document.getElementById("b7-inland-sigungu")?.value || "",
+        point: document.getElementById("b7-inland-point")?.value || "",
       },
       portOD: {
-        sido: document.getElementById("b6-port-sido")?.value || "",
-        sigungu: document.getElementById("b6-port-sigungu")?.value || "",
-        point: document.getElementById("b6-port-point")?.value || "",
+        sido: document.getElementById("b7-port-sido")?.value || "",
+        sigungu: document.getElementById("b7-port-sigungu")?.value || "",
+        point: document.getElementById("b7-port-point")?.value || "",
       },
       intermediate: {
-        railInter1: document.getElementById("b6-rail-inter1-station")?.value || "",
-        railInter2: document.getElementById("b6-rail-inter2-station")?.value || "",
+        railInter1: document.getElementById("b7-rail-inter1-station")?.value || "",
+        railInter2: document.getElementById("b7-rail-inter2-station")?.value || "",
         road: {
-          sido: document.getElementById("b6-road-inter-sido")?.value || "",
-          sigungu: document.getElementById("b6-road-inter-sigungu")?.value || "",
-          point: document.getElementById("b6-road-inter-point")?.value || "",
+          sido: document.getElementById("b7-road-inter-sido")?.value || "",
+          sigungu: document.getElementById("b7-road-inter-sigungu")?.value || "",
+          point: document.getElementById("b7-road-inter-point")?.value || "",
         },
       },
       annualTransportVolume: {
-        total: parseNumber(document.getElementById("b6-volume-total")?.value),
+        total: parseNumber(document.getElementById("b7-volume-total")?.value),
         direction: {
-          export: parseNumber(document.getElementById("b6-volume-export")?.value),
-          import: parseNumber(document.getElementById("b6-volume-import")?.textContent),
+          export: parseNumber(document.getElementById("b7-volume-export")?.value),
+          import: parseNumber(document.getElementById("b7-volume-import")?.textContent),
         },
         transport: {
-          rail: parseNumber(document.getElementById("b6-volume-rail")?.value),
-          road: parseNumber(document.getElementById("b6-volume-road")?.textContent),
+          rail: parseNumber(document.getElementById("b7-volume-rail")?.value),
+          road: parseNumber(document.getElementById("b7-volume-road")?.textContent),
         },
       },
     },
-    B7: {
+    B8: {
       suttle1: {
         duration: {
-          days: parseNumber(document.getElementById("b7-suttle1-days")?.value),
-          hours: parseNumber(document.getElementById("b7-suttle1-hours")?.value),
-          minutes: parseNumber(document.getElementById("b7-suttle1-minutes")?.value),
+          days: parseNumber(document.getElementById("b8-suttle1-days")?.value),
+          hours: parseNumber(document.getElementById("b8-suttle1-hours")?.value),
+          minutes: parseNumber(document.getElementById("b8-suttle1-minutes")?.value),
         },
         cost: {
-          ft20: parseNumber(document.getElementById("b7-suttle1-cost-20ft")?.value),
-          ft40: parseNumber(document.getElementById("b7-suttle1-cost-40ft")?.value),
+          ft20: parseNumber(document.getElementById("b8-suttle1-cost-20ft")?.value),
+          ft40: parseNumber(document.getElementById("b8-suttle1-cost-40ft")?.value),
         },
       },
       transshipment1: {
         loadAndUnload: {
           duration: {
-            days: parseNumber(document.getElementById("b7-inter1-days")?.value),
-            hours: parseNumber(document.getElementById("b7-inter1-hours")?.value),
-            minutes: parseNumber(document.getElementById("b7-inter1-minutes")?.value),
+            days: parseNumber(document.getElementById("b8-inter1-days")?.value),
+            hours: parseNumber(document.getElementById("b8-inter1-hours")?.value),
+            minutes: parseNumber(document.getElementById("b8-inter1-minutes")?.value),
           },
           cost: {
-            ft20: parseNumber(document.getElementById("b7-inter1-cost-20ft")?.value),
-            ft40: parseNumber(document.getElementById("b7-inter1-cost-40ft")?.value),
+            ft20: parseNumber(document.getElementById("b8-inter1-cost-20ft")?.value),
+            ft40: parseNumber(document.getElementById("b8-inter1-cost-40ft")?.value),
           },
         },
         storage: {
           duration: {
-            days: parseNumber(document.getElementById("b7-storage1-days")?.value),
-            hours: parseNumber(document.getElementById("b7-storage1-hours")?.value),
-            minutes: parseNumber(document.getElementById("b7-storage1-minutes")?.value),
+            days: parseNumber(document.getElementById("b8-storage1-days")?.value),
+            hours: parseNumber(document.getElementById("b8-storage1-hours")?.value),
+            minutes: parseNumber(document.getElementById("b8-storage1-minutes")?.value),
           },
           cost: {
-            ft20: parseNumber(document.getElementById("b7-storage1-cost-20ft")?.value),
-            ft40: parseNumber(document.getElementById("b7-storage1-cost-40ft")?.value),
+            ft20: parseNumber(document.getElementById("b8-storage1-cost-20ft")?.value),
+            ft40: parseNumber(document.getElementById("b8-storage1-cost-40ft")?.value),
           },
         },
       },
       main: {
         duration: {
-          days: parseNumber(document.getElementById("b7-main-days")?.value),
-          hours: parseNumber(document.getElementById("b7-main-hours")?.value),
-          minutes: parseNumber(document.getElementById("b7-main-minutes")?.value),
+          days: parseNumber(document.getElementById("b8-main-days")?.value),
+          hours: parseNumber(document.getElementById("b8-main-hours")?.value),
+          minutes: parseNumber(document.getElementById("b8-main-minutes")?.value),
         },
         cost: {
-          ft20: parseNumber(document.getElementById("b7-main-cost-20ft")?.value),
-          ft40: parseNumber(document.getElementById("b7-main-cost-40ft")?.value),
+          ft20: parseNumber(document.getElementById("b8-main-cost-20ft")?.value),
+          ft40: parseNumber(document.getElementById("b8-main-cost-40ft")?.value),
         },
       },
       transshipment2: {
         loadAndUnload: {
           duration: {
-            days: parseNumber(document.getElementById("b7-inter2-days")?.value),
-            hours: parseNumber(document.getElementById("b7-inter2-hours")?.value),
-            minutes: parseNumber(document.getElementById("b7-inter2-minutes")?.value),
+            days: parseNumber(document.getElementById("b8-inter2-days")?.value),
+            hours: parseNumber(document.getElementById("b8-inter2-hours")?.value),
+            minutes: parseNumber(document.getElementById("b8-inter2-minutes")?.value),
           },
           cost: {
-            ft20: parseNumber(document.getElementById("b7-inter2-cost-20ft")?.value),
-            ft40: parseNumber(document.getElementById("b7-inter2-cost-40ft")?.value),
+            ft20: parseNumber(document.getElementById("b8-inter2-cost-20ft")?.value),
+            ft40: parseNumber(document.getElementById("b8-inter2-cost-40ft")?.value),
           },
         },
         storage: {
           duration: {
-            days: parseNumber(document.getElementById("b7-storage2-days")?.value),
-            hours: parseNumber(document.getElementById("b7-storage2-hours")?.value),
-            minutes: parseNumber(document.getElementById("b7-storage2-minutes")?.value),
+            days: parseNumber(document.getElementById("b8-storage2-days")?.value),
+            hours: parseNumber(document.getElementById("b8-storage2-hours")?.value),
+            minutes: parseNumber(document.getElementById("b8-storage2-minutes")?.value),
           },
           cost: {
-            ft20: parseNumber(document.getElementById("b7-storage2-cost-20ft")?.value),
-            ft40: parseNumber(document.getElementById("b7-storage2-cost-40ft")?.value),
+            ft20: parseNumber(document.getElementById("b8-storage2-cost-20ft")?.value),
+            ft40: parseNumber(document.getElementById("b8-storage2-cost-40ft")?.value),
           },
         },
       },
       suttle2: {
         duration: {
-          days: parseNumber(document.getElementById("b7-suttle2-days")?.value),
-          hours: parseNumber(document.getElementById("b7-suttle2-hours")?.value),
-          minutes: parseNumber(document.getElementById("b7-suttle2-minutes")?.value),
+          days: parseNumber(document.getElementById("b8-suttle2-days")?.value),
+          hours: parseNumber(document.getElementById("b8-suttle2-hours")?.value),
+          minutes: parseNumber(document.getElementById("b8-suttle2-minutes")?.value),
         },
         cost: {
-          ft20: parseNumber(document.getElementById("b7-suttle2-cost-20ft")?.value),
-          ft40: parseNumber(document.getElementById("b7-suttle2-cost-40ft")?.value),
+          ft20: parseNumber(document.getElementById("b8-suttle2-cost-20ft")?.value),
+          ft40: parseNumber(document.getElementById("b8-suttle2-cost-40ft")?.value),
         },
       },
     },
-    B8: {
+    B9: {
       main1: {
         duration: {
-          days: parseNumber(document.getElementById("b8-main1-days")?.value),
-          hours: parseNumber(document.getElementById("b8-main1-hours")?.value),
-          minutes: parseNumber(document.getElementById("b8-main1-minutes")?.value),
+          days: parseNumber(document.getElementById("b9-main1-days")?.value),
+          hours: parseNumber(document.getElementById("b9-main1-hours")?.value),
+          minutes: parseNumber(document.getElementById("b9-main1-minutes")?.value),
         },
         cost: {
-          ft20: parseNumber(document.getElementById("b8-main1-cost-20ft")?.value),
-          ft40: parseNumber(document.getElementById("b8-main1-cost-40ft")?.value),
+          ft20: parseNumber(document.getElementById("b9-main1-cost-20ft")?.value),
+          ft40: parseNumber(document.getElementById("b9-main1-cost-40ft")?.value),
         },
       },
       transshipment: {
         loadAndUnload: {
           duration: {
-            days: parseNumber(document.getElementById("b8-inter-days")?.value),
-            hours: parseNumber(document.getElementById("b8-inter-hours")?.value),
-            minutes: parseNumber(document.getElementById("b8-inter-minutes")?.value),
+            days: parseNumber(document.getElementById("b9-inter-days")?.value),
+            hours: parseNumber(document.getElementById("b9-inter-hours")?.value),
+            minutes: parseNumber(document.getElementById("b9-inter-minutes")?.value),
           },
           cost: {
-            ft20: parseNumber(document.getElementById("b8-inter-cost-20ft")?.value),
-            ft40: parseNumber(document.getElementById("b8-inter-cost-40ft")?.value),
+            ft20: parseNumber(document.getElementById("b9-inter-cost-20ft")?.value),
+            ft40: parseNumber(document.getElementById("b9-inter-cost-40ft")?.value),
           },
         },
         storage: {
           duration: {
-            days: parseNumber(document.getElementById("b8-storage-days")?.value),
-            hours: parseNumber(document.getElementById("b8-storage-hours")?.value),
-            minutes: parseNumber(document.getElementById("b8-storage-minutes")?.value),
+            days: parseNumber(document.getElementById("b9-storage-days")?.value),
+            hours: parseNumber(document.getElementById("b9-storage-hours")?.value),
+            minutes: parseNumber(document.getElementById("b9-storage-minutes")?.value),
           },
           cost: {
-            ft20: parseNumber(document.getElementById("b8-storage-cost-20ft")?.value),
-            ft40: parseNumber(document.getElementById("b8-storage-cost-40ft")?.value),
+            ft20: parseNumber(document.getElementById("b9-storage-cost-20ft")?.value),
+            ft40: parseNumber(document.getElementById("b9-storage-cost-40ft")?.value),
           },
         },
       },
       main2: {
         duration: {
-          days: parseNumber(document.getElementById("b8-main2-days")?.value),
-          hours: parseNumber(document.getElementById("b8-main2-hours")?.value),
-          minutes: parseNumber(document.getElementById("b8-main2-minutes")?.value),
+          days: parseNumber(document.getElementById("b9-main2-days")?.value),
+          hours: parseNumber(document.getElementById("b9-main2-hours")?.value),
+          minutes: parseNumber(document.getElementById("b9-main2-minutes")?.value),
         },
         cost: {
-          ft20: parseNumber(document.getElementById("b8-main2-cost-20ft")?.value),
-          ft40: parseNumber(document.getElementById("b8-main2-cost-40ft")?.value),
+          ft20: parseNumber(document.getElementById("b9-main2-cost-20ft")?.value),
+          ft40: parseNumber(document.getElementById("b9-main2-cost-40ft")?.value),
         },
-      },
-    },
-    B9: {
-      duration: {
-        days: 0,
-        hours: parseNumber(document.getElementById("b9-duration-hours")?.value),
-        minutes: 0,
       },
     },
     B10: {
-      rail: {
-        under3Hours: parseNumber(document.getElementById("b10-rail-under3Hours")?.value),
-        underB9Hours: parseNumber(document.getElementById("b10-rail-underB9Hours")?.value),
-      },
-      road: {
-        under3Hours: parseNumber(document.getElementById("b10-road-under3Hours")?.value),
-        underB9Hours: parseNumber(document.getElementById("b10-road-underB9Hours")?.value),
+      duration: {
+        days: 0,
+        hours: parseNumber(document.getElementById("b10-duration-hours")?.value),
+        minutes: 0,
       },
     },
     B11: {
-      first: parseNumber(document.getElementById("b11-first")?.value),
-      second: parseNumber(document.getElementById("b11-second")?.value),
-      third: parseNumber(document.getElementById("b11-third")?.value),
+      rail: {
+        under3Hours: parseNumber(document.getElementById("b11-rail-under3Hours")?.value),
+        underB10Hours: parseNumber(document.getElementById("b11-rail-underB10Hours")?.value),
+      },
+      road: {
+        under3Hours: parseNumber(document.getElementById("b11-road-under3Hours")?.value),
+        underB10Hours: parseNumber(document.getElementById("b11-road-underB10Hours")?.value),
+      },
     },
     B12: {
-      costFactor: parseNumber(getRadioValue("b12-1-select")),
-      timeFactor: parseNumber(getRadioValue("b12-2-select")),
-      reliabilityFactor: parseNumber(getRadioValue("b12-3-select")),
-      frequencyFactor: parseNumber(getRadioValue("b12-4-select")),
-      safetyFactor: parseNumber(getRadioValue("b12-5-select")),
-      flexibilityFactor: parseNumber(getRadioValue("b12-6-select")),
-      stabilityFactor: parseNumber(getRadioValue("b12-7-select")),
-      ecoFactor: parseNumber(getRadioValue("b12-8-select")),
-      distanceFactor: parseNumber(getRadioValue("b12-9-select")),
-      accessibilityFactor: parseNumber(getRadioValue("b12-10-select")),
-      volumeFactor: parseNumber(getRadioValue("b12-11-select")),
-      serviceFactor: parseNumber(getRadioValue("b12-12-select")),
+      first: parseNumber(document.getElementById("b12-first")?.value),
+      second: parseNumber(document.getElementById("b12-second")?.value),
+      third: parseNumber(document.getElementById("b12-third")?.value),
     },
     B13: {
-      text: document.getElementById("b13-text")?.value,
+      costFactor: parseNumber(getRadioValue("b13-1-select")),
+      timeFactor: parseNumber(getRadioValue("b13-2-select")),
+      reliabilityFactor: parseNumber(getRadioValue("b13-3-select")),
+      frequencyFactor: parseNumber(getRadioValue("b13-4-select")),
+      safetyFactor: parseNumber(getRadioValue("b13-5-select")),
+      flexibilityFactor: parseNumber(getRadioValue("b13-6-select")),
+      stabilityFactor: parseNumber(getRadioValue("b13-7-select")),
+      ecoFactor: parseNumber(getRadioValue("b13-8-select")),
+      distanceFactor: parseNumber(getRadioValue("b13-9-select")),
+      accessibilityFactor: parseNumber(getRadioValue("b13-10-select")),
+      volumeFactor: parseNumber(getRadioValue("b13-11-select")),
+      serviceFactor: parseNumber(getRadioValue("b13-12-select")),
+    },
+    B14: {
+      text: document.getElementById("b14-text")?.value,
     },
   };
 
@@ -661,8 +667,12 @@ function loadSessionData(key) {
 function fillPageForm(fieldMap, data) {
   if (!data) return;
 
+  console.log(data);
+
   Object.entries(fieldMap).forEach(([elementId, dataPath]) => {
     let value = getNestedValue(data, dataPath);
+
+    console.log(value, dataPath);
 
     if (value != null) {
       // 선택지 불러오기
@@ -942,9 +952,9 @@ if (window.location.pathname.includes("b.html")) {
       console.warn("A 페이지 데이터가 없습니다.");
     }
 
-    addAddressOption("b6-inland");
-    addAddressOption("b6-port");
-    addAddressOption("b6-road-inter");
+    addAddressOption("b7-inland");
+    addAddressOption("b7-port");
+    addAddressOption("b7-road-inter");
 
     const savedData = loadSessionData("surveyPageB");
     if (savedData) {
@@ -969,52 +979,56 @@ if (window.location.pathname.includes("b.html")) {
     const B3PercentTargetId = "b3-over100-percent";
     bindPercentCalc(B3PercentIds, B3PercentTargetId);
 
-    const B5Ids = ["b5-same-day", "b5-next-day", "b5-within-a-week"];
-    const B5TargetId = "b5-over-a-week";
+    const B4PercentIds = ["b4-over-year", "b4-year", "b4-under-year"];
+    const B4PercentTargetId = "b4-case-by-case";
+    bindPercentCalc(B4PercentIds, B4PercentTargetId);
+
+    const B5Ids = ["b6-same-day", "b6-next-day", "b6-within-a-week"];
+    const B5TargetId = "b6-over-a-week";
     bindPercentCalc(B5Ids, B5TargetId);
 
-    const B6TotalId = "b6-volume-total";
-    const B6DirectionIds = ["b6-volume-export"];
-    const B6DirectionTargetId = "b6-volume-import";
+    const B6TotalId = "b7-volume-total";
+    const B6DirectionIds = ["b7-volume-export"];
+    const B6DirectionTargetId = "b7-volume-import";
     bindTotalCalc(B6DirectionIds, B6TotalId, B6DirectionTargetId);
 
-    const B6TransportIds = ["b6-volume-rail"];
-    const B6TransportTargetId = "b6-volume-road";
+    const B6TransportIds = ["b7-volume-rail"];
+    const B6TransportTargetId = "b7-volume-road";
     bindTotalCalc(B6TransportIds, B6TotalId, B6TransportTargetId);
 
-    const LoadInputPrefix = "b6";
+    const LoadInputPrefix = "b7";
     const LoadIds = ["inland-sido", "inland-sigungu", "inland-point", "port-sido", "port-sigungu", "port-point"];
-    const B7LoadOutputPrefix = "b7";
+    const B7LoadOutputPrefix = "b8";
     bindLoadInput(LoadIds, LoadInputPrefix, B7LoadOutputPrefix);
 
-    const B8LoadOutputPrefix = "b8";
+    const B8LoadOutputPrefix = "b9";
     bindLoadInput(LoadIds, LoadInputPrefix, B8LoadOutputPrefix);
 
-    const stationInputPrefix = "b6-rail";
+    const stationInputPrefix = "b7-rail";
     const stationIds = ["inter1-station", "inter2-station"];
-    const stationOuputPrefix = "b7";
+    const stationOuputPrefix = "b8";
     bindLoadInput(stationIds, stationInputPrefix, stationOuputPrefix);
 
-    const intermediateInputPrefix = "b6-road";
+    const intermediateInputPrefix = "b7-road";
     const intermediateIds = ["inter-point"];
-    const intermediateOuputPrefix = "b8";
+    const intermediateOuputPrefix = "b9";
     bindLoadInput(intermediateIds, intermediateInputPrefix, intermediateOuputPrefix);
 
-    const B7Ids = ["b7-suttle1", "b7-inter1", "b7-storage1", "b7-main", "b7-inter2", "b7-storage2", "b7-suttle2"];
-    const B7Prefix = "b7-sum";
+    const B7Ids = ["b8-suttle1", "b8-inter1", "b8-storage1", "b8-main", "b8-inter2", "b8-storage2", "b8-suttle2"];
+    const B7Prefix = "b8-sum";
     bindDurationCalc(B7Ids, B7Prefix);
     bindCostSumCalc(B7Ids, B7Prefix, true);
     bindCostSumCalc(B7Ids, B7Prefix, false);
 
-    const B8Ids = ["b8-main1", "b8-inter", "b8-storage", "b8-main2"];
-    const B8Prefix = "b8-sum";
+    const B8Ids = ["b9-main1", "b9-inter", "b9-storage", "b9-main2"];
+    const B8Prefix = "b9-sum";
     bindDurationCalc(B8Ids, B8Prefix);
     bindCostSumCalc(B8Ids, B8Prefix, true);
     bindCostSumCalc(B8Ids, B8Prefix, false);
 
-    const latencyInputPrefix = "b9";
+    const latencyInputPrefix = "b10";
     const latencyIds = ["duration-hours"];
-    const latencyOutputPrefix = "b10";
+    const latencyOutputPrefix = "b11";
     bindLoadInput(latencyIds, latencyInputPrefix, latencyOutputPrefix);
 
     localeString();

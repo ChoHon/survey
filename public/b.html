@@ -264,73 +264,133 @@
             <!-- B4 -->
             <div class="intro">
               <p class="pl-10 -indent-10 text-lg font-bold">
-                문B4. 컨테이너 운송수단 선택에 귀사가 가지는 결정권의 수준은 어느정도입니까?
+                문B4. 귀사의 운송거래 계약형태(계약기간)은 어떻게 되십니까?
               </p>
 
-              <div class="ml-5 py-4">
-                <div class="space-y-2">
-                  <div class="flex items-center">
-                    <input
-                      id="b4-completely"
-                      type="radio"
-                      name="b4-select"
-                      value="1"
-                      class="relative size-4 appearance-none rounded-full border border-gray-300 bg-white before:absolute before:inset-1 before:rounded-full before:bg-white not-checked:before:hidden checked:border-indigo-600 checked:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:before:bg-gray-400 forced-colors:appearance-auto forced-colors:before:hidden"
-                    />
-                    <label for="b4-completely" class="mt-0.5 ml-3">① 전적으로 운송수단 선택권을 가짐</label>
-                  </div>
-                  <div class="flex items-center">
-                    <input
-                      id="b4-in-general"
-                      type="radio"
-                      name="b4-select"
-                      value="2"
-                      class="relative size-4 appearance-none rounded-full border border-gray-300 bg-white before:absolute before:inset-1 before:rounded-full before:bg-white not-checked:before:hidden checked:border-indigo-600 checked:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:before:bg-gray-400 forced-colors:appearance-auto forced-colors:before:hidden"
-                    />
-                    <label for="b4-in-general" class="mt-0.5 ml-3"
-                      >② 전반적으로 운송수단 선택권을 가지나 일부 화주사의 선호나 요청사항 반영</label
-                    >
-                  </div>
-                  <div class="flex items-center">
-                    <input
-                      id="b4-few"
-                      type="radio"
-                      name="b4-select"
-                      value="3"
-                      class="relative size-4 appearance-none rounded-full border border-gray-300 bg-white before:absolute before:inset-1 before:rounded-full before:bg-white not-checked:before:hidden checked:border-indigo-600 checked:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:before:bg-gray-400 forced-colors:appearance-auto forced-colors:before:hidden"
-                    />
-                    <label for="b4-few" class="mt-0.5 ml-3"
-                      >③ 일부에 한해 운송수단 선택권을 가지며, 전반적으로 화주사가 운송수단을 선택</label
-                    >
-                  </div>
-                  <div class="flex items-center">
-                    <input
-                      id="b4-none"
-                      type="radio"
-                      name="b4-select"
-                      value="4"
-                      class="relative size-4 appearance-none rounded-full border border-gray-300 bg-white before:absolute before:inset-1 before:rounded-full before:bg-white not-checked:before:hidden checked:border-indigo-600 checked:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:before:bg-gray-400 forced-colors:appearance-auto forced-colors:before:hidden"
-                    />
-                    <label for="b4-none" class="mt-0.5 ml-3">④ 전적으로 화주사가 운송수단 선택권을 가짐</label>
-                  </div>
-                  <div class="flex items-center">
-                    <input
-                      id="b4-single-only"
-                      type="radio"
-                      name="b4-select"
-                      value="5"
-                      class="relative size-4 appearance-none rounded-full border border-gray-300 bg-white before:absolute before:inset-1 before:rounded-full before:bg-white not-checked:before:hidden checked:border-indigo-600 checked:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:before:bg-gray-400 forced-colors:appearance-auto forced-colors:before:hidden"
-                    />
-                    <label for="b4-single-only" class="mt-0.5 ml-3">⑤ 해당없음(단일 운송수단만 이용)</label>
-                  </div>
-                </div>
+              <div class="py-4">
+                <table class="w-full text-center">
+                  <tr class="h-[36px] border-1 bg-gray-200">
+                    <td class="border-1" colspan="2">구분</td>
+                    <td class="border-1">거래 비중(운송량 기준)</td>
+                  </tr>
+                  <tr class="h-[36px] border-1">
+                    <td class="w-[5%] border-1">1</td>
+                    <td class="w-[70%] border-1">장기 계약(1년 초과)</td>
+                    <td class="border-1 px-2 text-right">
+                      <input
+                        id="b4-over-year"
+                        type="text"
+                        class="mr-1 inline h-[32px] w-[90%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />%
+                    </td>
+                  </tr>
+                  <tr class="h-[36px] border-1">
+                    <td class="border-1">2</td>
+                    <td class="border-1">1년 단위 계약</td>
+                    <td class="border-1 px-2 text-right">
+                      <input
+                        id="b4-year"
+                        type="text"
+                        class="mr-1 inline h-[32px] w-[90%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />%
+                    </td>
+                  </tr>
+                  <tr class="h-[36px] border-1">
+                    <td class="border-1">3</td>
+                    <td class="border-1">1년 미만(3~6개월) 계약</td>
+                    <td class="border-1 px-2 text-right">
+                      <input
+                        id="b4-under-year"
+                        type="text"
+                        class="mr-1 inline h-[32px] w-[90%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />%
+                    </td>
+                  </tr>
+                  <tr class="h-[36px] border-1">
+                    <td class="border-1">4</td>
+                    <td class="border-1">수시(건별) 계약</td>
+                    <td class="border-1 px-2 text-right">
+                      <span id="b4-case-by-case" class="mx-2 font-bold text-blue-600">100</span>%
+                    </td>
+                  </tr>
+                  <tr class="h-[36px] border-1">
+                    <td class="border-1" colspan="2">합계</td>
+                    <td class="border-1 px-2 text-right">100 %</td>
+                  </tr>
+                </table>
               </div>
             </div>
 
             <!-- B5 -->
             <div class="intro">
               <p class="pl-10 -indent-10 text-lg font-bold">
-                문B5. 컨테이너 화물을 국내 목적지(항만 또는 화주 문전)까지 운송을 완료하는 데까지 요구되는 시간은 어느
+                문B5. 컨테이너 운송수단 선택에 귀사가 가지는 결정권의 수준은 어느정도입니까?
+              </p>
+
+              <div class="ml-5 py-4">
+                <div class="space-y-2">
+                  <div class="flex items-center">
+                    <input
+                      id="b5-completely"
+                      type="radio"
+                      name="b5-select"
+                      value="1"
+                      class="relative size-4 appearance-none rounded-full border border-gray-300 bg-white before:absolute before:inset-1 before:rounded-full before:bg-white not-checked:before:hidden checked:border-indigo-600 checked:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:before:bg-gray-400 forced-colors:appearance-auto forced-colors:before:hidden"
+                    />
+                    <label for="b5-completely" class="mt-0.5 ml-3">① 전적으로 운송수단 선택권을 가짐</label>
+                  </div>
+                  <div class="flex items-center">
+                    <input
+                      id="b5-in-general"
+                      type="radio"
+                      name="b5-select"
+                      value="2"
+                      class="relative size-4 appearance-none rounded-full border border-gray-300 bg-white before:absolute before:inset-1 before:rounded-full before:bg-white not-checked:before:hidden checked:border-indigo-600 checked:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:before:bg-gray-400 forced-colors:appearance-auto forced-colors:before:hidden"
+                    />
+                    <label for="b5-in-general" class="mt-0.5 ml-3"
+                      >② 전반적으로 운송수단 선택권을 가지나 일부 화주사의 선호나 요청사항 반영</label
+                    >
+                  </div>
+                  <div class="flex items-center">
+                    <input
+                      id="b5-few"
+                      type="radio"
+                      name="b5-select"
+                      value="3"
+                      class="relative size-4 appearance-none rounded-full border border-gray-300 bg-white before:absolute before:inset-1 before:rounded-full before:bg-white not-checked:before:hidden checked:border-indigo-600 checked:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:before:bg-gray-400 forced-colors:appearance-auto forced-colors:before:hidden"
+                    />
+                    <label for="b5-few" class="mt-0.5 ml-3"
+                      >③ 일부에 한해 운송수단 선택권을 가지며, 전반적으로 화주사가 운송수단을 선택</label
+                    >
+                  </div>
+                  <div class="flex items-center">
+                    <input
+                      id="b5-none"
+                      type="radio"
+                      name="b5-select"
+                      value="4"
+                      class="relative size-4 appearance-none rounded-full border border-gray-300 bg-white before:absolute before:inset-1 before:rounded-full before:bg-white not-checked:before:hidden checked:border-indigo-600 checked:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:before:bg-gray-400 forced-colors:appearance-auto forced-colors:before:hidden"
+                    />
+                    <label for="b5-none" class="mt-0.5 ml-3">④ 전적으로 화주사가 운송수단 선택권을 가짐</label>
+                  </div>
+                  <div class="flex items-center">
+                    <input
+                      id="b5-single-only"
+                      type="radio"
+                      name="b5-select"
+                      value="5"
+                      class="relative size-4 appearance-none rounded-full border border-gray-300 bg-white before:absolute before:inset-1 before:rounded-full before:bg-white not-checked:before:hidden checked:border-indigo-600 checked:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:before:bg-gray-400 forced-colors:appearance-auto forced-colors:before:hidden"
+                    />
+                    <label for="b5-single-only" class="mt-0.5 ml-3">⑤ 해당없음(단일 운송수단만 이용)</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- B6 -->
+            <div class="intro">
+              <p class="pl-10 -indent-10 text-lg font-bold">
+                문B6. 컨테이너 화물을 국내 목적지(항만 또는 화주 문전)까지 운송을 완료하는 데까지 요구되는 시간은 어느
                 정도입니까?
               </p>
 
@@ -347,7 +407,7 @@
                     <td class="border-1 px-2">
                       <div class="flex gap-1">
                         <input
-                          id="b5-same-day"
+                          id="b6-same-day"
                           type="text"
                           class="block h-[32px] w-[90%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                         />
@@ -357,7 +417,7 @@
                     <td class="border-1 px-2">
                       <div class="flex gap-1">
                         <input
-                          id="b5-next-day"
+                          id="b6-next-day"
                           type="text"
                           class="block h-[32px] w-[90%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                         />
@@ -367,7 +427,7 @@
                     <td class="border-1 px-2">
                       <div class="flex gap-1">
                         <input
-                          id="b5-within-a-week"
+                          id="b6-within-a-week"
                           type="text"
                           class="block h-[32px] w-[90%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                         />
@@ -376,7 +436,7 @@
                     </td>
                     <td class="border-1 text-right">
                       <div class="px-2">
-                        <span id="b5-over-a-week" class="px-2 font-bold text-blue-600"></span>
+                        <span id="b6-over-a-week" class="px-2 font-bold text-blue-600"></span>
                         %
                       </div>
                     </td>
@@ -389,14 +449,14 @@
                       <div class="flex-none gap-1">
                         <span class="mt-1">평균</span>
                         <input
-                          id="b5-average-days"
+                          id="b6-average-days"
                           type="text"
                           name="numbertype"
                           class="ml-3 h-[32px] w-[15%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                         />
                         <span class="mt-1">일</span>
                         <input
-                          id="b5-average-hours"
+                          id="b6-average-hours"
                           type="text"
                           class="ml-3 h-[32px] w-[15%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                         />
@@ -408,10 +468,10 @@
               </div>
             </div>
 
-            <!-- B6 -->
+            <!-- B7 -->
             <div class="intro">
               <p class="pl-10 -indent-10 text-lg font-bold">
-                문B6. 단거리 셔틀운송을 제외하고, 귀사가 가장 많은 컨테이너를 운송하는 대표운송구간이 어떻게
+                문B7. 단거리 셔틀운송을 제외하고, 귀사가 가장 많은 컨테이너를 운송하는 대표운송구간이 어떻게
                 되십니까?(시군구 기준)
               </p>
 
@@ -427,16 +487,16 @@
                   <tr class="h-[36px] border-1">
                     <td class="w-[22%] border-1 bg-gray-200 px-5">내륙 기종점</td>
                     <td class="w-[24%] bg-red-100 pl-5">
-                      <select id="b6-inland-sido" class="h-full w-full outline-0"></select>
+                      <select id="b7-inland-sido" class="h-full w-full outline-0"></select>
                     </td>
                     <td class="w-[24%] bg-red-100 pl-5">
-                      <select id="b6-inland-sigungu" class="h-full w-full outline-0"></select>
+                      <select id="b7-inland-sigungu" class="h-full w-full outline-0"></select>
                     </td>
                     <td class="px-2">
                       <div class="flex gap-1">
                         <div class="mt-1 mr-1">(대표지점:</div>
                         <input
-                          id="b6-inland-point"
+                          id="b7-inland-point"
                           type="text"
                           class="h-[32px] w-[150px] rounded-md bg-white px-2 py-1.5 text-center text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                         />
@@ -457,24 +517,24 @@
                     <td class="w-[9%] border-1 bg-gray-200 px-3">화물역1</td>
                     <td class="border-1 bg-red-100">
                       <input
-                        id="b6-rail-inter1-station"
+                        id="b7-rail-inter1-station"
                         type="text"
                         class="h-[36px] w-full px-3 py-1.5 text-center text-gray-900 outline-1 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                       />
                     </td>
                     <td class="w-[12%] border-1 bg-gray-200 px-2">경유지 주소</td>
                     <td class="w-[33%] bg-red-100 pl-5">
-                      <select id="b6-road-inter-sido" class="h-full w-full outline-0"></select>
+                      <select id="b7-road-inter-sido" class="h-full w-full outline-0"></select>
                     </td>
                     <td class="w-[33%] bg-red-100 pl-5">
-                      <select id="b6-road-inter-sigungu" class="h-full w-full outline-0"></select>
+                      <select id="b7-road-inter-sigungu" class="h-full w-full outline-0"></select>
                     </td>
                   </tr>
                   <tr class="h-[36px] border-1">
                     <td class="border-1 bg-gray-200 px-3">화물역2</td>
                     <td class="border-1 bg-red-100">
                       <input
-                        id="b6-rail-inter2-station"
+                        id="b7-rail-inter2-station"
                         type="text"
                         class="h-[36px] w-full px-3 py-1.5 text-center text-gray-900 outline-1 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                       />
@@ -483,7 +543,7 @@
                     <td class="border-1" colspan="3">
                       <div class="flex gap-1">
                         <input
-                          id="b6-road-inter-point"
+                          id="b7-road-inter-point"
                           type="text"
                           class="h-[36px] w-full bg-red-100 px-3 py-1.5 text-center text-gray-900 outline-1 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                         />
@@ -498,16 +558,16 @@
                   <tr class="h-[36px] border-1">
                     <td class="w-[22%] border-1 bg-gray-200 px-5">항만 기종점</td>
                     <td class="w-[25%] bg-red-100 pl-5">
-                      <select id="b6-port-sido" class="h-full w-full outline-0"></select>
+                      <select id="b7-port-sido" class="h-full w-full outline-0"></select>
                     </td>
                     <td class="w-[25%] bg-red-100 pl-5">
-                      <select id="b6-port-sigungu" class="h-full w-full outline-0"></select>
+                      <select id="b7-port-sigungu" class="h-full w-full outline-0"></select>
                     </td>
                     <td class="px-2">
                       <div class="flex gap-1">
                         <div class="mt-1 mr-1">(대표지점:</div>
                         <input
-                          id="b6-port-point"
+                          id="b7-port-point"
                           type="text"
                           class="h-[32px] w-[100px] rounded-md bg-white px-3 py-1.5 text-center text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                         />
@@ -525,7 +585,7 @@
                       <div class="mr-2">
                         총
                         <input
-                          id="b6-volume-total"
+                          id="b7-volume-total"
                           type="text"
                           name="numbertype"
                           class="mx-2 h-[32px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
@@ -540,7 +600,7 @@
                       <div class="mr-2">
                         수출
                         <input
-                          id="b6-volume-export"
+                          id="b7-volume-export"
                           type="text"
                           name="numbertype"
                           class="mx-2 h-[32px] w-[65%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
@@ -551,7 +611,7 @@
                     <td class="w-[35%] border-1 text-right">
                       <div class="mr-2">
                         수입
-                        <span id="b6-volume-import" class="mx-2 font-bold text-blue-600"></span>
+                        <span id="b7-volume-import" class="mx-2 font-bold text-blue-600"></span>
                         TEU
                       </div>
                     </td>
@@ -562,7 +622,7 @@
                       <div class="mr-2">
                         철도
                         <input
-                          id="b6-volume-rail"
+                          id="b7-volume-rail"
                           type="text"
                           name="numbertype"
                           class="mx-2 h-[32px] w-[65%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
@@ -573,436 +633,9 @@
                     <td class="w-[35%] border-1 text-right">
                       <div class="mr-2">
                         도로
-                        <span id="b6-volume-road" class="mx-2 font-bold text-blue-600"></span>
+                        <span id="b7-volume-road" class="mx-2 font-bold text-blue-600"></span>
                         TEU
                       </div>
-                    </td>
-                  </tr>
-                </table>
-              </div>
-            </div>
-
-            <!-- B7 -->
-            <div class="intro">
-              <p class="pl-10 -indent-10 text-lg font-bold">
-                문B7. 문B6에서 응답한 대표운송구간을 기준으로 철도 운송과정별로 소요되는 시간과 비용을 기입해주십시오.
-              </p>
-
-              <div class="py-4">
-                <p class="text-red-600 underline">(※문B6에서 철도를 응답하지 않았을 경우 문B8로 이동)</p>
-
-                <!-- 내륙 기종점 -->
-                <table class="w-full text-center">
-                  <tr class="h-[20px] border-1">
-                    <td class="w-[20%] border-1 bg-gray-200" rowspan="2">구분</td>
-                    <td class="w-[40%] border-1 bg-gray-200" rowspan="2">운송시간</td>
-                    <td class="w-[40%] border-1 bg-gray-200" colspan="2">운송비용</td>
-                  </tr>
-                  <tr class="h-[20px] border-1">
-                    <td class="w-[20%] border-1 bg-gray-200">20ft</td>
-                    <td class="w-[20%] border-1 bg-gray-200">40ft</td>
-                  </tr>
-                  <tr class="h-[36px] border-1">
-                    <td class="border-1 bg-gray-200">내륙 기종점</td>
-                    <td class="border-1" colspan="3">
-                      <div class="mx-3 inline">
-                        <span id="b7-inland-sido" class="mx-5 font-bold text-blue-600"></span>
-                      </div>
-                      <div class="mx-3 inline">
-                        <span id="b7-inland-sigungu" class="mx-5 font-bold text-blue-600"></span>
-                      </div>
-                      <div class="mx-3 inline">
-                        (대표지점: <span id="b7-inland-point" class="mx-5 font-bold text-blue-600"></span>)
-                      </div>
-                    </td>
-                  </tr>
-                </table>
-
-                <div class="text-center">↕</div>
-
-                <!-- 셔틀1 -->
-                <table class="w-full text-center">
-                  <tr class="h-[36px] border-1">
-                    <td class="w-[20%] border-1 bg-gray-200">셔틀운송1</td>
-                    <td class="w-[40%] border-1">
-                      <input
-                        id="b7-suttle1-days"
-                        type="text"
-                        name="numbertype"
-                        class="mr-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />
-                      일
-                      <input
-                        id="b7-suttle1-hours"
-                        type="text"
-                        class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />
-                      시간
-                      <input
-                        id="b7-suttle1-minutes"
-                        type="text"
-                        class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />
-                      분
-                    </td>
-                    <td class="w-[20%] border-1 pr-2 text-right">
-                      <input
-                        id="b7-suttle1-cost-20ft"
-                        type="text"
-                        name="numbertype"
-                        class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />
-                      원
-                    </td>
-                    <td class="w-[20%] border-1 pr-2 text-right">
-                      <input
-                        id="b7-suttle1-cost-40ft"
-                        type="text"
-                        name="numbertype"
-                        class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />
-                      원
-                    </td>
-                  </tr>
-                </table>
-
-                <div class="text-center">↕</div>
-
-                <!-- 환적1 -->
-                <table class="w-full text-center">
-                  <tr class="h-[36px] border-1">
-                    <td class="w-[10%] border-1 bg-gray-200" rowspan="2">
-                      <div>환적1</div>
-                      <div><span id="b7-inter1-station" class="font-bold text-blue-600"></span></div>
-                    </td>
-                    <td class="w-[10%] border-1 bg-gray-200">상하역1</td>
-                    <td class="w-[40%] border-1">
-                      <input
-                        id="b7-inter1-days"
-                        type="text"
-                        name="numbertype"
-                        class="mr-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />
-                      일
-                      <input
-                        id="b7-inter1-hours"
-                        type="text"
-                        class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />
-                      시간
-                      <input
-                        id="b7-inter1-minutes"
-                        type="text"
-                        class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />
-                      분
-                    </td>
-                    <td class="w-[20%] border-1 pr-2 text-right">
-                      <input
-                        id="b7-inter1-cost-20ft"
-                        type="text"
-                        name="numbertype"
-                        class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />
-                      원
-                    </td>
-                    <td class="w-[20%] border-1 pr-2 text-right">
-                      <input
-                        id="b7-inter1-cost-40ft"
-                        type="text"
-                        name="numbertype"
-                        class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />
-                      원
-                    </td>
-                  </tr>
-                  <tr class="h-[36px] border-1">
-                    <td class="w-[10%] border-1 bg-gray-200">보관1</td>
-                    <td class="w-[40%] border-1">
-                      <input
-                        id="b7-storage1-days"
-                        type="text"
-                        name="numbertype"
-                        class="mr-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />
-                      일
-                      <input
-                        id="b7-storage1-hours"
-                        type="text"
-                        class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />
-                      시간
-                      <input
-                        id="b7-storage1-minutes"
-                        type="text"
-                        class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />
-                      분
-                    </td>
-                    <td class="w-[20%] border-1 pr-2 text-right">
-                      <input
-                        id="b7-storage1-cost-20ft"
-                        type="text"
-                        name="numbertype"
-                        class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />
-                      원
-                    </td>
-                    <td class="w-[20%] border-1 pr-2 text-right">
-                      <input
-                        id="b7-storage1-cost-40ft"
-                        type="text"
-                        name="numbertype"
-                        class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />
-                      원
-                    </td>
-                  </tr>
-                </table>
-
-                <div class="text-center">↕</div>
-
-                <!-- 철도 본선운송 -->
-                <table class="w-full text-center">
-                  <tr class="h-[36px] border-1">
-                    <td class="w-[20%] border-1 bg-gray-200">철도 본선운송</td>
-                    <td class="w-[40%] border-1">
-                      <input
-                        id="b7-main-days"
-                        type="text"
-                        name="numbertype"
-                        class="mr-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />
-                      일
-                      <input
-                        id="b7-main-hours"
-                        type="text"
-                        class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />
-                      시간
-                      <input
-                        id="b7-main-minutes"
-                        type="text"
-                        class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />
-                      분
-                    </td>
-                    <td class="w-[20%] border-1 pr-2 text-right">
-                      <input
-                        id="b7-main-cost-20ft"
-                        type="text"
-                        name="numbertype"
-                        class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />
-                      원
-                    </td>
-                    <td class="w-[20%] border-1 pr-2 text-right">
-                      <input
-                        id="b7-main-cost-40ft"
-                        type="text"
-                        name="numbertype"
-                        class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />
-                      원
-                    </td>
-                  </tr>
-                </table>
-
-                <div class="text-center">↕</div>
-
-                <!-- 환적2 -->
-                <table class="w-full text-center">
-                  <tr class="h-[36px] border-1">
-                    <td class="w-[10%] border-1 bg-gray-200" rowspan="2">
-                      <div>환적2</div>
-                      <div><span id="b7-inter2-station" class="font-bold text-blue-600"></span></div>
-                    </td>
-                    <td class="w-[10%] border-1 bg-gray-200">상하역2</td>
-                    <td class="w-[40%] border-1">
-                      <input
-                        id="b7-inter2-days"
-                        type="text"
-                        name="numbertype"
-                        class="mr-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />
-                      일
-                      <input
-                        id="b7-inter2-hours"
-                        type="text"
-                        class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />
-                      시간
-                      <input
-                        id="b7-inter2-minutes"
-                        type="text"
-                        class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />
-                      분
-                    </td>
-                    <td class="w-[20%] border-1 pr-2 text-right">
-                      <input
-                        id="b7-inter2-cost-20ft"
-                        type="text"
-                        name="numbertype"
-                        class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />
-                      원
-                    </td>
-                    <td class="w-[20%] border-1 pr-2 text-right">
-                      <input
-                        id="b7-inter2-cost-40ft"
-                        type="text"
-                        name="numbertype"
-                        class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />
-                      원
-                    </td>
-                  </tr>
-                  <tr class="h-[36px] border-1">
-                    <td class="w-[10%] border-1 bg-gray-200">보관1</td>
-                    <td class="w-[40%] border-1">
-                      <input
-                        id="b7-storage2-days"
-                        type="text"
-                        name="numbertype"
-                        class="mr-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />
-                      일
-                      <input
-                        id="b7-storage2-hours"
-                        type="text"
-                        class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />
-                      시간
-                      <input
-                        id="b7-storage2-minutes"
-                        type="text"
-                        class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />
-                      분
-                    </td>
-                    <td class="w-[20%] border-1 pr-2 text-right">
-                      <input
-                        id="b7-storage2-cost-20ft"
-                        type="text"
-                        name="numbertype"
-                        class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />
-                      원
-                    </td>
-                    <td class="w-[20%] border-1 pr-2 text-right">
-                      <input
-                        id="b7-storage2-cost-40ft"
-                        type="text"
-                        name="numbertype"
-                        class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />
-                      원
-                    </td>
-                  </tr>
-                </table>
-
-                <div class="text-center">↕</div>
-
-                <!-- 셔틀2 -->
-                <table class="w-full text-center">
-                  <tr class="h-[36px] border-1">
-                    <td class="w-[20%] border-1 bg-gray-200">셔틀운송2</td>
-                    <td class="w-[40%] border-1">
-                      <input
-                        id="b7-suttle2-days"
-                        type="text"
-                        name="numbertype"
-                        class="mr-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />
-                      일
-                      <input
-                        id="b7-suttle2-hours"
-                        type="text"
-                        class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />
-                      시간
-                      <input
-                        id="b7-suttle2-minutes"
-                        type="text"
-                        class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />
-                      분
-                    </td>
-                    <td class="w-[20%] border-1 pr-2 text-right">
-                      <input
-                        id="b7-suttle2-cost-20ft"
-                        type="text"
-                        name="numbertype"
-                        class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />
-                      원
-                    </td>
-                    <td class="w-[20%] border-1 pr-2 text-right">
-                      <input
-                        id="b7-suttle2-cost-40ft"
-                        type="text"
-                        name="numbertype"
-                        class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />
-                      원
-                    </td>
-                  </tr>
-                </table>
-
-                <div class="text-center">↕</div>
-
-                <!-- 항만 기종점 -->
-                <table class="w-full text-center">
-                  <tr class="h-[36px] border-1">
-                    <td class="w-[20%] border-1 bg-gray-200">항만 기종점</td>
-                    <td class="border-1" colspan="3">
-                      <div class="mx-3 inline">
-                        <span id="b7-port-sido" class="mx-5 font-bold text-blue-600"></span>
-                      </div>
-                      <div class="mx-3 inline">
-                        <span id="b7-port-sigungu" class="mx-5 font-bold text-blue-600"></span>
-                      </div>
-                      <div class="mx-3 inline">
-                        (대표지점: <span id="b7-port-point" class="mx-5 font-bold text-blue-600"></span>)
-                      </div>
-                    </td>
-                  </tr>
-                </table>
-
-                <!-- 합계 -->
-                <table class="mt-4 w-full text-center">
-                  <tr class="h-[20px] border-1">
-                    <td class="w-[20%] border-1 bg-gray-200" rowspan="3">합계</td>
-                    <td class="w-[40%] border-1 bg-gray-200" rowspan="2">운송시간</td>
-                    <td class="w-[40%] border-1 bg-gray-200" colspan="2">운송비용</td>
-                  </tr>
-                  <tr class="h-[20px] border-1">
-                    <td class="w-[20%] border-1 bg-gray-200">20ft</td>
-                    <td class="w-[20%] border-1 bg-gray-200">40ft</td>
-                  </tr>
-                  <tr class="h-[36px] border-1">
-                    <td class="w-[40%] border-1">
-                      <div class="mr-1 inline">
-                        <span id="b7-sum-days" class="font-bold text-blue-600"></span>
-                        일
-                      </div>
-                      <div class="mx-1 inline">
-                        <span id="b7-sum-hours" class="font-bold text-blue-600"></span>
-                        시간
-                      </div>
-                      <div class="ml-1 inline">
-                        <span id="b7-sum-minutes" class="font-bold text-blue-600"></span>
-                        분
-                      </div>
-                    </td>
-                    <td class="w-[20%] border-1 pr-2 text-right">
-                      <span id="b7-sum-cost-20ft" class="font-bold text-blue-600"></span>
-                      원
-                    </td>
-                    <td class="w-[20%] border-1 pr-2 text-right">
-                      <span id="b7-sum-cost-40ft" class="font-bold text-blue-600"></span>
-                      원
                     </td>
                   </tr>
                 </table>
@@ -1012,10 +645,12 @@
             <!-- B8 -->
             <div class="intro">
               <p class="pl-10 -indent-10 text-lg font-bold">
-                문B8. 문B6에서 응답한 대표운송구간을 기준으로 도로 운송과정별로 소요되는 시간과 비용을 기입해주십시오.
+                문B8. 문B6에서 응답한 대표운송구간을 기준으로 철도 운송과정별로 소요되는 시간과 비용을 기입해주십시오.
               </p>
 
               <div class="py-4">
+                <p class="text-red-600 underline">(※문B6에서 철도를 응답하지 않았을 경우 문B8로 이동)</p>
+
                 <!-- 내륙 기종점 -->
                 <table class="w-full text-center">
                   <tr class="h-[20px] border-1">
@@ -1045,26 +680,26 @@
 
                 <div class="text-center">↕</div>
 
-                <!-- 본선1 -->
+                <!-- 셔틀1 -->
                 <table class="w-full text-center">
                   <tr class="h-[36px] border-1">
-                    <td class="w-[20%] border-1 bg-gray-200">도로 본선운송1</td>
+                    <td class="w-[20%] border-1 bg-gray-200">셔틀운송1</td>
                     <td class="w-[40%] border-1">
                       <input
-                        id="b8-main1-days"
+                        id="b8-suttle1-days"
                         type="text"
                         name="numbertype"
                         class="mr-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                       />
                       일
                       <input
-                        id="b8-main1-hours"
+                        id="b8-suttle1-hours"
                         type="text"
                         class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                       />
                       시간
                       <input
-                        id="b8-main1-minutes"
+                        id="b8-suttle1-minutes"
                         type="text"
                         class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                       />
@@ -1072,7 +707,7 @@
                     </td>
                     <td class="w-[20%] border-1 pr-2 text-right">
                       <input
-                        id="b8-main1-cost-20ft"
+                        id="b8-suttle1-cost-20ft"
                         type="text"
                         name="numbertype"
                         class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
@@ -1081,7 +716,7 @@
                     </td>
                     <td class="w-[20%] border-1 pr-2 text-right">
                       <input
-                        id="b8-main1-cost-40ft"
+                        id="b8-suttle1-cost-40ft"
                         type="text"
                         name="numbertype"
                         class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
@@ -1093,30 +728,30 @@
 
                 <div class="text-center">↕</div>
 
-                <!-- 경유지 -->
+                <!-- 환적1 -->
                 <table class="w-full text-center">
                   <tr class="h-[36px] border-1">
                     <td class="w-[10%] border-1 bg-gray-200" rowspan="2">
-                      <div>경유지</div>
-                      <div><span id="b8-inter-point" class="font-bold text-blue-600"></span></div>
+                      <div>환적1</div>
+                      <div><span id="b8-inter1-station" class="font-bold text-blue-600"></span></div>
                     </td>
                     <td class="w-[10%] border-1 bg-gray-200">상하역1</td>
                     <td class="w-[40%] border-1">
                       <input
-                        id="b8-inter-days"
+                        id="b8-inter1-days"
                         type="text"
                         name="numbertype"
                         class="mr-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                       />
                       일
                       <input
-                        id="b8-inter-hours"
+                        id="b8-inter1-hours"
                         type="text"
                         class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                       />
                       시간
                       <input
-                        id="b8-inter-minutes"
+                        id="b8-inter1-minutes"
                         type="text"
                         class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                       />
@@ -1124,7 +759,7 @@
                     </td>
                     <td class="w-[20%] border-1 pr-2 text-right">
                       <input
-                        id="b8-inter-cost-20ft"
+                        id="b8-inter1-cost-20ft"
                         type="text"
                         name="numbertype"
                         class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
@@ -1133,7 +768,7 @@
                     </td>
                     <td class="w-[20%] border-1 pr-2 text-right">
                       <input
-                        id="b8-inter-cost-40ft"
+                        id="b8-inter1-cost-40ft"
                         type="text"
                         name="numbertype"
                         class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
@@ -1145,20 +780,20 @@
                     <td class="w-[10%] border-1 bg-gray-200">보관1</td>
                     <td class="w-[40%] border-1">
                       <input
-                        id="b8-storage-days"
+                        id="b8-storage1-days"
                         type="text"
                         name="numbertype"
                         class="mr-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                       />
                       일
                       <input
-                        id="b8-storage-hours"
+                        id="b8-storage1-hours"
                         type="text"
                         class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                       />
                       시간
                       <input
-                        id="b8-storage-minutes"
+                        id="b8-storage1-minutes"
                         type="text"
                         class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                       />
@@ -1166,7 +801,7 @@
                     </td>
                     <td class="w-[20%] border-1 pr-2 text-right">
                       <input
-                        id="b8-storage-cost-20ft"
+                        id="b8-storage1-cost-20ft"
                         type="text"
                         name="numbertype"
                         class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
@@ -1175,7 +810,7 @@
                     </td>
                     <td class="w-[20%] border-1 pr-2 text-right">
                       <input
-                        id="b8-storage-cost-40ft"
+                        id="b8-storage1-cost-40ft"
                         type="text"
                         name="numbertype"
                         class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
@@ -1187,26 +822,26 @@
 
                 <div class="text-center">↕</div>
 
-                <!-- 본선2 -->
+                <!-- 철도 본선운송 -->
                 <table class="w-full text-center">
                   <tr class="h-[36px] border-1">
-                    <td class="w-[20%] border-1 bg-gray-200">도로 본선운송2</td>
+                    <td class="w-[20%] border-1 bg-gray-200">철도 본선운송</td>
                     <td class="w-[40%] border-1">
                       <input
-                        id="b8-main2-days"
+                        id="b8-main-days"
                         type="text"
                         name="numbertype"
                         class="mr-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                       />
                       일
                       <input
-                        id="b8-main2-hours"
+                        id="b8-main-hours"
                         type="text"
                         class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                       />
                       시간
                       <input
-                        id="b8-main2-minutes"
+                        id="b8-main-minutes"
                         type="text"
                         class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                       />
@@ -1214,7 +849,7 @@
                     </td>
                     <td class="w-[20%] border-1 pr-2 text-right">
                       <input
-                        id="b8-main2-cost-20ft"
+                        id="b8-main-cost-20ft"
                         type="text"
                         name="numbertype"
                         class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
@@ -1223,7 +858,149 @@
                     </td>
                     <td class="w-[20%] border-1 pr-2 text-right">
                       <input
-                        id="b8-main2-cost-40ft"
+                        id="b8-main-cost-40ft"
+                        type="text"
+                        name="numbertype"
+                        class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      원
+                    </td>
+                  </tr>
+                </table>
+
+                <div class="text-center">↕</div>
+
+                <!-- 환적2 -->
+                <table class="w-full text-center">
+                  <tr class="h-[36px] border-1">
+                    <td class="w-[10%] border-1 bg-gray-200" rowspan="2">
+                      <div>환적2</div>
+                      <div><span id="b8-inter2-station" class="font-bold text-blue-600"></span></div>
+                    </td>
+                    <td class="w-[10%] border-1 bg-gray-200">상하역2</td>
+                    <td class="w-[40%] border-1">
+                      <input
+                        id="b8-inter2-days"
+                        type="text"
+                        name="numbertype"
+                        class="mr-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      일
+                      <input
+                        id="b8-inter2-hours"
+                        type="text"
+                        class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      시간
+                      <input
+                        id="b8-inter2-minutes"
+                        type="text"
+                        class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      분
+                    </td>
+                    <td class="w-[20%] border-1 pr-2 text-right">
+                      <input
+                        id="b8-inter2-cost-20ft"
+                        type="text"
+                        name="numbertype"
+                        class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      원
+                    </td>
+                    <td class="w-[20%] border-1 pr-2 text-right">
+                      <input
+                        id="b8-inter2-cost-40ft"
+                        type="text"
+                        name="numbertype"
+                        class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      원
+                    </td>
+                  </tr>
+                  <tr class="h-[36px] border-1">
+                    <td class="w-[10%] border-1 bg-gray-200">보관1</td>
+                    <td class="w-[40%] border-1">
+                      <input
+                        id="b8-storage2-days"
+                        type="text"
+                        name="numbertype"
+                        class="mr-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      일
+                      <input
+                        id="b8-storage2-hours"
+                        type="text"
+                        class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      시간
+                      <input
+                        id="b8-storage2-minutes"
+                        type="text"
+                        class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      분
+                    </td>
+                    <td class="w-[20%] border-1 pr-2 text-right">
+                      <input
+                        id="b8-storage2-cost-20ft"
+                        type="text"
+                        name="numbertype"
+                        class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      원
+                    </td>
+                    <td class="w-[20%] border-1 pr-2 text-right">
+                      <input
+                        id="b8-storage2-cost-40ft"
+                        type="text"
+                        name="numbertype"
+                        class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      원
+                    </td>
+                  </tr>
+                </table>
+
+                <div class="text-center">↕</div>
+
+                <!-- 셔틀2 -->
+                <table class="w-full text-center">
+                  <tr class="h-[36px] border-1">
+                    <td class="w-[20%] border-1 bg-gray-200">셔틀운송2</td>
+                    <td class="w-[40%] border-1">
+                      <input
+                        id="b8-suttle2-days"
+                        type="text"
+                        name="numbertype"
+                        class="mr-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      일
+                      <input
+                        id="b8-suttle2-hours"
+                        type="text"
+                        class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      시간
+                      <input
+                        id="b8-suttle2-minutes"
+                        type="text"
+                        class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      분
+                    </td>
+                    <td class="w-[20%] border-1 pr-2 text-right">
+                      <input
+                        id="b8-suttle2-cost-20ft"
+                        type="text"
+                        name="numbertype"
+                        class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      원
+                    </td>
+                    <td class="w-[20%] border-1 pr-2 text-right">
+                      <input
+                        id="b8-suttle2-cost-40ft"
                         type="text"
                         name="numbertype"
                         class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
@@ -1295,14 +1072,298 @@
             <!-- B9 -->
             <div class="intro">
               <p class="pl-10 -indent-10 text-lg font-bold">
-                문B9. 선적기한이나 화주의 요청기한 등에 영향을 주지 않는, 허용할 수 있는 지연시간은 평균 어느정도입니까?
+                문B9. 문B6에서 응답한 대표운송구간을 기준으로 도로 운송과정별로 소요되는 시간과 비용을 기입해주십시오.
+              </p>
+
+              <div class="py-4">
+                <!-- 내륙 기종점 -->
+                <table class="w-full text-center">
+                  <tr class="h-[20px] border-1">
+                    <td class="w-[20%] border-1 bg-gray-200" rowspan="2">구분</td>
+                    <td class="w-[40%] border-1 bg-gray-200" rowspan="2">운송시간</td>
+                    <td class="w-[40%] border-1 bg-gray-200" colspan="2">운송비용</td>
+                  </tr>
+                  <tr class="h-[20px] border-1">
+                    <td class="w-[20%] border-1 bg-gray-200">20ft</td>
+                    <td class="w-[20%] border-1 bg-gray-200">40ft</td>
+                  </tr>
+                  <tr class="h-[36px] border-1">
+                    <td class="border-1 bg-gray-200">내륙 기종점</td>
+                    <td class="border-1" colspan="3">
+                      <div class="mx-3 inline">
+                        <span id="b9-inland-sido" class="mx-5 font-bold text-blue-600"></span>
+                      </div>
+                      <div class="mx-3 inline">
+                        <span id="b9-inland-sigungu" class="mx-5 font-bold text-blue-600"></span>
+                      </div>
+                      <div class="mx-3 inline">
+                        (대표지점: <span id="b9-inland-point" class="mx-5 font-bold text-blue-600"></span>)
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+
+                <div class="text-center">↕</div>
+
+                <!-- 본선1 -->
+                <table class="w-full text-center">
+                  <tr class="h-[36px] border-1">
+                    <td class="w-[20%] border-1 bg-gray-200">도로 본선운송1</td>
+                    <td class="w-[40%] border-1">
+                      <input
+                        id="b9-main1-days"
+                        type="text"
+                        name="numbertype"
+                        class="mr-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      일
+                      <input
+                        id="b9-main1-hours"
+                        type="text"
+                        class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      시간
+                      <input
+                        id="b9-main1-minutes"
+                        type="text"
+                        class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      분
+                    </td>
+                    <td class="w-[20%] border-1 pr-2 text-right">
+                      <input
+                        id="b9-main1-cost-20ft"
+                        type="text"
+                        name="numbertype"
+                        class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      원
+                    </td>
+                    <td class="w-[20%] border-1 pr-2 text-right">
+                      <input
+                        id="b9-main1-cost-40ft"
+                        type="text"
+                        name="numbertype"
+                        class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      원
+                    </td>
+                  </tr>
+                </table>
+
+                <div class="text-center">↕</div>
+
+                <!-- 경유지 -->
+                <table class="w-full text-center">
+                  <tr class="h-[36px] border-1">
+                    <td class="w-[10%] border-1 bg-gray-200" rowspan="2">
+                      <div>경유지</div>
+                      <div><span id="b9-inter-point" class="font-bold text-blue-600"></span></div>
+                    </td>
+                    <td class="w-[10%] border-1 bg-gray-200">상하역1</td>
+                    <td class="w-[40%] border-1">
+                      <input
+                        id="b9-inter-days"
+                        type="text"
+                        name="numbertype"
+                        class="mr-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      일
+                      <input
+                        id="b9-inter-hours"
+                        type="text"
+                        class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      시간
+                      <input
+                        id="b9-inter-minutes"
+                        type="text"
+                        class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      분
+                    </td>
+                    <td class="w-[20%] border-1 pr-2 text-right">
+                      <input
+                        id="b9-inter-cost-20ft"
+                        type="text"
+                        name="numbertype"
+                        class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      원
+                    </td>
+                    <td class="w-[20%] border-1 pr-2 text-right">
+                      <input
+                        id="b9-inter-cost-40ft"
+                        type="text"
+                        name="numbertype"
+                        class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      원
+                    </td>
+                  </tr>
+                  <tr class="h-[36px] border-1">
+                    <td class="w-[10%] border-1 bg-gray-200">보관1</td>
+                    <td class="w-[40%] border-1">
+                      <input
+                        id="b9-storage-days"
+                        type="text"
+                        name="numbertype"
+                        class="mr-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      일
+                      <input
+                        id="b9-storage-hours"
+                        type="text"
+                        class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      시간
+                      <input
+                        id="b9-storage-minutes"
+                        type="text"
+                        class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      분
+                    </td>
+                    <td class="w-[20%] border-1 pr-2 text-right">
+                      <input
+                        id="b9-storage-cost-20ft"
+                        type="text"
+                        name="numbertype"
+                        class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      원
+                    </td>
+                    <td class="w-[20%] border-1 pr-2 text-right">
+                      <input
+                        id="b9-storage-cost-40ft"
+                        type="text"
+                        name="numbertype"
+                        class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      원
+                    </td>
+                  </tr>
+                </table>
+
+                <div class="text-center">↕</div>
+
+                <!-- 본선2 -->
+                <table class="w-full text-center">
+                  <tr class="h-[36px] border-1">
+                    <td class="w-[20%] border-1 bg-gray-200">도로 본선운송2</td>
+                    <td class="w-[40%] border-1">
+                      <input
+                        id="b9-main2-days"
+                        type="text"
+                        name="numbertype"
+                        class="mr-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      일
+                      <input
+                        id="b9-main2-hours"
+                        type="text"
+                        class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      시간
+                      <input
+                        id="b9-main2-minutes"
+                        type="text"
+                        class="mx-1 h-[36px] w-[75px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      분
+                    </td>
+                    <td class="w-[20%] border-1 pr-2 text-right">
+                      <input
+                        id="b9-main2-cost-20ft"
+                        type="text"
+                        name="numbertype"
+                        class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      원
+                    </td>
+                    <td class="w-[20%] border-1 pr-2 text-right">
+                      <input
+                        id="b9-main2-cost-40ft"
+                        type="text"
+                        name="numbertype"
+                        class="mr-2 h-[36px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                      />
+                      원
+                    </td>
+                  </tr>
+                </table>
+
+                <div class="text-center">↕</div>
+
+                <!-- 항만 기종점 -->
+                <table class="w-full text-center">
+                  <tr class="h-[36px] border-1">
+                    <td class="w-[20%] border-1 bg-gray-200">항만 기종점</td>
+                    <td class="border-1" colspan="3">
+                      <div class="mx-3 inline">
+                        <span id="b9-port-sido" class="mx-5 font-bold text-blue-600"></span>
+                      </div>
+                      <div class="mx-3 inline">
+                        <span id="b9-port-sigungu" class="mx-5 font-bold text-blue-600"></span>
+                      </div>
+                      <div class="mx-3 inline">
+                        (대표지점: <span id="b9-port-point" class="mx-5 font-bold text-blue-600"></span>)
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- 합계 -->
+                <table class="mt-4 w-full text-center">
+                  <tr class="h-[20px] border-1">
+                    <td class="w-[20%] border-1 bg-gray-200" rowspan="3">합계</td>
+                    <td class="w-[40%] border-1 bg-gray-200" rowspan="2">운송시간</td>
+                    <td class="w-[40%] border-1 bg-gray-200" colspan="2">운송비용</td>
+                  </tr>
+                  <tr class="h-[20px] border-1">
+                    <td class="w-[20%] border-1 bg-gray-200">20ft</td>
+                    <td class="w-[20%] border-1 bg-gray-200">40ft</td>
+                  </tr>
+                  <tr class="h-[36px] border-1">
+                    <td class="w-[40%] border-1">
+                      <div class="mr-1 inline">
+                        <span id="b9-sum-days" class="font-bold text-blue-600"></span>
+                        일
+                      </div>
+                      <div class="mx-1 inline">
+                        <span id="b9-sum-hours" class="font-bold text-blue-600"></span>
+                        시간
+                      </div>
+                      <div class="ml-1 inline">
+                        <span id="b9-sum-minutes" class="font-bold text-blue-600"></span>
+                        분
+                      </div>
+                    </td>
+                    <td class="w-[20%] border-1 pr-2 text-right">
+                      <span id="b9-sum-cost-20ft" class="font-bold text-blue-600"></span>
+                      원
+                    </td>
+                    <td class="w-[20%] border-1 pr-2 text-right">
+                      <span id="b9-sum-cost-40ft" class="font-bold text-blue-600"></span>
+                      원
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
+            <!-- B10 -->
+            <div class="intro">
+              <p class="pl-10 -indent-10 text-lg font-bold">
+                문B10. 선적기한이나 화주의 요청기한 등에 영향을 주지 않는, 허용할 수 있는 지연시간은 평균
+                어느정도입니까?
               </p>
 
               <div class="py-4 pl-10">
                 <div class="inline">계획된 운송시간 대비</div>
                 <div class="inline">
                   <input
-                    id="b9-duration-hours"
+                    id="b10-duration-hours"
                     type="text"
                     name="numbertype"
                     class="mx-1 h-[36px] w-[100px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
@@ -1312,10 +1373,10 @@
               </div>
             </div>
 
-            <!-- B10 -->
+            <!-- B11 -->
             <div class="intro">
               <p class="pl-10 -indent-10 text-lg font-bold">
-                문B10. 각 운송수단별 정시도착률을 아래와 같이 정의할 때, 각 운송수단별 컨테이너 화물의 현 정시도착률
+                문B11. 각 운송수단별 정시도착률을 아래와 같이 정의할 때, 각 운송수단별 컨테이너 화물의 현 정시도착률
                 수준은 어느 정도입니까?
               </p>
 
@@ -1335,7 +1396,7 @@
                     <td class="w-[50%] border-1">지연시간 3시간 이내</td>
                     <td class="w-[25%] border-1">
                       <input
-                        id="b10-rail-under3Hours"
+                        id="b11-rail-under3Hours"
                         type="text"
                         class="mx-1 h-[36px] w-[100px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                       />
@@ -1343,7 +1404,7 @@
                     </td>
                     <td class="w-[25%] border-1">
                       <input
-                        id="b10-road-under3Hours"
+                        id="b11-road-under3Hours"
                         type="text"
                         class="mx-1 h-[36px] w-[100px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                       />
@@ -1352,11 +1413,11 @@
                   </tr>
                   <tr class="h-[36px] border-1">
                     <td class="w-[50%] border-1">
-                      지연시간 <span id="b10-duration-hours" class="font-bold text-blue-600"></span>시간 이내
+                      지연시간 <span id="b11-duration-hours" class="font-bold text-blue-600"></span>시간 이내
                     </td>
                     <td class="w-[25%] border-1">
                       <input
-                        id="b10-rail-underB9Hours"
+                        id="b11-rail-underB10Hours"
                         type="text"
                         class="mx-1 h-[36px] w-[100px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                       />
@@ -1364,7 +1425,7 @@
                     </td>
                     <td class="w-[25%] border-1">
                       <input
-                        id="b10-road-underB9Hours"
+                        id="b11-road-underB10Hours"
                         type="text"
                         class="mx-1 h-[36px] w-[100px] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                       />
@@ -1375,10 +1436,10 @@
               </div>
             </div>
 
-            <!-- B11 -->
+            <!-- B12 -->
             <div class="intro">
               <p class="pl-10 -indent-10 text-lg font-bold">
-                문B11. 귀사가 컨테이너 화물의 운송수단을 선택할 때 고려하는 요인을 중요한 순서대로 3가지만 선택해
+                문B12. 귀사가 컨테이너 화물의 운송수단을 선택할 때 고려하는 요인을 중요한 순서대로 3가지만 선택해
                 주십시오.
               </p>
 
@@ -1387,7 +1448,7 @@
                   <tr class="h-[36px] border-1">
                     <td class="w-[15%] border-1 bg-gray-200">1순위</td>
                     <td class="w-[35%] border-1 bg-red-100">
-                      <select name="b11-first" id="b11-first" class="h-full w-full px-1 outline-0">
+                      <select name="b12-first" id="b12-first" class="h-full w-full px-1 outline-0">
                         <option value="1">1. 운송비용</option>
                         <option value="2">2. 운송시간</option>
                         <option value="3">3. 운송 신뢰성 및 정시성</option>
@@ -1406,7 +1467,7 @@
                   <tr class="h-[36px] border-1">
                     <td class="w-[15%] border-1 bg-gray-200">2순위</td>
                     <td class="w-[35%] border-1 bg-red-100">
-                      <select name="b11-second" id="b11-second" class="h-full w-full px-1 outline-0">
+                      <select name="b12-second" id="b12-second" class="h-full w-full px-1 outline-0">
                         <option value="1">1. 운송비용</option>
                         <option value="2">2. 운송시간</option>
                         <option value="3">3. 운송 신뢰성 및 정시성</option>
@@ -1425,7 +1486,7 @@
                   <tr class="h-[36px] border-1">
                     <td class="w-[15%] border-1 bg-gray-200">3순위</td>
                     <td class="w-[35%] border-1 bg-red-100">
-                      <select name="b11-third" id="b11-third" class="h-full w-full px-1 outline-0">
+                      <select name="b12-third" id="b12-third" class="h-full w-full px-1 outline-0">
                         <option value="1">1. 운송비용</option>
                         <option value="2">2. 운송시간</option>
                         <option value="3">3. 운송 신뢰성 및 정시성</option>
@@ -1507,10 +1568,10 @@
               </div>
             </div>
 
-            <!-- B12 -->
+            <!-- B13 -->
             <div class="intro">
               <p class="pl-10 -indent-10 text-lg font-bold">
-                문B12. 컨테이너 철도운송에 대해 다음 항목별로 어느정도 만족하십니까? 해당되는 곳에 v 표시 해주시기
+                문B13. 컨테이너 철도운송에 대해 다음 항목별로 어느정도 만족하십니까? 해당되는 곳에 v 표시 해주시기
                 바랍니다. <br />철도를 이용하지 않는다면 이용하지 않는 이유를 중심으로 평가해주시면 됩니다.
               </p>
 
@@ -1553,19 +1614,19 @@
                       한 단위의 화물 운송에 소요되는 운임 및 환적, 보관 비용의 총합
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-1-select" value="1" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-1-select" value="1" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-1-select" value="2" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-1-select" value="2" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-1-select" value="3" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-1-select" value="3" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-1-select" value="4" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-1-select" value="4" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-1-select" value="5" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-1-select" value="5" class="h-full w-full outline-0" />
                     </td>
                   </tr>
                   <tr class="h-[32px] border-1">
@@ -1574,38 +1635,38 @@
                       최초 출발지에서 최종 도착지까지 운송에 소요되는 평균 운송시간
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-2-select" value="1" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-2-select" value="1" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-2-select" value="2" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-2-select" value="2" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-2-select" value="3" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-2-select" value="3" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-2-select" value="4" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-2-select" value="4" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-2-select" value="5" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-2-select" value="5" class="h-full w-full outline-0" />
                     </td>
                   </tr>
                   <tr class="h-[32px] border-1">
                     <td class="border-1 px-1 text-left">3. 운송 신뢰성 및 정시성</td>
                     <td class="border-1 px-1 text-left text-sm">사전 계획된 시간 내 도착하는 정시도착률</td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-3-select" value="1" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-3-select" value="1" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-3-select" value="2" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-3-select" value="2" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-3-select" value="3" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-3-select" value="3" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-3-select" value="4" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-3-select" value="4" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-3-select" value="5" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-3-select" value="5" class="h-full w-full outline-0" />
                     </td>
                   </tr>
                   <tr class="h-[32px] border-1">
@@ -1614,57 +1675,57 @@
                       출발지역-도착지역 간 운송수단의 운행횟수 및 배차가능횟수
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-4-select" value="1" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-4-select" value="1" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-4-select" value="2" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-4-select" value="2" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-4-select" value="3" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-4-select" value="3" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-4-select" value="4" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-4-select" value="4" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-4-select" value="5" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-4-select" value="5" class="h-full w-full outline-0" />
                     </td>
                   </tr>
                   <tr class="h-[32px] border-1">
                     <td class="border-1 px-1 text-left">5. 안전성</td>
                     <td class="border-1 px-1 text-left text-sm">파손 및 손망실 비율</td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-5-select" value="1" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-5-select" value="1" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-5-select" value="2" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-5-select" value="2" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-5-select" value="3" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-5-select" value="3" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-5-select" value="4" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-5-select" value="4" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-5-select" value="5" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-5-select" value="5" class="h-full w-full outline-0" />
                     </td>
                   </tr>
                   <tr class="h-[32px] border-1">
                     <td class="border-1 px-1 text-left">6. 운송과정 조절 용이성</td>
                     <td class="border-1 px-1 text-left text-sm">운송과정 중 임시보관 등의 용이성</td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-6-select" value="1" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-6-select" value="1" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-6-select" value="2" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-6-select" value="2" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-6-select" value="3" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-6-select" value="3" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-6-select" value="4" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-6-select" value="4" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-6-select" value="5" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-6-select" value="5" class="h-full w-full outline-0" />
                     </td>
                   </tr>
                   <tr class="h-[32px] border-1">
@@ -1673,38 +1734,38 @@
                       파업, 사고 등으로 인해 불시에 사용이 제약될 수 있는 가능성
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-7-select" value="1" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-7-select" value="1" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-7-select" value="2" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-7-select" value="2" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-7-select" value="3" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-7-select" value="3" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-7-select" value="4" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-7-select" value="4" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-7-select" value="5" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-7-select" value="5" class="h-full w-full outline-0" />
                     </td>
                   </tr>
                   <tr class="h-[32px] border-1">
                     <td class="border-1 px-1 text-left">8. 친환경성</td>
                     <td class="border-1 px-1 text-left text-sm">운송과정 중 탄소 배출 수준</td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-8-select" value="1" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-8-select" value="1" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-8-select" value="2" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-8-select" value="2" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-8-select" value="3" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-8-select" value="3" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-8-select" value="4" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-8-select" value="4" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-8-select" value="5" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-8-select" value="5" class="h-full w-full outline-0" />
                     </td>
                   </tr>
                   <tr class="h-[32px] border-1">
@@ -1712,57 +1773,57 @@
                     <td class="border-1 px-1 text-left">9. 총 운송거리</td>
                     <td class="border-1 px-1 text-left text-sm">최초 출발지에서 최종 도착지까지 거리</td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-9-select" value="1" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-9-select" value="1" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-9-select" value="2" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-9-select" value="2" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-9-select" value="3" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-9-select" value="3" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-9-select" value="4" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-9-select" value="4" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-9-select" value="5" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-9-select" value="5" class="h-full w-full outline-0" />
                     </td>
                   </tr>
                   <tr class="h-[32px] border-1">
                     <td class="border-1 px-1 text-left">10. 터미널 접근성</td>
                     <td class="border-1 px-1 text-left text-sm">공장에서 화물역 및 물류터미널 등과의 거리</td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-10-select" value="1" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-10-select" value="1" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-10-select" value="2" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-10-select" value="2" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-10-select" value="3" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-10-select" value="3" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-10-select" value="4" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-10-select" value="4" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-10-select" value="5" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-10-select" value="5" class="h-full w-full outline-0" />
                     </td>
                   </tr>
                   <tr class="h-[32px] border-1">
                     <td class="border-1 px-1 text-left">11. 연간 출하량(물동량)</td>
                     <td class="border-1 px-1 text-left text-sm">연간 출하량(물동량)이 수단선택에 미치는 수준</td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-11-select" value="1" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-11-select" value="1" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-11-select" value="2" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-11-select" value="2" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-11-select" value="3" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-11-select" value="3" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-11-select" value="4" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-11-select" value="4" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-11-select" value="5" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-11-select" value="5" class="h-full w-full outline-0" />
                     </td>
                   </tr>
                   <tr class="h-[32px] border-1">
@@ -1770,35 +1831,35 @@
                     <td class="border-1 px-1 text-left">12. 무형 서비스 및 관행</td>
                     <td class="border-1 px-1 text-left text-sm">운송수단 운영사의 친절도, 기존 이용 관행 등</td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-12-select" value="1" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-12-select" value="1" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-12-select" value="2" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-12-select" value="2" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-12-select" value="3" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-12-select" value="3" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-12-select" value="4" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-12-select" value="4" class="h-full w-full outline-0" />
                     </td>
                     <td class="border-1 px-1">
-                      <input type="radio" name="b12-12-select" value="5" class="h-full w-full outline-0" />
+                      <input type="radio" name="b13-12-select" value="5" class="h-full w-full outline-0" />
                     </td>
                   </tr>
                 </table>
               </div>
             </div>
 
-            <!-- B13 -->
+            <!-- B14 -->
             <div class="intro">
               <p class="pl-10 -indent-10 text-lg font-bold">
-                문B13. 기타 철도를 이용하는(이용하지 않는) 이유가 있다면 기재해주시기 바랍니다.
+                문B14. 기타 철도를 이용하는(이용하지 않는) 이유가 있다면 기재해주시기 바랍니다.
               </p>
 
               <div class="py-4">
                 <div class="w-full">
                   <textarea
-                    id="b13-text"
+                    id="b14-text"
                     rows="4"
                     class="w-full resize-none rounded-md bg-white px-3 py-1.5 text-lg text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                   ></textarea>
