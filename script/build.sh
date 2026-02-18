@@ -1,1 +1,1 @@
-go build -o ~/Documents/get_csv script.go
+go build -o ./get_csv script.go

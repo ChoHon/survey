@@ -3,7 +3,6 @@ package structs
 import (
 	"fmt"
 	"math"
-	"strings"
 )
 
 // B1. 다음은 귀사의 사업체 현황 및 규모에 관한 설문입니다.
@@ -105,15 +104,15 @@ func (b B3) PrintString() []string {
 		fmt.Sprintf("%d", b.UnderTen.Number),
 		fmt.Sprintf("%d", b.UnderHundred.Number),
 		fmt.Sprintf("%d", b.OverHundred.Number),
-		fmt.Sprintf("%d", b.UnderTen.Percentage),
-		fmt.Sprintf("%d", b.UnderHundred.Percentage),
-		fmt.Sprintf("%d", b.OverHundred.Percentage),
+		fmt.Sprintf("%0.3f", b.UnderTen.Percentage),
+		fmt.Sprintf("%0.3f", b.UnderHundred.Percentage),
+		fmt.Sprintf("%0.3f", b.OverHundred.Percentage),
 	}
 }
 
 type NumberPercentage struct {
-	Number     int `firestore:"number,omitempty"`
-	Percentage int `firestore:"percentage,omitempty"`
+	Number     int     `firestore:"number,omitempty"`
+	Percentage float64 `firestore:"percentage,omitempty"`
 }
 
 // 문B4. 귀사의 운송거래 계약형태(계약기간)은 어떻게 되십니까?
@@ -169,10 +168,10 @@ func (b B5) PrintString() []string {
 
 // B6. 컨테이너 화물을 국내 목적지(항만 또는 화주 문전)까지 운송을 완료하는 데까지 요구되는 시간은 어느 정도입니까?
 type B6 struct {
-	SameDayPercentage     int      `firestore:"sameDayPercentage,omitempty"`
-	NextDayPercentage     int      `firestore:"nextDayPercentage,omitempty"`
-	WithinAWeekPercentage int      `firestore:"withinAWeekPercentage,omitempty"`
-	OverAWeekPercentage   int      `firestore:"overAWeekPercentage,omitempty"`
+	SameDayPercentage     float64  `firestore:"sameDayPercentage,omitempty"`
+	NextDayPercentage     float64  `firestore:"nextDayPercentage,omitempty"`
+	WithinAWeekPercentage float64  `firestore:"withinAWeekPercentage,omitempty"`
+	OverAWeekPercentage   float64  `firestore:"overAWeekPercentage,omitempty"`
 	Average               Duration `firestore:"average,omitempty"`
 }
 
@@ -188,10 +187,10 @@ func (b B6) PrintHeader() []string {
 
 func (b B6) PrintString() []string {
 	return []string{
-		fmt.Sprintf("%d", b.SameDayPercentage),
-		fmt.Sprintf("%d", b.NextDayPercentage),
-		fmt.Sprintf("%d", b.WithinAWeekPercentage),
-		fmt.Sprintf("%d", b.OverAWeekPercentage),
+		fmt.Sprintf("%0.3f", b.SameDayPercentage),
+		fmt.Sprintf("%0.3f", b.NextDayPercentage),
+		fmt.Sprintf("%0.3f", b.WithinAWeekPercentage),
+		fmt.Sprintf("%0.3f", b.OverAWeekPercentage),
 		b.Average.ConvertHours(),
 	}
 }
@@ -209,10 +208,7 @@ func (d Duration) ConvertHours() string {
 	hours := d.Days*24 + d.Hours
 	result := float64(hours) + rounded
 
-	s := fmt.Sprintf("%.3f", result)
-	s = strings.TrimRight(s, "0")
-	s = strings.TrimRight(s, ".")
-	return s
+	return fmt.Sprintf("%.3f", result)
 }
 
 // B7. 단거리 셔틀운송을 제외하고, 귀사가 가장 많은 컨테이너를 운송하는 대표운송구간이 어떻게 되십니까?(시군구 기준)
