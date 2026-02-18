@@ -2,12 +2,12 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=900, initial-scale=1.0" />
     <title>사업체별 화물운송실태 조사</title>
     <link rel="stylesheet" href="output.css" />
   </head>
   <body>
-    <div class="mx-auto w-4xl px-4">
+    <div class="mx-auto p-4">
       <div class="w-[900px] overflow-hidden rounded-lg bg-white shadow-sm">
         <div class="px-4 py-5">
           <div class="mb-5">
@@ -175,72 +175,49 @@
                     <td class="border">업체수</td>
                     <td class="border">이용 운송량 비중</td>
                   </tr>
-                  <tr class="h-[36px] border">
-                    <td class="w-[5%] border">1</td>
-                    <td class="w-[45%] border">종사자수 9명 이하 규모 기업</td>
-                    <td class="w-[25%] border px-2">
-                      <input
-                        id="b3-under9-number"
-                        type="text"
-                        name="numbertype"
-                        class="h-[32px] w-[90%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />
+                  <tr class="tr-base h-[36px]">
+                    <td class="td-base w-[5%]">1</td>
+                    <td class="td-base w-[45%]">종사자수 9명 이하 규모 기업</td>
+                    <td class="td-right w-[25%]">
+                      <input id="b3-under9-number" type="text" name="numbertype" class="input-base w-[70%]" />
                       개
                     </td>
-                    <td class="w-[25%] border px-2">
-                      <input
-                        id="b3-under9-percent"
-                        type="text"
-                        class="h-[32px] w-[90%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />
+                    <td class="td-right w-[25%]">
+                      <input id="b3-under9-percent" type="text" class="input-base w-[70%]" />
                       %
                     </td>
                   </tr>
-                  <tr class="h-[36px] border">
-                    <td class="border">2</td>
-                    <td class="border">종사자수 10~99명 규모 기업</td>
-                    <td class="border px-2">
-                      <input
-                        id="b3-under100-number"
-                        type="text"
-                        name="numbertype"
-                        class="h-[32px] w-[90%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />
+                  <tr class="tr-base">
+                    <td class="td-base">2</td>
+                    <td class="td-base">종사자수 10~99명 규모 기업</td>
+                    <td class="td-right">
+                      <input id="b3-under100-number" type="text" name="numbertype" class="input-base w-[70%]" />
                       개
                     </td>
-                    <td class="border px-2">
-                      <input
-                        id="b3-under100-percent"
-                        type="text"
-                        class="h-[32px] w-[90%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />
+                    <td class="td-right">
+                      <input id="b3-under100-percent" type="text" class="input-base w-[70%]" />
                       %
                     </td>
                   </tr>
-                  <tr class="h-[36px] border">
+                  <tr class="tr-base">
                     <td class="border">3</td>
                     <td class="border">종사자수 100명 이상 규모 기업</td>
-                    <td class="border px-2">
-                      <input
-                        id="b3-over100-number"
-                        type="text"
-                        name="numbertype"
-                        class="h-[32px] w-[90%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />
+                    <td class="td-right">
+                      <input id="b3-over100-number" type="text" name="numbertype" class="input-base w-[70%]" />
                       개
                     </td>
-                    <td class="border px-2 text-right">
-                      <span id="b3-over100-percent" class="px-2 font-bold text-blue-600"></span>
+                    <td class="td-right">
+                      <span id="b3-over100-percent" class="auto-fill"></span>
                       %
                     </td>
                   </tr>
-                  <tr class="h-[36px] border">
-                    <td class="border" colspan="2">합계</td>
-                    <td class="border px-2 text-right">
-                      <span id="b3-number-sum" class="px-2 font-bold text-blue-600"></span>
+                  <tr class="tr-base">
+                    <td class="td-base" colspan="2">합계</td>
+                    <td class="td-right">
+                      <span id="b3-number-sum" class="auto-fill"></span>
                       개
                     </td>
-                    <td class="border px-2 text-right"><span class="px-3">100</span>%</td>
+                    <td class="td-right"><span class="px-3">100</span>%</td>
                   </tr>
                 </table>
               </div>
@@ -254,53 +231,33 @@
 
               <div class="py-4">
                 <table class="w-full text-center">
-                  <tr class="h-[36px] border bg-gray-200">
-                    <td class="border" colspan="2">구분</td>
-                    <td class="border">거래 비중(운송량 기준)</td>
+                  <tr class="tr-header">
+                    <td class="td-base" colspan="2">구분</td>
+                    <td class="td-base">거래 비중(운송량 기준)</td>
                   </tr>
-                  <tr class="h-[36px] border">
-                    <td class="w-[5%] border">1</td>
-                    <td class="w-[70%] border">장기 계약(1년 초과)</td>
-                    <td class="border px-2 text-right">
-                      <input
-                        id="b4-over-year"
-                        type="text"
-                        class="mr-1 inline h-[32px] w-[90%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />%
-                    </td>
+                  <tr class="tr-base h-[36px]">
+                    <td class="td-base w-[5%]">1</td>
+                    <td class="td-base w-[70%]">장기 계약(1년 초과)</td>
+                    <td class="td-right"><input id="b4-over-year" type="text" class="input-base mr-1 w-[70%]" />%</td>
                   </tr>
-                  <tr class="h-[36px] border">
-                    <td class="border">2</td>
-                    <td class="border">1년 단위 계약</td>
-                    <td class="border px-2 text-right">
-                      <input
-                        id="b4-year"
-                        type="text"
-                        class="mr-1 inline h-[32px] w-[90%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />%
-                    </td>
+                  <tr class="tr-base">
+                    <td class="td-base">2</td>
+                    <td class="td-base">1년 단위 계약</td>
+                    <td class="td-right"><input id="b4-year" type="text" class="input-base mr-1 w-[70%]" />%</td>
                   </tr>
-                  <tr class="h-[36px] border">
-                    <td class="border">3</td>
-                    <td class="border">1년 미만(3~6개월) 계약</td>
-                    <td class="border px-2 text-right">
-                      <input
-                        id="b4-under-year"
-                        type="text"
-                        class="mr-1 inline h-[32px] w-[90%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                      />%
-                    </td>
+                  <tr class="tr-base">
+                    <td class="td-base">3</td>
+                    <td class="td-base">1년 미만(3~6개월) 계약</td>
+                    <td class="td-right"><input id="b4-under-year" type="text" class="input-base mr-1 w-[70%]" />%</td>
                   </tr>
-                  <tr class="h-[36px] border">
-                    <td class="border">4</td>
-                    <td class="border">수시(건별) 계약</td>
-                    <td class="border px-2 text-right">
-                      <span id="b4-case-by-case" class="mx-2 font-bold text-blue-600">100</span>%
-                    </td>
+                  <tr class="tr-base">
+                    <td class="td-base">4</td>
+                    <td class="td-base">수시(건별) 계약</td>
+                    <td class="td-right"><span id="b4-case-by-case" class="auto-fill"></span>%</td>
                   </tr>
-                  <tr class="h-[36px] border">
-                    <td class="border" colspan="2">합계</td>
-                    <td class="border px-2 text-right"><span class="px-3">100</span>%</td>
+                  <tr class="tr-base">
+                    <td class="td-base" colspan="2">합계</td>
+                    <td class="td-right"><span class="px-3">100</span>%</td>
                   </tr>
                 </table>
               </div>
@@ -388,29 +345,27 @@
                   </tr>
                   <tr class="tr-base">
                     <td class="border px-2">
-                      <input id="b6-same-day" type="text" class="input-base w-[80%]" />
+                      <input id="b6-same-day" type="text" class="input-base w-[70%]" />
                       %
                     </td>
                     <td class="border px-2">
-                      <input id="b6-next-day" type="text" class="input-base w-[80%]" />
+                      <input id="b6-next-day" type="text" class="input-base w-[70%]" />
                       %
                     </td>
                     <td class="border px-2">
-                      <input id="b6-within-a-week" type="text" class="input-base w-[80%]" />
+                      <input id="b6-within-a-week" type="text" class="input-base w-[70%]" />
                       %
                     </td>
                     <td class="border text-right">
                       <div class="px-2">
-                        <span id="b6-over-a-week" class="px-2 font-bold text-blue-600"></span>
+                        <span id="b6-over-a-week" class="auto-fill"></span>
                         %
                       </div>
                     </td>
-                    <td class="border text-right">
-                      <div class="px-2"><span class="px-3">100</span>%</div>
-                    </td>
+                    <td class="td-right"><span class="px-3">100</span>%</td>
                   </tr>
                   <tr class="tr-base">
-                    <td class="border" colspan="5">
+                    <td class="td-base" colspan="5">
                       <div>
                         <div class="inline">평균</div>
                         <div class="mx-3 inline">
@@ -601,11 +556,11 @@
                         일
                       </div>
                       <div class="mx-2 inline">
-                        <input id="b8-suttle1-hours" type="text" class="input-base w-[25%]" />
+                        <input id="b8-suttle1-hours" type="text" class="input-base w-[20%]" />
                         시간
                       </div>
                       <div class="inline">
-                        <input id="b8-suttle1-minutes" type="text" class="input-base w-[25%]" />
+                        <input id="b8-suttle1-minutes" type="text" class="input-base w-[20%]" />
                         분
                       </div>
                     </td>
@@ -636,11 +591,11 @@
                         일
                       </div>
                       <div class="mx-2 inline">
-                        <input id="b8-inter1-hours" type="text" class="input-base w-[25%]" />
+                        <input id="b8-inter1-hours" type="text" class="input-base w-[20%]" />
                         시간
                       </div>
                       <div class="inline">
-                        <input id="b8-inter1-minutes" type="text" class="input-base w-[25%]" />
+                        <input id="b8-inter1-minutes" type="text" class="input-base w-[20%]" />
                         분
                       </div>
                     </td>
@@ -661,11 +616,11 @@
                         일
                       </div>
                       <div class="mx-2 inline">
-                        <input id="b8-storage1-hours" type="text" class="input-base w-[25%]" />
+                        <input id="b8-storage1-hours" type="text" class="input-base w-[20%]" />
                         시간
                       </div>
                       <div class="inline">
-                        <input id="b8-storage1-minutes" type="text" class="input-base w-[25%]" />
+                        <input id="b8-storage1-minutes" type="text" class="input-base w-[20%]" />
                         분
                       </div>
                     </td>
@@ -692,11 +647,11 @@
                         일
                       </div>
                       <div class="mx-2 inline">
-                        <input id="b8-main-hours" type="text" class="input-base w-[25%]" />
+                        <input id="b8-main-hours" type="text" class="input-base w-[20%]" />
                         시간
                       </div>
                       <div class="inline">
-                        <input id="b8-main-minutes" type="text" class="input-base w-[25%]" />
+                        <input id="b8-main-minutes" type="text" class="input-base w-[20%]" />
                         분
                       </div>
                     </td>
@@ -727,11 +682,11 @@
                         일
                       </div>
                       <div class="mx-2 inline">
-                        <input id="b8-inter2-hours" type="text" class="input-base w-[25%]" />
+                        <input id="b8-inter2-hours" type="text" class="input-base w-[20%]" />
                         시간
                       </div>
                       <div class="inline">
-                        <input id="b8-inter2-minutes" type="text" class="input-base w-[25%]" />
+                        <input id="b8-inter2-minutes" type="text" class="input-base w-[20%]" />
                         분
                       </div>
                     </td>
@@ -752,11 +707,11 @@
                         일
                       </div>
                       <div class="mx-2 inline">
-                        <input id="b8-storage2-hours" type="text" class="input-base w-[25%]" />
+                        <input id="b8-storage2-hours" type="text" class="input-base w-[20%]" />
                         시간
                       </div>
                       <div class="inline">
-                        <input id="b8-storage2-minutes" type="text" class="input-base w-[25%]" />
+                        <input id="b8-storage2-minutes" type="text" class="input-base w-[20%]" />
                         분
                       </div>
                     </td>
@@ -783,11 +738,11 @@
                         일
                       </div>
                       <div class="mx-2 inline">
-                        <input id="b8-suttle2-hours" type="text" class="input-base w-[25%]" />
+                        <input id="b8-suttle2-hours" type="text" class="input-base w-[20%]" />
                         시간
                       </div>
                       <div class="inline">
-                        <input id="b8-suttle2-minutes" type="text" class="input-base w-[25%]" />
+                        <input id="b8-suttle2-minutes" type="text" class="input-base w-[20%]" />
                         분
                       </div>
                     </td>
@@ -903,11 +858,11 @@
                         일
                       </div>
                       <div class="mx-2 inline">
-                        <input id="b9-main1-hours" type="text" class="input-base w-[25%]" />
+                        <input id="b9-main1-hours" type="text" class="input-base w-[20%]" />
                         시간
                       </div>
                       <div class="inline">
-                        <input id="b9-main1-minutes" type="text" class="input-base w-[25%]" />
+                        <input id="b9-main1-minutes" type="text" class="input-base w-[20%]" />
                         분
                       </div>
                     </td>
@@ -938,11 +893,11 @@
                         일
                       </div>
                       <div class="mx-2 inline">
-                        <input id="b9-inter-hours" type="text" class="input-base w-[25%]" />
+                        <input id="b9-inter-hours" type="text" class="input-base w-[20%]" />
                         시간
                       </div>
                       <div class="inline">
-                        <input id="b9-inter-minutes" type="text" class="input-base w-[25%]" />
+                        <input id="b9-inter-minutes" type="text" class="input-base w-[20%]" />
                         분
                       </div>
                     </td>
@@ -963,11 +918,11 @@
                         일
                       </div>
                       <div class="mx-2 inline">
-                        <input id="b9-storage-hours" type="text" class="input-base w-[25%]" />
+                        <input id="b9-storage-hours" type="text" class="input-base w-[20%]" />
                         시간
                       </div>
                       <div class="inline">
-                        <input id="b9-storage-minutes" type="text" class="input-base w-[25%]" />
+                        <input id="b9-storage-minutes" type="text" class="input-base w-[20%]" />
                         분
                       </div>
                     </td>
@@ -994,11 +949,11 @@
                         일
                       </div>
                       <div class="mx-2 inline">
-                        <input id="b9-main2-hours" type="text" class="input-base w-[25%]" />
+                        <input id="b9-main2-hours" type="text" class="input-base w-[20%]" />
                         시간
                       </div>
                       <div class="inline">
-                        <input id="b9-main2-minutes" type="text" class="input-base w-[25%]" />
+                        <input id="b9-main2-minutes" type="text" class="input-base w-[20%]" />
                         분
                       </div>
                     </td>

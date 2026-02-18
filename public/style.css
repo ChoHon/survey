@@ -5,7 +5,6 @@ body {
   background-color: #f4f4f4;
   display: flex;
   justify-content: center;
-  align-items: center;
   min-height: 100vh;
   margin: 0;
 }
@@ -42,7 +41,7 @@ h1 {
 }
 
 .input-b8-cost {
-  @apply mr-2 h-[32px] w-[80%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600;
+  @apply mr-2 h-[32px] w-[70%] rounded-md bg-white px-3 py-1.5 text-right text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600;
 }
 
 .tr-base {
