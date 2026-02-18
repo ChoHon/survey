@@ -667,12 +667,8 @@ function loadSessionData(key) {
 function fillPageForm(fieldMap, data) {
   if (!data) return;
 
-  console.log(data);
-
   Object.entries(fieldMap).forEach(([elementId, dataPath]) => {
     let value = getNestedValue(data, dataPath);
-
-    console.log(value, dataPath);
 
     if (value != null) {
       // 선택지 불러오기
@@ -755,24 +751,29 @@ function localeString() {
 }
 
 // B6 주소 선택지 추가
-function addAddressOption(prefix) {
+function addAddressOption(prefix, allowNull = false) {
   const sidoElementId = `${prefix}-sido`;
   const sigunguElementId = `${prefix}-sigungu`;
 
   const sidoElement = document.getElementById(sidoElementId);
   const sigunguElement = document.getElementById(sigunguElementId);
 
-  for (const key in district) {
+  let districtForUse;
+  if (allowNull) districtForUse = { 없음: "-", ...district };
+  else districtForUse = district;
+
+  for (const key in districtForUse) {
     const selectOption = document.createElement("option");
-    selectOption.value = key;
-    selectOption.textContent = district[key];
+    selectOption.value = key === "없음" ? "" : key;
+    selectOption.textContent = districtForUse[key];
     sidoElement.appendChild(selectOption);
   }
 
   const update = () => {
-    const sido = sidoElement.value;
-
     sigunguElement.innerHTML = "";
+
+    const sido = sidoElement.value;
+    if (sido === "") return;
 
     subDistrict[sido].forEach((d) => {
       const selectOption = document.createElement("option");
@@ -954,7 +955,7 @@ if (window.location.pathname.includes("b.html")) {
 
     addAddressOption("b7-inland");
     addAddressOption("b7-port");
-    addAddressOption("b7-road-inter");
+    addAddressOption("b7-road-inter", true);
 
     const savedData = loadSessionData("surveyPageB");
     if (savedData) {
